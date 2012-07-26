@@ -7,3 +7,6 @@ build
 bin
 /lib
 /distrib
+
+XCode/AvianVM/AvianVM.xcodeproj/xcuserdata/
+XCode/AvianVM/AvianVM.xcodeproj/project.xcworkspace/xcuserdata/
