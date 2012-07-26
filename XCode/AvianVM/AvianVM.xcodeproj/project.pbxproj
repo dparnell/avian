@@ -6,12 +6,196 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		658D478415C1434600968D2A /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474815C1434600968D2A /* allocator.h */; };
+		658D478515C1434600968D2A /* arch.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474915C1434600968D2A /* arch.h */; };
+		658D478615C1434600968D2A /* assembler.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474A15C1434600968D2A /* assembler.h */; };
+		658D478715C1434600968D2A /* boot-javahome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474B15C1434600968D2A /* boot-javahome.cpp */; };
+		658D478815C1434600968D2A /* boot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474C15C1434600968D2A /* boot.cpp */; };
+		658D478915C1434600968D2A /* bootimage-fields.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474D15C1434600968D2A /* bootimage-fields.cpp */; };
+		658D478C15C1434600968D2A /* bootimage.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475015C1434600968D2A /* bootimage.h */; };
+		658D478D15C1434600968D2A /* builtin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475115C1434600968D2A /* builtin.cpp */; };
+		658D478F15C1434600968D2A /* classpath-common.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475315C1434600968D2A /* classpath-common.h */; };
+		658D479115C1434600968D2A /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475515C1434600968D2A /* common.h */; };
+		658D479215C1434600968D2A /* compile-x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D475615C1434600968D2A /* compile-x86.S */; };
+		658D479315C1434600968D2A /* compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475715C1434600968D2A /* compile.cpp */; };
+		658D479415C1434600968D2A /* compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475815C1434600968D2A /* compiler.cpp */; };
+		658D479515C1434600968D2A /* compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475915C1434600968D2A /* compiler.h */; };
+		658D479615C1434600968D2A /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475A15C1434600968D2A /* constants.h */; };
+		658D479815C1434600968D2A /* environment.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475C15C1434600968D2A /* environment.h */; };
+		658D479915C1434600968D2A /* finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475D15C1434600968D2A /* finder.cpp */; };
+		658D479A15C1434600968D2A /* finder.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D475E15C1434600968D2A /* finder.h */; };
+		658D479B15C1434600968D2A /* heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475F15C1434600968D2A /* heap.cpp */; };
+		658D479C15C1434600968D2A /* heap.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476015C1434600968D2A /* heap.h */; };
+		658D479D15C1434600968D2A /* heapdump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476115C1434600968D2A /* heapdump.cpp */; };
+		658D479E15C1434600968D2A /* heapwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476215C1434600968D2A /* heapwalk.cpp */; };
+		658D479F15C1434600968D2A /* heapwalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476315C1434600968D2A /* heapwalk.h */; };
+		658D47A115C1434600968D2A /* jnienv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476515C1434600968D2A /* jnienv.cpp */; };
+		658D47A215C1434600968D2A /* jnienv.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476615C1434600968D2A /* jnienv.h */; };
+		658D47A815C1434600968D2A /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476C15C1434600968D2A /* machine.cpp */; };
+		658D47A915C1434600968D2A /* machine.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476D15C1434600968D2A /* machine.h */; };
+		658D47AA15C1434600968D2A /* jni_md.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476E15C1434600968D2A /* jni_md.h */; };
+		658D47AE15C1434600968D2A /* posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477215C1434600968D2A /* posix.cpp */; };
+		658D47AF15C1434600968D2A /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477315C1434600968D2A /* process.cpp */; };
+		658D47B015C1434600968D2A /* process.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477415C1434600968D2A /* process.h */; };
+		658D47B115C1434600968D2A /* processor.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477515C1434600968D2A /* processor.h */; };
+		658D47B215C1434600968D2A /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477615C1434600968D2A /* stream.h */; };
+		658D47B315C1434600968D2A /* system.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477715C1434600968D2A /* system.h */; };
+		658D47B415C1434600968D2A /* target-fields.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477815C1434600968D2A /* target-fields.h */; };
+		658D47B515C1434600968D2A /* target.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477915C1434600968D2A /* target.h */; };
+		658D47B715C1434600968D2A /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477B15C1434600968D2A /* tokenizer.h */; };
+		658D47B915C1434600968D2A /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477D15C1434600968D2A /* types.h */; };
+		658D47BA15C1434600968D2A /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477E15C1434600968D2A /* util.cpp */; };
+		658D47BB15C1434600968D2A /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D477F15C1434600968D2A /* util.h */; };
+		658D47BC15C1434600968D2A /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D478015C1434600968D2A /* vector.h */; };
+		658D47BE15C1434600968D2A /* zlib-custom.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D478215C1434600968D2A /* zlib-custom.h */; };
+		658D47BF15C1434600968D2A /* zone.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D478315C1434600968D2A /* zone.h */; };
+		658D47CD15C1443900968D2A /* jni-util.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D47C615C1443900968D2A /* jni-util.h */; };
+		658D47DE15C1461700968D2A /* posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477215C1434600968D2A /* posix.cpp */; };
+		658D47DF15C1461900968D2A /* type-generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477C15C1434600968D2A /* type-generator.cpp */; };
+		658D47E015C1461F00968D2A /* finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475D15C1434600968D2A /* finder.cpp */; };
+		658D47E215C1463B00968D2A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D47E115C1463B00968D2A /* CoreFoundation.framework */; };
+		658D47E415C1465100968D2A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D47E315C1465100968D2A /* libz.dylib */; };
+		658D4CA315C16EC500968D2A /* x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA015C16E8E00968D2A /* x86.cpp */; };
+		658D4CA415C172D900968D2A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D47E115C1463B00968D2A /* CoreFoundation.framework */; };
+		658D4CA515C1730500968D2A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D47E315C1465100968D2A /* libz.dylib */; };
+		658D4CC115C173EB00968D2A /* elf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CB515C173D400968D2A /* elf.cpp */; };
+		658D4CC315C173EB00968D2A /* mach-o.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CB715C173D400968D2A /* mach-o.cpp */; };
+		658D4CC415C173EB00968D2A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CB815C173D400968D2A /* main.cpp */; };
+		658D4CC515C173EB00968D2A /* pe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CB915C173D400968D2A /* pe.cpp */; };
+		658D4CC615C173EB00968D2A /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CBA15C173D400968D2A /* tools.cpp */; };
+		658D4CCC15C1790E00968D2A /* x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCB15C1790E00968D2A /* x86.S */; };
+		658D4CCE15C1796700968D2A /* classpath-avian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCD15C1796700968D2A /* classpath-avian.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		658D47E615C1469C00968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D47D315C145DA00968D2A;
+			remoteInfo = generator;
+		};
+		658D4CC815C173FC00968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D4CAA15C173B000968D2A;
+			remoteInfo = binaryToObject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		658D47D215C145DA00968D2A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		658D4CA915C173B000968D2A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		658D474015C11DC800968D2A /* libAvianVM.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libAvianVM.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D474815C1434600968D2A /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = allocator.h; path = ../../src/allocator.h; sourceTree = "<group>"; };
+		658D474915C1434600968D2A /* arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arch.h; path = ../../src/arch.h; sourceTree = "<group>"; };
+		658D474A15C1434600968D2A /* assembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = assembler.h; path = ../../src/assembler.h; sourceTree = "<group>"; };
+		658D474B15C1434600968D2A /* boot-javahome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "boot-javahome.cpp"; path = "../../src/boot-javahome.cpp"; sourceTree = "<group>"; };
+		658D474C15C1434600968D2A /* boot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = boot.cpp; path = ../../src/boot.cpp; sourceTree = "<group>"; };
+		658D474D15C1434600968D2A /* bootimage-fields.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "bootimage-fields.cpp"; path = "../../src/bootimage-fields.cpp"; sourceTree = "<group>"; };
+		658D475015C1434600968D2A /* bootimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bootimage.h; path = ../../src/bootimage.h; sourceTree = "<group>"; };
+		658D475115C1434600968D2A /* builtin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = builtin.cpp; path = ../../src/builtin.cpp; sourceTree = "<group>"; };
+		658D475315C1434600968D2A /* classpath-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "classpath-common.h"; path = "../../src/classpath-common.h"; sourceTree = "<group>"; };
+		658D475515C1434600968D2A /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../../src/common.h; sourceTree = "<group>"; };
+		658D475615C1434600968D2A /* compile-x86.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "compile-x86.S"; path = "../../src/compile-x86.S"; sourceTree = "<group>"; };
+		658D475715C1434600968D2A /* compile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compile.cpp; path = ../../src/compile.cpp; sourceTree = "<group>"; };
+		658D475815C1434600968D2A /* compiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compiler.cpp; path = ../../src/compiler.cpp; sourceTree = "<group>"; };
+		658D475915C1434600968D2A /* compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compiler.h; path = ../../src/compiler.h; sourceTree = "<group>"; };
+		658D475A15C1434600968D2A /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = constants.h; path = ../../src/constants.h; sourceTree = "<group>"; };
+		658D475C15C1434600968D2A /* environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = environment.h; path = ../../src/environment.h; sourceTree = "<group>"; };
+		658D475D15C1434600968D2A /* finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = finder.cpp; path = ../../src/finder.cpp; sourceTree = "<group>"; };
+		658D475E15C1434600968D2A /* finder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = finder.h; path = ../../src/finder.h; sourceTree = "<group>"; };
+		658D475F15C1434600968D2A /* heap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heap.cpp; path = ../../src/heap.cpp; sourceTree = "<group>"; };
+		658D476015C1434600968D2A /* heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heap.h; path = ../../src/heap.h; sourceTree = "<group>"; };
+		658D476115C1434600968D2A /* heapdump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heapdump.cpp; path = ../../src/heapdump.cpp; sourceTree = "<group>"; };
+		658D476215C1434600968D2A /* heapwalk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heapwalk.cpp; path = ../../src/heapwalk.cpp; sourceTree = "<group>"; };
+		658D476315C1434600968D2A /* heapwalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heapwalk.h; path = ../../src/heapwalk.h; sourceTree = "<group>"; };
+		658D476515C1434600968D2A /* jnienv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jnienv.cpp; path = ../../src/jnienv.cpp; sourceTree = "<group>"; };
+		658D476615C1434600968D2A /* jnienv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jnienv.h; path = ../../src/jnienv.h; sourceTree = "<group>"; };
+		658D476C15C1434600968D2A /* machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = machine.cpp; path = ../../src/machine.cpp; sourceTree = "<group>"; };
+		658D476D15C1434600968D2A /* machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = machine.h; path = ../../src/machine.h; sourceTree = "<group>"; };
+		658D476E15C1434600968D2A /* jni_md.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jni_md.h; path = ../../src/openjdk/jni_md.h; sourceTree = "<group>"; };
+		658D477215C1434600968D2A /* posix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = posix.cpp; path = ../../src/posix.cpp; sourceTree = "<group>"; };
+		658D477315C1434600968D2A /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process.cpp; path = ../../src/process.cpp; sourceTree = "<group>"; };
+		658D477415C1434600968D2A /* process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = process.h; path = ../../src/process.h; sourceTree = "<group>"; };
+		658D477515C1434600968D2A /* processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processor.h; path = ../../src/processor.h; sourceTree = "<group>"; };
+		658D477615C1434600968D2A /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stream.h; path = ../../src/stream.h; sourceTree = "<group>"; };
+		658D477715C1434600968D2A /* system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = system.h; path = ../../src/system.h; sourceTree = "<group>"; };
+		658D477815C1434600968D2A /* target-fields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "target-fields.h"; path = "../../src/target-fields.h"; sourceTree = "<group>"; };
+		658D477915C1434600968D2A /* target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = target.h; path = ../../src/target.h; sourceTree = "<group>"; };
+		658D477B15C1434600968D2A /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tokenizer.h; path = ../../src/tokenizer.h; sourceTree = "<group>"; };
+		658D477C15C1434600968D2A /* type-generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "type-generator.cpp"; path = "../../src/type-generator.cpp"; sourceTree = "<group>"; };
+		658D477D15C1434600968D2A /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../../src/types.h; sourceTree = "<group>"; };
+		658D477E15C1434600968D2A /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util.cpp; path = ../../src/util.cpp; sourceTree = "<group>"; };
+		658D477F15C1434600968D2A /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = ../../src/util.h; sourceTree = "<group>"; };
+		658D478015C1434600968D2A /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector.h; path = ../../src/vector.h; sourceTree = "<group>"; };
+		658D478215C1434600968D2A /* zlib-custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "zlib-custom.h"; path = "../../src/zlib-custom.h"; sourceTree = "<group>"; };
+		658D478315C1434600968D2A /* zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zone.h; path = ../../src/zone.h; sourceTree = "<group>"; };
+		658D47C015C1443900968D2A /* java-io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-io.cpp"; path = "../../classpath/java-io.cpp"; sourceTree = "<group>"; };
+		658D47C115C1443900968D2A /* java-lang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-lang.cpp"; path = "../../classpath/java-lang.cpp"; sourceTree = "<group>"; };
+		658D47C215C1443900968D2A /* java-net.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-net.cpp"; path = "../../classpath/java-net.cpp"; sourceTree = "<group>"; };
+		658D47C315C1443900968D2A /* java-nio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-nio.cpp"; path = "../../classpath/java-nio.cpp"; sourceTree = "<group>"; };
+		658D47C415C1443900968D2A /* java-util-zip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-util-zip.cpp"; path = "../../classpath/java-util-zip.cpp"; sourceTree = "<group>"; };
+		658D47C515C1443900968D2A /* java-util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "java-util.cpp"; path = "../../classpath/java-util.cpp"; sourceTree = "<group>"; };
+		658D47C615C1443900968D2A /* jni-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "jni-util.h"; path = "../../classpath/jni-util.h"; sourceTree = "<group>"; };
+		658D47D415C145DA00968D2A /* generator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = generator; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D47E115C1463B00968D2A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		658D47E315C1465100968D2A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		658D4CA015C16E8E00968D2A /* x86.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = x86.cpp; path = ../../src/x86.cpp; sourceTree = "<group>"; };
+		658D4CA115C16E8E00968D2A /* x86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = x86.h; path = ../../src/x86.h; sourceTree = "<group>"; };
+		658D4CAB15C173B000968D2A /* binaryToObject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = binaryToObject; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D4CB515C173D400968D2A /* elf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = elf.cpp; path = ../../../src/binaryToObject/elf.cpp; sourceTree = "<group>"; };
+		658D4CB615C173D400968D2A /* endianness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = endianness.h; path = ../../../src/binaryToObject/endianness.h; sourceTree = "<group>"; };
+		658D4CB715C173D400968D2A /* mach-o.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "mach-o.cpp"; path = "../../../src/binaryToObject/mach-o.cpp"; sourceTree = "<group>"; };
+		658D4CB815C173D400968D2A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../src/binaryToObject/main.cpp; sourceTree = "<group>"; };
+		658D4CB915C173D400968D2A /* pe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pe.cpp; path = ../../../src/binaryToObject/pe.cpp; sourceTree = "<group>"; };
+		658D4CBA15C173D400968D2A /* tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tools.cpp; path = ../../../src/binaryToObject/tools.cpp; sourceTree = "<group>"; };
+		658D4CBB15C173D400968D2A /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tools.h; path = ../../../src/binaryToObject/tools.h; sourceTree = "<group>"; };
+		658D4CCB15C1790E00968D2A /* x86.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = x86.S; path = ../../src/x86.S; sourceTree = "<group>"; };
+		658D4CCD15C1796700968D2A /* classpath-avian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "classpath-avian.cpp"; path = "../../src/classpath-avian.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		658D473D15C11DC800968D2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D4CA515C1730500968D2A /* libz.dylib in Frameworks */,
+				658D4CA415C172D900968D2A /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D47D115C145DA00968D2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D47E415C1465100968D2A /* libz.dylib in Frameworks */,
+				658D47E215C1463B00968D2A /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D4CA815C173B000968D2A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -24,6 +208,8 @@
 		658D473515C11DC800968D2A = {
 			isa = PBXGroup;
 			children = (
+				658D47E515C1467200968D2A /* Frameworks */,
+				658D474715C142E900968D2A /* avian */,
 				658D474115C11DC800968D2A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -32,8 +218,104 @@
 			isa = PBXGroup;
 			children = (
 				658D474015C11DC800968D2A /* libAvianVM.dylib */,
+				658D47D415C145DA00968D2A /* generator */,
+				658D4CAB15C173B000968D2A /* binaryToObject */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		658D474715C142E900968D2A /* avian */ = {
+			isa = PBXGroup;
+			children = (
+				658D4CCD15C1796700968D2A /* classpath-avian.cpp */,
+				658D4CAD15C173B000968D2A /* binaryToObject */,
+				658D47CE15C1451E00968D2A /* Generator */,
+				658D4CA015C16E8E00968D2A /* x86.cpp */,
+				658D4CCB15C1790E00968D2A /* x86.S */,
+				658D4CA115C16E8E00968D2A /* x86.h */,
+				658D477215C1434600968D2A /* posix.cpp */,
+				658D47C015C1443900968D2A /* java-io.cpp */,
+				658D47C115C1443900968D2A /* java-lang.cpp */,
+				658D47C215C1443900968D2A /* java-net.cpp */,
+				658D47C315C1443900968D2A /* java-nio.cpp */,
+				658D47C415C1443900968D2A /* java-util-zip.cpp */,
+				658D47C515C1443900968D2A /* java-util.cpp */,
+				658D47C615C1443900968D2A /* jni-util.h */,
+				658D474815C1434600968D2A /* allocator.h */,
+				658D474915C1434600968D2A /* arch.h */,
+				658D474A15C1434600968D2A /* assembler.h */,
+				658D474B15C1434600968D2A /* boot-javahome.cpp */,
+				658D474C15C1434600968D2A /* boot.cpp */,
+				658D474D15C1434600968D2A /* bootimage-fields.cpp */,
+				658D475015C1434600968D2A /* bootimage.h */,
+				658D475115C1434600968D2A /* builtin.cpp */,
+				658D475315C1434600968D2A /* classpath-common.h */,
+				658D475515C1434600968D2A /* common.h */,
+				658D475615C1434600968D2A /* compile-x86.S */,
+				658D475715C1434600968D2A /* compile.cpp */,
+				658D475815C1434600968D2A /* compiler.cpp */,
+				658D475915C1434600968D2A /* compiler.h */,
+				658D475A15C1434600968D2A /* constants.h */,
+				658D475C15C1434600968D2A /* environment.h */,
+				658D475D15C1434600968D2A /* finder.cpp */,
+				658D475E15C1434600968D2A /* finder.h */,
+				658D475F15C1434600968D2A /* heap.cpp */,
+				658D476015C1434600968D2A /* heap.h */,
+				658D476115C1434600968D2A /* heapdump.cpp */,
+				658D476215C1434600968D2A /* heapwalk.cpp */,
+				658D476315C1434600968D2A /* heapwalk.h */,
+				658D476515C1434600968D2A /* jnienv.cpp */,
+				658D476615C1434600968D2A /* jnienv.h */,
+				658D476C15C1434600968D2A /* machine.cpp */,
+				658D476D15C1434600968D2A /* machine.h */,
+				658D476E15C1434600968D2A /* jni_md.h */,
+				658D477315C1434600968D2A /* process.cpp */,
+				658D477415C1434600968D2A /* process.h */,
+				658D477515C1434600968D2A /* processor.h */,
+				658D477615C1434600968D2A /* stream.h */,
+				658D477715C1434600968D2A /* system.h */,
+				658D477815C1434600968D2A /* target-fields.h */,
+				658D477915C1434600968D2A /* target.h */,
+				658D477B15C1434600968D2A /* tokenizer.h */,
+				658D477D15C1434600968D2A /* types.h */,
+				658D477E15C1434600968D2A /* util.cpp */,
+				658D477F15C1434600968D2A /* util.h */,
+				658D478015C1434600968D2A /* vector.h */,
+				658D478215C1434600968D2A /* zlib-custom.h */,
+				658D478315C1434600968D2A /* zone.h */,
+			);
+			name = avian;
+			sourceTree = "<group>";
+		};
+		658D47CE15C1451E00968D2A /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				658D477C15C1434600968D2A /* type-generator.cpp */,
+			);
+			name = Generator;
+			sourceTree = "<group>";
+		};
+		658D47E515C1467200968D2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				658D47E115C1463B00968D2A /* CoreFoundation.framework */,
+				658D47E315C1465100968D2A /* libz.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		658D4CAD15C173B000968D2A /* binaryToObject */ = {
+			isa = PBXGroup;
+			children = (
+				658D4CB515C173D400968D2A /* elf.cpp */,
+				658D4CB615C173D400968D2A /* endianness.h */,
+				658D4CB715C173D400968D2A /* mach-o.cpp */,
+				658D4CB815C173D400968D2A /* main.cpp */,
+				658D4CB915C173D400968D2A /* pe.cpp */,
+				658D4CBA15C173D400968D2A /* tools.cpp */,
+				658D4CBB15C173D400968D2A /* tools.h */,
+			);
+			path = binaryToObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -43,6 +325,34 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658D478415C1434600968D2A /* allocator.h in Headers */,
+				658D478515C1434600968D2A /* arch.h in Headers */,
+				658D478615C1434600968D2A /* assembler.h in Headers */,
+				658D478C15C1434600968D2A /* bootimage.h in Headers */,
+				658D478F15C1434600968D2A /* classpath-common.h in Headers */,
+				658D479115C1434600968D2A /* common.h in Headers */,
+				658D479515C1434600968D2A /* compiler.h in Headers */,
+				658D479615C1434600968D2A /* constants.h in Headers */,
+				658D479815C1434600968D2A /* environment.h in Headers */,
+				658D479A15C1434600968D2A /* finder.h in Headers */,
+				658D479C15C1434600968D2A /* heap.h in Headers */,
+				658D479F15C1434600968D2A /* heapwalk.h in Headers */,
+				658D47A215C1434600968D2A /* jnienv.h in Headers */,
+				658D47A915C1434600968D2A /* machine.h in Headers */,
+				658D47AA15C1434600968D2A /* jni_md.h in Headers */,
+				658D47B015C1434600968D2A /* process.h in Headers */,
+				658D47B115C1434600968D2A /* processor.h in Headers */,
+				658D47B215C1434600968D2A /* stream.h in Headers */,
+				658D47B315C1434600968D2A /* system.h in Headers */,
+				658D47B415C1434600968D2A /* target-fields.h in Headers */,
+				658D47B515C1434600968D2A /* target.h in Headers */,
+				658D47B715C1434600968D2A /* tokenizer.h in Headers */,
+				658D47B915C1434600968D2A /* types.h in Headers */,
+				658D47BB15C1434600968D2A /* util.h in Headers */,
+				658D47BC15C1434600968D2A /* vector.h in Headers */,
+				658D47BE15C1434600968D2A /* zlib-custom.h in Headers */,
+				658D47BF15C1434600968D2A /* zone.h in Headers */,
+				658D47CD15C1443900968D2A /* jni-util.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +363,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 658D474415C11DC800968D2A /* Build configuration list for PBXNativeTarget "AvianVM" */;
 			buildPhases = (
+				658D4C9F15C16C5600968D2A /* ShellScript */,
+				658D4CCA15C1757F00968D2A /* ShellScript */,
 				658D473C15C11DC800968D2A /* Sources */,
 				658D473D15C11DC800968D2A /* Frameworks */,
 				658D473E15C11DC800968D2A /* Headers */,
@@ -60,11 +372,48 @@
 			buildRules = (
 			);
 			dependencies = (
+				658D4CC915C173FC00968D2A /* PBXTargetDependency */,
+				658D47E715C1469C00968D2A /* PBXTargetDependency */,
 			);
 			name = AvianVM;
 			productName = AvianVM;
 			productReference = 658D474015C11DC800968D2A /* libAvianVM.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		658D47D315C145DA00968D2A /* generator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 658D47DB15C145DA00968D2A /* Build configuration list for PBXNativeTarget "generator" */;
+			buildPhases = (
+				658D4C9D15C163DD00968D2A /* ShellScript */,
+				658D47D015C145DA00968D2A /* Sources */,
+				658D47D115C145DA00968D2A /* Frameworks */,
+				658D47D215C145DA00968D2A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = generator;
+			productName = generator;
+			productReference = 658D47D415C145DA00968D2A /* generator */;
+			productType = "com.apple.product-type.tool";
+		};
+		658D4CAA15C173B000968D2A /* binaryToObject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 658D4CB215C173B000968D2A /* Build configuration list for PBXNativeTarget "binaryToObject" */;
+			buildPhases = (
+				658D4CA715C173B000968D2A /* Sources */,
+				658D4CA815C173B000968D2A /* Frameworks */,
+				658D4CA915C173B000968D2A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = binaryToObject;
+			productName = binaryToObject;
+			productReference = 658D4CAB15C173B000968D2A /* binaryToObject */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -87,20 +436,120 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				658D47D315C145DA00968D2A /* generator */,
+				658D4CAA15C173B000968D2A /* binaryToObject */,
 				658D473F15C11DC800968D2A /* AvianVM */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		658D4C9D15C163DD00968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p  ${BUILT_PRODUCTS_DIR}/classpath\n\nJAVA_SOURCES=`find ${SRCROOT}/../../classpath/ -name '*.java'`\njavac -d ${BUILT_PRODUCTS_DIR}/classpath -bootclasspath ${BUILT_PRODUCTS_DIR}/classpath $JAVA_SOURCES\n\n";
+		};
+		658D4C9F15C16C5600968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../src/types.def",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p ${DERIVED_FILES_DIR}/../types\n\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-enums.cpp enums\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-declarations.cpp declarations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-constructors.cpp constructors\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-initializations.cpp initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-java-initializations.cpp java-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-name-initializations.cpp name-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-maps.cpp maps";
+		};
+		658D4CCA15C1757F00968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"${OBJECT_FILE_DIR}/classpath-jar.o",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "jar c0f ${BUILT_PRODUCTS_DIR}/classpath.jar -C ${BUILT_PRODUCTS_DIR}/classpath/ .\n\n${BUILT_PRODUCTS_DIR}/binaryToObject ${BUILT_PRODUCTS_DIR}/classpath.jar ${OBJECT_FILE_DIR}/classpath-jar.o _binary_classpath_jar_start _binary_classpath_jar_end darwin x86_64";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		658D473C15C11DC800968D2A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658D4CA315C16EC500968D2A /* x86.cpp in Sources */,
+				658D478715C1434600968D2A /* boot-javahome.cpp in Sources */,
+				658D478815C1434600968D2A /* boot.cpp in Sources */,
+				658D478915C1434600968D2A /* bootimage-fields.cpp in Sources */,
+				658D478D15C1434600968D2A /* builtin.cpp in Sources */,
+				658D479215C1434600968D2A /* compile-x86.S in Sources */,
+				658D479315C1434600968D2A /* compile.cpp in Sources */,
+				658D479415C1434600968D2A /* compiler.cpp in Sources */,
+				658D479915C1434600968D2A /* finder.cpp in Sources */,
+				658D479B15C1434600968D2A /* heap.cpp in Sources */,
+				658D479D15C1434600968D2A /* heapdump.cpp in Sources */,
+				658D479E15C1434600968D2A /* heapwalk.cpp in Sources */,
+				658D47A115C1434600968D2A /* jnienv.cpp in Sources */,
+				658D47A815C1434600968D2A /* machine.cpp in Sources */,
+				658D47AE15C1434600968D2A /* posix.cpp in Sources */,
+				658D47AF15C1434600968D2A /* process.cpp in Sources */,
+				658D47BA15C1434600968D2A /* util.cpp in Sources */,
+				658D4CCC15C1790E00968D2A /* x86.S in Sources */,
+				658D4CCE15C1796700968D2A /* classpath-avian.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D47D015C145DA00968D2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D47DE15C1461700968D2A /* posix.cpp in Sources */,
+				658D47DF15C1461900968D2A /* type-generator.cpp in Sources */,
+				658D47E015C1461F00968D2A /* finder.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D4CA715C173B000968D2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D4CC115C173EB00968D2A /* elf.cpp in Sources */,
+				658D4CC315C173EB00968D2A /* mach-o.cpp in Sources */,
+				658D4CC415C173EB00968D2A /* main.cpp in Sources */,
+				658D4CC515C173EB00968D2A /* pe.cpp in Sources */,
+				658D4CC615C173EB00968D2A /* tools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		658D47E715C1469C00968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D47D315C145DA00968D2A /* generator */;
+			targetProxy = 658D47E615C1469C00968D2A /* PBXContainerItemProxy */;
+		};
+		658D4CC915C173FC00968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D4CAA15C173B000968D2A /* binaryToObject */;
+			targetProxy = 658D4CC815C173FC00968D2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		658D474215C11DC800968D2A /* Debug */ = {
@@ -117,8 +566,17 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
+					"TARGET_BYTES_PER_WORD=8",
+					"AVIAN_TARGET_PLATFORM=AVIAN_PLATFORM_DARWIN",
+					ARCH_x86_64,
+					"AVIAN_TARGET_ARCH=AVIAN_ARCH_X86_64",
+					"AVIAN_CLASSPATH=\\\"[classpathJar]\\\"",
+					"BOOT_CLASSPATH=\\\"[classpathJar]\\\"",
+					"AVIAN_VERSION=\\\"0.6\\\"",
+					USE_ATOMIC_OPERATIONS,
+					"AVIAN_JAVA_HOME=\\\"/Library/Java/Home\\\"",
+					_JNI_IMPLEMENTATION_,
+					"AVIAN_EMBED_PREFIX=\\\"/avian-embedded\\\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -143,6 +601,19 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TARGET_BYTES_PER_WORD=8",
+					"AVIAN_TARGET_PLATFORM=AVIAN_PLATFORM_DARWIN",
+					ARCH_x86_64,
+					"AVIAN_TARGET_ARCH=AVIAN_ARCH_X86_64",
+					"AVIAN_CLASSPATH=\\\"[classpathJar]\\\"",
+					"BOOT_CLASSPATH=\\\"[classpathJar]\\\"",
+					"AVIAN_VERSION=\\\"0.6\\\"",
+					USE_ATOMIC_OPERATIONS,
+					"AVIAN_JAVA_HOME=\\\"/Library/Java/Home\\\"",
+					_JNI_IMPLEMENTATION_,
+					"AVIAN_EMBED_PREFIX=\\\"/avian-embedded\\\"",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -156,6 +627,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types/**";
+				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -164,6 +638,37 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types/**";
+				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		658D47DC15C145DA00968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		658D47DD15C145DA00968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		658D4CB315C173B000968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		658D4CB415C173B000968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -185,6 +690,22 @@
 			buildConfigurations = (
 				658D474515C11DC800968D2A /* Debug */,
 				658D474615C11DC800968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		658D47DB15C145DA00968D2A /* Build configuration list for PBXNativeTarget "generator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D47DC15C145DA00968D2A /* Debug */,
+				658D47DD15C145DA00968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		658D4CB215C173B000968D2A /* Build configuration list for PBXNativeTarget "binaryToObject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D4CB315C173B000968D2A /* Debug */,
+				658D4CB415C173B000968D2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
