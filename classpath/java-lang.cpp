@@ -585,18 +585,32 @@ Java_java_lang_System_getProperty(JNIEnv* e, jclass, jstring name,
 #if (defined __APPLE__) && (! defined AVIAN_IOS)
       unsigned size = 32;
       char buffer[size];
-#ifdef ARCH_x86_64
-      int32_t minorVersion, majorVersion;
-#else
-      long minorVersion, majorVersion;
-#endif
+      CFStringRef path = CFStringCreateWithCString(NULL, "/System/Library/CoreServices/SystemVersion.plist", kCFStringEncodingASCII);
+      CFURLRef url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, FALSE);
+      CFReadStreamRef stream = CFReadStreamCreateWithFile(NULL, url);
+
+      CFReadStreamOpen(stream);
+      CFStringRef errString;
+      CFDictionaryRef dict = (CFDictionaryRef)CFPropertyListCreateFromStream(NULL, stream, 0, kCFPropertyListImmutable, NULL, &errString);
+      if(errString == NULL) {
+        CFStringRef key = CFStringCreateWithCString(NULL, "ProductVersion", kCFStringEncodingASCII);
+        CFStringRef version = (CFStringRef)CFDictionaryGetValue(dict, key);
+
+        if(version) {
+            CFStringGetCString(version, buffer, sizeof(buffer), kCFStringEncodingUTF8);
+			r = e->NewStringUTF(buffer);
+            CFRelease(version);
+        } else {
+			r = e->NewStringUTF("Unknown");
+        }
+        CFRelease(dict);
+    } else {
+		r = e->NewStringUTF("Unknown");
+    }
+    CFRelease(stream);
+    CFRelease(url);
+    CFRelease(path);
       
-      Gestalt(gestaltSystemVersionMajor, &majorVersion);
-      Gestalt(gestaltSystemVersionMinor, &minorVersion);
-      
-      snprintf(buffer, size, "%d.%d", static_cast<int32_t>(majorVersion),
-               static_cast<int32_t>(minorVersion));
-      r = e->NewStringUTF(buffer);
 #else
       struct utsname system_id; 
       uname(&system_id);

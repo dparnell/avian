@@ -154,6 +154,9 @@ usageAndExit(const char* name)
 
 } // namespace
 
+#ifndef __clang__
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 int
 main(int ac, const char** av)
 {
@@ -274,7 +277,15 @@ main(int ac, const char** av)
 
   JavaVM* vm;
   void* env;
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+#endif
   JNI_CreateJavaVM(&vm, &env, &vmArgs);
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
   JNIEnv* e = static_cast<JNIEnv*>(env);
 
   jclass c = e->FindClass(class_);
@@ -310,3 +321,6 @@ main(int ac, const char** av)
 
   return exitCode;
 }
+#ifndef __clang__
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+#endif
