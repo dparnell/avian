@@ -6,6 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		658D521315C28A7A00968D2A /* Everything */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 658D521415C28A7A00968D2A /* Build configuration list for PBXAggregateTarget "Everything" */;
+			buildPhases = (
+			);
+			dependencies = (
+				658D522A15C28C2600968D2A /* PBXTargetDependency */,
+				658D521815C28A8300968D2A /* PBXTargetDependency */,
+				658D521C15C28A9800968D2A /* PBXTargetDependency */,
+				658D521A15C28A8300968D2A /* PBXTargetDependency */,
+			);
+			name = Everything;
+			productName = Everything;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		658D478415C1434600968D2A /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474815C1434600968D2A /* allocator.h */; };
 		658D478515C1434600968D2A /* arch.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474915C1434600968D2A /* arch.h */; };
@@ -66,291 +83,46 @@
 		658D4CC615C173EB00968D2A /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CBA15C173D400968D2A /* tools.cpp */; };
 		658D4CCC15C1790E00968D2A /* x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCB15C1790E00968D2A /* x86.S */; };
 		658D4CCE15C1796700968D2A /* classpath-avian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCD15C1796700968D2A /* classpath-avian.cpp */; };
-		658D4E0915C2885B00968D2A /* Addendum.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD315C2885B00968D2A /* Addendum.java */; };
-		658D4E0A15C2885B00968D2A /* AnnotationInvocationHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD415C2885B00968D2A /* AnnotationInvocationHandler.java */; };
-		658D4E0B15C2885B00968D2A /* Assembler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD515C2885B00968D2A /* Assembler.java */; };
-		658D4E0C15C2885B00968D2A /* Atomic.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD615C2885B00968D2A /* Atomic.java */; };
-		658D4E0D15C2885B00968D2A /* Callback.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD715C2885B00968D2A /* Callback.java */; };
-		658D4E0E15C2885B00968D2A /* CallbackReceiver.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD815C2885B00968D2A /* CallbackReceiver.java */; };
-		658D4E0F15C2885B00968D2A /* Cell.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CD915C2885B00968D2A /* Cell.java */; };
-		658D4E1015C2885B00968D2A /* ClassAddendum.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CDA15C2885B00968D2A /* ClassAddendum.java */; };
-		658D4E1115C2885B00968D2A /* Classes.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CDB15C2885B00968D2A /* Classes.java */; };
-		658D4E1215C2885B00968D2A /* ConstantPool.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CDC15C2885B00968D2A /* ConstantPool.java */; };
-		658D4E1315C2885B00968D2A /* Continuations.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CDD15C2885B00968D2A /* Continuations.java */; };
-		658D4E1415C2885B00968D2A /* FieldAddendum.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CDE15C2885B00968D2A /* FieldAddendum.java */; };
-		658D4E1515C2885B00968D2A /* Handler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE015C2885B00968D2A /* Handler.java */; };
-		658D4E1615C2885B00968D2A /* Handler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE215C2885B00968D2A /* Handler.java */; };
-		658D4E1715C2885B00968D2A /* IncompatibleContinuationException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE315C2885B00968D2A /* IncompatibleContinuationException.java */; };
-		658D4E1815C2885B00968D2A /* Iso88591.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE415C2885B00968D2A /* Iso88591.java */; };
-		658D4E1915C2885B00968D2A /* Handler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE615C2885B00968D2A /* Handler.java */; };
-		658D4E1A15C2885B00968D2A /* Machine.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE715C2885B00968D2A /* Machine.java */; };
-		658D4E1B15C2885B00968D2A /* MethodAddendum.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE815C2885B00968D2A /* MethodAddendum.java */; };
-		658D4E1C15C2885B00968D2A /* OpenJDK.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CE915C2885B00968D2A /* OpenJDK.java */; };
-		658D4E1D15C2885B00968D2A /* PersistentSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CEA15C2885B00968D2A /* PersistentSet.java */; };
-		658D4E1E15C2885B00968D2A /* Handler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CEC15C2885B00968D2A /* Handler.java */; };
-		658D4E1F15C2885B00968D2A /* Singleton.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CED15C2885B00968D2A /* Singleton.java */; };
-		658D4E2015C2885B00968D2A /* Stream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CEE15C2885B00968D2A /* Stream.java */; };
-		658D4E2115C2885B00968D2A /* SystemClassLoader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CEF15C2885B00968D2A /* SystemClassLoader.java */; };
-		658D4E2215C2885B00968D2A /* Utf8.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF015C2885B00968D2A /* Utf8.java */; };
-		658D4E2315C2885B00968D2A /* VMClass.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF115C2885B00968D2A /* VMClass.java */; };
-		658D4E2415C2885B00968D2A /* VMField.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF215C2885B00968D2A /* VMField.java */; };
-		658D4E2515C2885B00968D2A /* VMMethod.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF315C2885B00968D2A /* VMMethod.java */; };
-		658D4E2615C2885B00968D2A /* BufferedInputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF615C2885B00968D2A /* BufferedInputStream.java */; };
-		658D4E2715C2885B00968D2A /* BufferedOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF715C2885B00968D2A /* BufferedOutputStream.java */; };
-		658D4E2815C2885B00968D2A /* BufferedReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF815C2885B00968D2A /* BufferedReader.java */; };
-		658D4E2915C2885B00968D2A /* BufferedWriter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CF915C2885B00968D2A /* BufferedWriter.java */; };
-		658D4E2A15C2885B00968D2A /* ByteArrayInputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFA15C2885B00968D2A /* ByteArrayInputStream.java */; };
-		658D4E2B15C2885B00968D2A /* ByteArrayOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFB15C2885B00968D2A /* ByteArrayOutputStream.java */; };
-		658D4E2C15C2885B00968D2A /* EOFException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFC15C2885B00968D2A /* EOFException.java */; };
-		658D4E2D15C2885B00968D2A /* Externalizable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFD15C2885B00968D2A /* Externalizable.java */; };
-		658D4E2E15C2885B00968D2A /* File.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFE15C2885B00968D2A /* File.java */; };
-		658D4E2F15C2885B00968D2A /* FileDescriptor.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CFF15C2885B00968D2A /* FileDescriptor.java */; };
-		658D4E3015C2885B00968D2A /* FileInputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0015C2885B00968D2A /* FileInputStream.java */; };
-		658D4E3115C2885B00968D2A /* FilenameFilter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0115C2885B00968D2A /* FilenameFilter.java */; };
-		658D4E3215C2885B00968D2A /* FileNotFoundException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0215C2885B00968D2A /* FileNotFoundException.java */; };
-		658D4E3315C2885B00968D2A /* FileOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0315C2885B00968D2A /* FileOutputStream.java */; };
-		658D4E3415C2885B00968D2A /* FileReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0415C2885B00968D2A /* FileReader.java */; };
-		658D4E3515C2885B00968D2A /* FileWriter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0515C2885B00968D2A /* FileWriter.java */; };
-		658D4E3615C2885B00968D2A /* FilterOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0615C2885B00968D2A /* FilterOutputStream.java */; };
-		658D4E3715C2885B00968D2A /* InputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0715C2885B00968D2A /* InputStream.java */; };
-		658D4E3815C2885B00968D2A /* InputStreamReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0815C2885B00968D2A /* InputStreamReader.java */; };
-		658D4E3915C2885B00968D2A /* IOException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0915C2885B00968D2A /* IOException.java */; };
-		658D4E3A15C2885B00968D2A /* LineNumberReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0A15C2885B00968D2A /* LineNumberReader.java */; };
-		658D4E3B15C2885B00968D2A /* NotSerializableException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0B15C2885B00968D2A /* NotSerializableException.java */; };
-		658D4E3C15C2885B00968D2A /* ObjectInput.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0C15C2885B00968D2A /* ObjectInput.java */; };
-		658D4E3D15C2885B00968D2A /* ObjectInputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0D15C2885B00968D2A /* ObjectInputStream.java */; };
-		658D4E3E15C2885B00968D2A /* ObjectOutput.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0E15C2885B00968D2A /* ObjectOutput.java */; };
-		658D4E3F15C2885B00968D2A /* ObjectOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D0F15C2885B00968D2A /* ObjectOutputStream.java */; };
-		658D4E4015C2885B00968D2A /* ObjectStreamException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1015C2885B00968D2A /* ObjectStreamException.java */; };
-		658D4E4115C2885B00968D2A /* OutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1115C2885B00968D2A /* OutputStream.java */; };
-		658D4E4215C2885B00968D2A /* OutputStreamWriter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1215C2885B00968D2A /* OutputStreamWriter.java */; };
-		658D4E4315C2885B00968D2A /* PrintStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1315C2885B00968D2A /* PrintStream.java */; };
-		658D4E4415C2885B00968D2A /* PrintWriter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1415C2885B00968D2A /* PrintWriter.java */; };
-		658D4E4515C2885B00968D2A /* PushbackReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1515C2885B00968D2A /* PushbackReader.java */; };
-		658D4E4615C2885B00968D2A /* RandomAccessFile.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1615C2885B00968D2A /* RandomAccessFile.java */; };
-		658D4E4715C2885B00968D2A /* Reader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1715C2885B00968D2A /* Reader.java */; };
-		658D4E4815C2885B00968D2A /* Serializable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1815C2885B00968D2A /* Serializable.java */; };
-		658D4E4915C2885B00968D2A /* StreamCorruptedException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1915C2885B00968D2A /* StreamCorruptedException.java */; };
-		658D4E4A15C2885B00968D2A /* StringReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1A15C2885B00968D2A /* StringReader.java */; };
-		658D4E4B15C2885B00968D2A /* StringWriter.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1B15C2885B00968D2A /* StringWriter.java */; };
-		658D4E4C15C2885B00968D2A /* UnsupportedEncodingException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1C15C2885B00968D2A /* UnsupportedEncodingException.java */; };
-		658D4E4D15C2885B00968D2A /* Writer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1D15C2885B00968D2A /* Writer.java */; };
-		658D4E4E15C2885B00968D2A /* AbstractMethodError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D1F15C2885B00968D2A /* AbstractMethodError.java */; };
-		658D4E4F15C2885B00968D2A /* Annotation.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2115C2885B00968D2A /* Annotation.java */; };
-		658D4E5015C2885C00968D2A /* ElementType.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2215C2885B00968D2A /* ElementType.java */; };
-		658D4E5115C2885C00968D2A /* Retention.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2315C2885B00968D2A /* Retention.java */; };
-		658D4E5215C2885C00968D2A /* RetentionPolicy.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2415C2885B00968D2A /* RetentionPolicy.java */; };
-		658D4E5315C2885C00968D2A /* Target.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2515C2885B00968D2A /* Target.java */; };
-		658D4E5415C2885C00968D2A /* Appendable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2615C2885B00968D2A /* Appendable.java */; };
-		658D4E5515C2885C00968D2A /* ArithmeticException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2715C2885B00968D2A /* ArithmeticException.java */; };
-		658D4E5615C2885C00968D2A /* ArrayIndexOutOfBoundsException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2815C2885B00968D2A /* ArrayIndexOutOfBoundsException.java */; };
-		658D4E5715C2885C00968D2A /* ArrayStoreException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2915C2885B00968D2A /* ArrayStoreException.java */; };
-		658D4E5815C2885C00968D2A /* AssertionError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2A15C2885B00968D2A /* AssertionError.java */; };
-		658D4E5915C2885C00968D2A /* Boolean.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2B15C2885B00968D2A /* Boolean.java */; };
-		658D4E5A15C2885C00968D2A /* Byte.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2C15C2885B00968D2A /* Byte.java */; };
-		658D4E5B15C2885C00968D2A /* Character.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2D15C2885B00968D2A /* Character.java */; };
-		658D4E5C15C2885C00968D2A /* CharSequence.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2E15C2885B00968D2A /* CharSequence.java */; };
-		658D4E5D15C2885C00968D2A /* Class.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D2F15C2885B00968D2A /* Class.java */; };
-		658D4E5E15C2885C00968D2A /* ClassCastException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3015C2885B00968D2A /* ClassCastException.java */; };
-		658D4E5F15C2885C00968D2A /* ClassLoader.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3115C2885B00968D2A /* ClassLoader.java */; };
-		658D4E6015C2885C00968D2A /* ClassNotFoundException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3215C2885B00968D2A /* ClassNotFoundException.java */; };
-		658D4E6115C2885C00968D2A /* Cloneable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3315C2885B00968D2A /* Cloneable.java */; };
-		658D4E6215C2885C00968D2A /* CloneNotSupportedException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3415C2885B00968D2A /* CloneNotSupportedException.java */; };
-		658D4E6315C2885C00968D2A /* Comparable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3515C2885B00968D2A /* Comparable.java */; };
-		658D4E6415C2885C00968D2A /* Double.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3615C2885B00968D2A /* Double.java */; };
-		658D4E6515C2885C00968D2A /* Enum.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3715C2885B00968D2A /* Enum.java */; };
-		658D4E6615C2885C00968D2A /* Error.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3815C2885B00968D2A /* Error.java */; };
-		658D4E6715C2885C00968D2A /* Exception.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3915C2885B00968D2A /* Exception.java */; };
-		658D4E6815C2885C00968D2A /* ExceptionInInitializerError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3A15C2885B00968D2A /* ExceptionInInitializerError.java */; };
-		658D4E6915C2885C00968D2A /* Float.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3B15C2885B00968D2A /* Float.java */; };
-		658D4E6A15C2885C00968D2A /* IllegalAccessError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3C15C2885B00968D2A /* IllegalAccessError.java */; };
-		658D4E6B15C2885C00968D2A /* IllegalAccessException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3D15C2885B00968D2A /* IllegalAccessException.java */; };
-		658D4E6C15C2885C00968D2A /* IllegalArgumentException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3E15C2885B00968D2A /* IllegalArgumentException.java */; };
-		658D4E6D15C2885C00968D2A /* IllegalMonitorStateException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D3F15C2885B00968D2A /* IllegalMonitorStateException.java */; };
-		658D4E6E15C2885C00968D2A /* IllegalStateException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4015C2885B00968D2A /* IllegalStateException.java */; };
-		658D4E6F15C2885C00968D2A /* IllegalThreadStateException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4115C2885B00968D2A /* IllegalThreadStateException.java */; };
-		658D4E7015C2885C00968D2A /* IncompatibleClassChangeError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4215C2885B00968D2A /* IncompatibleClassChangeError.java */; };
-		658D4E7115C2885C00968D2A /* IndexOutOfBoundsException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4315C2885B00968D2A /* IndexOutOfBoundsException.java */; };
-		658D4E7215C2885C00968D2A /* InheritableThreadLocal.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4415C2885B00968D2A /* InheritableThreadLocal.java */; };
-		658D4E7315C2885C00968D2A /* InstantiationError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4515C2885B00968D2A /* InstantiationError.java */; };
-		658D4E7415C2885C00968D2A /* InstantiationException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4615C2885B00968D2A /* InstantiationException.java */; };
-		658D4E7515C2885C00968D2A /* Integer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4715C2885B00968D2A /* Integer.java */; };
-		658D4E7615C2885C00968D2A /* InterruptedException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4815C2885B00968D2A /* InterruptedException.java */; };
-		658D4E7715C2885C00968D2A /* Iterable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4915C2885B00968D2A /* Iterable.java */; };
-		658D4E7815C2885C00968D2A /* LinkageError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4A15C2885B00968D2A /* LinkageError.java */; };
-		658D4E7915C2885C00968D2A /* Long.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4B15C2885B00968D2A /* Long.java */; };
-		658D4E7A15C2885C00968D2A /* Math.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4C15C2885B00968D2A /* Math.java */; };
-		658D4E7B15C2885C00968D2A /* NegativeArraySizeException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4D15C2885B00968D2A /* NegativeArraySizeException.java */; };
-		658D4E7C15C2885C00968D2A /* NoClassDefFoundError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4E15C2885B00968D2A /* NoClassDefFoundError.java */; };
-		658D4E7D15C2885C00968D2A /* NoSuchFieldError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D4F15C2885B00968D2A /* NoSuchFieldError.java */; };
-		658D4E7E15C2885C00968D2A /* NoSuchFieldException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5015C2885B00968D2A /* NoSuchFieldException.java */; };
-		658D4E7F15C2885C00968D2A /* NoSuchMethodError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5115C2885B00968D2A /* NoSuchMethodError.java */; };
-		658D4E8015C2885C00968D2A /* NoSuchMethodException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5215C2885B00968D2A /* NoSuchMethodException.java */; };
-		658D4E8115C2885C00968D2A /* NullPointerException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5315C2885B00968D2A /* NullPointerException.java */; };
-		658D4E8215C2885C00968D2A /* Number.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5415C2885B00968D2A /* Number.java */; };
-		658D4E8315C2885C00968D2A /* NumberFormatException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5515C2885B00968D2A /* NumberFormatException.java */; };
-		658D4E8415C2885C00968D2A /* Object.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5615C2885B00968D2A /* Object.java */; };
-		658D4E8515C2885C00968D2A /* OutOfMemoryError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5715C2885B00968D2A /* OutOfMemoryError.java */; };
-		658D4E8615C2885C00968D2A /* Override.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5815C2885B00968D2A /* Override.java */; };
-		658D4E8715C2885C00968D2A /* Package.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5915C2885B00968D2A /* Package.java */; };
-		658D4E8815C2885C00968D2A /* Process.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5A15C2885B00968D2A /* Process.java */; };
-		658D4E8915C2885C00968D2A /* PhantomReference.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5C15C2885B00968D2A /* PhantomReference.java */; };
-		658D4E8A15C2885C00968D2A /* Reference.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5D15C2885B00968D2A /* Reference.java */; };
-		658D4E8B15C2885C00968D2A /* ReferenceQueue.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5E15C2885B00968D2A /* ReferenceQueue.java */; };
-		658D4E8C15C2885C00968D2A /* SoftReference.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D5F15C2885B00968D2A /* SoftReference.java */; };
-		658D4E8D15C2885C00968D2A /* WeakReference.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6015C2885B00968D2A /* WeakReference.java */; };
-		658D4E8E15C2885C00968D2A /* AccessibleObject.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6215C2885B00968D2A /* AccessibleObject.java */; };
-		658D4E8F15C2885C00968D2A /* AnnotatedElement.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6315C2885B00968D2A /* AnnotatedElement.java */; };
-		658D4E9015C2885C00968D2A /* Array.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6415C2885B00968D2A /* Array.java */; };
-		658D4E9115C2885C00968D2A /* Constructor.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6515C2885B00968D2A /* Constructor.java */; };
-		658D4E9215C2885C00968D2A /* Field.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6615C2885B00968D2A /* Field.java */; };
-		658D4E9315C2885C00968D2A /* InvocationHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6715C2885B00968D2A /* InvocationHandler.java */; };
-		658D4E9415C2885C00968D2A /* InvocationTargetException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6815C2885B00968D2A /* InvocationTargetException.java */; };
-		658D4E9515C2885C00968D2A /* Member.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6915C2885B00968D2A /* Member.java */; };
-		658D4E9615C2885C00968D2A /* Method.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6A15C2885B00968D2A /* Method.java */; };
-		658D4E9715C2885C00968D2A /* Modifier.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6B15C2885B00968D2A /* Modifier.java */; };
-		658D4E9815C2885C00968D2A /* Proxy.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6C15C2885B00968D2A /* Proxy.java */; };
-		658D4E9915C2885C00968D2A /* Type.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6D15C2885B00968D2A /* Type.java */; };
-		658D4E9A15C2885C00968D2A /* ReflectiveOperationException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6E15C2885B00968D2A /* ReflectiveOperationException.java */; };
-		658D4E9B15C2885C00968D2A /* Runnable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D6F15C2885B00968D2A /* Runnable.java */; };
-		658D4E9C15C2885C00968D2A /* Runtime.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7015C2885B00968D2A /* Runtime.java */; };
-		658D4E9D15C2885C00968D2A /* RuntimeException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7115C2885B00968D2A /* RuntimeException.java */; };
-		658D4E9E15C2885C00968D2A /* RuntimePermission.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7215C2885B00968D2A /* RuntimePermission.java */; };
-		658D4E9F15C2885C00968D2A /* SecurityException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7315C2885B00968D2A /* SecurityException.java */; };
-		658D4EA015C2885C00968D2A /* SecurityManager.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7415C2885B00968D2A /* SecurityManager.java */; };
-		658D4EA115C2885C00968D2A /* Short.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7515C2885B00968D2A /* Short.java */; };
-		658D4EA215C2885C00968D2A /* StackOverflowError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7615C2885B00968D2A /* StackOverflowError.java */; };
-		658D4EA315C2885C00968D2A /* StackTraceElement.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7715C2885B00968D2A /* StackTraceElement.java */; };
-		658D4EA415C2885C00968D2A /* String.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7815C2885B00968D2A /* String.java */; };
-		658D4EA515C2885C00968D2A /* StringBuffer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7915C2885B00968D2A /* StringBuffer.java */; };
-		658D4EA615C2885C00968D2A /* StringBuilder.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7A15C2885B00968D2A /* StringBuilder.java */; };
-		658D4EA715C2885C00968D2A /* SuppressWarnings.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7B15C2885B00968D2A /* SuppressWarnings.java */; };
-		658D4EA815C2885C00968D2A /* System.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7C15C2885B00968D2A /* System.java */; };
-		658D4EA915C2885C00968D2A /* Thread.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7D15C2885B00968D2A /* Thread.java */; };
-		658D4EAA15C2885C00968D2A /* ThreadDeath.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7E15C2885B00968D2A /* ThreadDeath.java */; };
-		658D4EAB15C2885C00968D2A /* ThreadGroup.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D7F15C2885B00968D2A /* ThreadGroup.java */; };
-		658D4EAC15C2885C00968D2A /* ThreadLocal.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8015C2885B00968D2A /* ThreadLocal.java */; };
-		658D4EAD15C2885C00968D2A /* Throwable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8115C2885B00968D2A /* Throwable.java */; };
-		658D4EAE15C2885C00968D2A /* UnsatisfiedLinkError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8215C2885B00968D2A /* UnsatisfiedLinkError.java */; };
-		658D4EAF15C2885C00968D2A /* UnsupportedOperationException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8315C2885B00968D2A /* UnsupportedOperationException.java */; };
-		658D4EB015C2885C00968D2A /* VirtualMachineError.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8415C2885B00968D2A /* VirtualMachineError.java */; };
-		658D4EB115C2885C00968D2A /* Void.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8515C2885B00968D2A /* Void.java */; };
-		658D4EB215C2885C00968D2A /* DatagramSocket.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8715C2885B00968D2A /* DatagramSocket.java */; };
-		658D4EB315C2885C00968D2A /* InetAddress.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8815C2885B00968D2A /* InetAddress.java */; };
-		658D4EB415C2885C00968D2A /* InetSocketAddress.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8915C2885B00968D2A /* InetSocketAddress.java */; };
-		658D4EB515C2885C00968D2A /* JarURLConnection.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8A15C2885B00968D2A /* JarURLConnection.java */; };
-		658D4EB615C2885C00968D2A /* MalformedURLException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8B15C2885B00968D2A /* MalformedURLException.java */; };
-		658D4EB715C2885C00968D2A /* ProtocolFamily.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8C15C2885B00968D2A /* ProtocolFamily.java */; };
-		658D4EB815C2885C00968D2A /* ServerSocket.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8D15C2885B00968D2A /* ServerSocket.java */; };
-		658D4EB915C2885C00968D2A /* Socket.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8E15C2885B00968D2A /* Socket.java */; };
-		658D4EBA15C2885C00968D2A /* SocketAddress.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D8F15C2885B00968D2A /* SocketAddress.java */; };
-		658D4EBB15C2885C00968D2A /* SocketException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9015C2885B00968D2A /* SocketException.java */; };
-		658D4EBC15C2885C00968D2A /* StandardProtocolFamily.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9115C2885B00968D2A /* StandardProtocolFamily.java */; };
-		658D4EBD15C2885C00968D2A /* UnknownHostException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9215C2885B00968D2A /* UnknownHostException.java */; };
-		658D4EBE15C2885C00968D2A /* UnknownServiceException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9315C2885B00968D2A /* UnknownServiceException.java */; };
-		658D4EBF15C2885C00968D2A /* URL.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9415C2885B00968D2A /* URL.java */; };
-		658D4EC015C2885C00968D2A /* URLConnection.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9515C2885B00968D2A /* URLConnection.java */; };
-		658D4EC115C2885C00968D2A /* URLStreamHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9615C2885B00968D2A /* URLStreamHandler.java */; };
-		658D4EC215C2885C00968D2A /* Buffer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9815C2885B00968D2A /* Buffer.java */; };
-		658D4EC315C2885C00968D2A /* ByteBuffer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9915C2885B00968D2A /* ByteBuffer.java */; };
-		658D4EC415C2885C00968D2A /* Channel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9B15C2885B00968D2A /* Channel.java */; };
-		658D4EC515C2885C00968D2A /* Channels.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9C15C2885B00968D2A /* Channels.java */; };
-		658D4EC615C2885C00968D2A /* ClosedSelectorException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9D15C2885B00968D2A /* ClosedSelectorException.java */; };
-		658D4EC715C2885C00968D2A /* DatagramChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9E15C2885B00968D2A /* DatagramChannel.java */; };
-		658D4EC815C2885C00968D2A /* GatheringByteChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4D9F15C2885B00968D2A /* GatheringByteChannel.java */; };
-		658D4EC915C2885C00968D2A /* ReadableByteChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA015C2885B00968D2A /* ReadableByteChannel.java */; };
-		658D4ECA15C2885C00968D2A /* SelectableChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA115C2885B00968D2A /* SelectableChannel.java */; };
-		658D4ECB15C2885C00968D2A /* SelectionKey.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA215C2885B00968D2A /* SelectionKey.java */; };
-		658D4ECC15C2885C00968D2A /* Selector.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA315C2885B00968D2A /* Selector.java */; };
-		658D4ECD15C2885C00968D2A /* ServerSocketChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA415C2885B00968D2A /* ServerSocketChannel.java */; };
-		658D4ECE15C2885C00968D2A /* SocketChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA515C2885B00968D2A /* SocketChannel.java */; };
-		658D4ECF15C2885C00968D2A /* SocketSelector.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA615C2885B00968D2A /* SocketSelector.java */; };
-		658D4ED015C2885C00968D2A /* UnsupportedAddressTypeException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA715C2885B00968D2A /* UnsupportedAddressTypeException.java */; };
-		658D4ED115C2885C00968D2A /* WritableByteChannel.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA815C2885B00968D2A /* WritableByteChannel.java */; };
-		658D4ED215C2885C00968D2A /* ReadOnlyBufferException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DA915C2885B00968D2A /* ReadOnlyBufferException.java */; };
-		658D4ED315C2885C00968D2A /* AccessControlException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DAB15C2885B00968D2A /* AccessControlException.java */; };
-		658D4ED415C2885C00968D2A /* AccessController.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DAC15C2885B00968D2A /* AccessController.java */; };
-		658D4ED515C2885C00968D2A /* AllPermission.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DAD15C2885B00968D2A /* AllPermission.java */; };
-		658D4ED615C2885C00968D2A /* BasicPermission.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DAE15C2885B00968D2A /* BasicPermission.java */; };
-		658D4ED715C2885C00968D2A /* Certificate.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB015C2885B00968D2A /* Certificate.java */; };
-		658D4ED815C2885C00968D2A /* CodeSource.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB115C2885B00968D2A /* CodeSource.java */; };
-		658D4ED915C2885C00968D2A /* Permission.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB215C2885B00968D2A /* Permission.java */; };
-		658D4EDA15C2885C00968D2A /* PermissionCollection.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB315C2885B00968D2A /* PermissionCollection.java */; };
-		658D4EDB15C2885C00968D2A /* Permissions.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB415C2885B00968D2A /* Permissions.java */; };
-		658D4EDC15C2885C00968D2A /* PrivilegedAction.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB515C2885B00968D2A /* PrivilegedAction.java */; };
-		658D4EDD15C2885C00968D2A /* ProtectionDomain.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB615C2885B00968D2A /* ProtectionDomain.java */; };
-		658D4EDE15C2885C00968D2A /* SecurityPermission.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB715C2885B00968D2A /* SecurityPermission.java */; };
-		658D4EDF15C2885C00968D2A /* DateFormatSymbols.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DB915C2885B00968D2A /* DateFormatSymbols.java */; };
-		658D4EE015C2885C00968D2A /* FieldPosition.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DBA15C2885B00968D2A /* FieldPosition.java */; };
-		658D4EE115C2885C00968D2A /* Format.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DBB15C2885B00968D2A /* Format.java */; };
-		658D4EE215C2885C00968D2A /* MessageFormat.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DBC15C2885B00968D2A /* MessageFormat.java */; };
-		658D4EE315C2885C00968D2A /* AbstractCollection.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DBE15C2885B00968D2A /* AbstractCollection.java */; };
-		658D4EE415C2885C00968D2A /* AbstractList.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DBF15C2885B00968D2A /* AbstractList.java */; };
-		658D4EE515C2885C00968D2A /* AbstractMap.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC015C2885B00968D2A /* AbstractMap.java */; };
-		658D4EE615C2885C00968D2A /* AbstractQueue.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC115C2885B00968D2A /* AbstractQueue.java */; };
-		658D4EE715C2885C00968D2A /* AbstractSequentialList.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC215C2885B00968D2A /* AbstractSequentialList.java */; };
-		658D4EE815C2885C00968D2A /* AbstractSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC315C2885B00968D2A /* AbstractSet.java */; };
-		658D4EE915C2885C00968D2A /* ArrayList.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC415C2885B00968D2A /* ArrayList.java */; };
-		658D4EEA15C2885C00968D2A /* Arrays.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC515C2885B00968D2A /* Arrays.java */; };
-		658D4EEB15C2885C00968D2A /* BitSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC615C2885B00968D2A /* BitSet.java */; };
-		658D4EEC15C2885C00968D2A /* Calendar.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC715C2885B00968D2A /* Calendar.java */; };
-		658D4EED15C2885C00968D2A /* Collection.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC815C2885B00968D2A /* Collection.java */; };
-		658D4EEE15C2885C00968D2A /* Collections.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DC915C2885B00968D2A /* Collections.java */; };
-		658D4EEF15C2885C00968D2A /* Comparator.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DCA15C2885B00968D2A /* Comparator.java */; };
-		658D4EF015C2885C00968D2A /* Callable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DCC15C2885B00968D2A /* Callable.java */; };
-		658D4EF115C2885C00968D2A /* ConcurrentLinkedQueue.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DCD15C2885B00968D2A /* ConcurrentLinkedQueue.java */; };
-		658D4EF215C2885C00968D2A /* ConcurrentModificationException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DCE15C2885B00968D2A /* ConcurrentModificationException.java */; };
-		658D4EF315C2885C00968D2A /* Date.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DCF15C2885B00968D2A /* Date.java */; };
-		658D4EF415C2885C00968D2A /* Enumeration.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD015C2885B00968D2A /* Enumeration.java */; };
-		658D4EF515C2885C00968D2A /* EnumSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD115C2885B00968D2A /* EnumSet.java */; };
-		658D4EF615C2885C00968D2A /* EventListener.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD215C2885B00968D2A /* EventListener.java */; };
-		658D4EF715C2885C00968D2A /* EventObject.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD315C2885B00968D2A /* EventObject.java */; };
-		658D4EF815C2885C00968D2A /* HashMap.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD415C2885B00968D2A /* HashMap.java */; };
-		658D4EF915C2885C00968D2A /* HashSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD515C2885B00968D2A /* HashSet.java */; };
-		658D4EFA15C2885C00968D2A /* Hashtable.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD615C2885B00968D2A /* Hashtable.java */; };
-		658D4EFB15C2885C00968D2A /* IdentityHashMap.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD715C2885B00968D2A /* IdentityHashMap.java */; };
-		658D4EFC15C2885C00968D2A /* Iterator.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DD815C2885B00968D2A /* Iterator.java */; };
-		658D4EFD15C2885C00968D2A /* JarEntry.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDA15C2885B00968D2A /* JarEntry.java */; };
-		658D4EFE15C2885C00968D2A /* JarFile.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDB15C2885B00968D2A /* JarFile.java */; };
-		658D4EFF15C2885C00968D2A /* LinkedList.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDC15C2885B00968D2A /* LinkedList.java */; };
-		658D4F0015C2885C00968D2A /* List.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDD15C2885B00968D2A /* List.java */; };
-		658D4F0115C2885C00968D2A /* ListIterator.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDE15C2885B00968D2A /* ListIterator.java */; };
-		658D4F0215C2885C00968D2A /* Locale.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DDF15C2885B00968D2A /* Locale.java */; };
-		658D4F0315C2885C00968D2A /* Handler.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE115C2885B00968D2A /* Handler.java */; };
-		658D4F0415C2885C00968D2A /* Level.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE215C2885B00968D2A /* Level.java */; };
-		658D4F0515C2885C00968D2A /* Logger.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE315C2885B00968D2A /* Logger.java */; };
-		658D4F0615C2885C00968D2A /* LogRecord.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE415C2885B00968D2A /* LogRecord.java */; };
-		658D4F0715C2885C00968D2A /* Map.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE515C2885B00968D2A /* Map.java */; };
-		658D4F0815C2885C00968D2A /* MissingResourceException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE615C2885B00968D2A /* MissingResourceException.java */; };
-		658D4F0915C2885C00968D2A /* NoSuchElementException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE715C2885B00968D2A /* NoSuchElementException.java */; };
-		658D4F0A15C2885C00968D2A /* Properties.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE815C2885B00968D2A /* Properties.java */; };
-		658D4F0B15C2885C00968D2A /* PropertyResourceBundle.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DE915C2885B00968D2A /* PropertyResourceBundle.java */; };
-		658D4F0C15C2885C00968D2A /* Queue.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DEA15C2885B00968D2A /* Queue.java */; };
-		658D4F0D15C2885C00968D2A /* Random.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DEB15C2885B00968D2A /* Random.java */; };
-		658D4F0E15C2885C00968D2A /* RandomAccess.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DEC15C2885B00968D2A /* RandomAccess.java */; };
-		658D4F0F15C2885C00968D2A /* Matcher.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DEE15C2885B00968D2A /* Matcher.java */; };
-		658D4F1015C2885C00968D2A /* Pattern.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DEF15C2885B00968D2A /* Pattern.java */; };
-		658D4F1115C2885C00968D2A /* ResourceBundle.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF015C2885B00968D2A /* ResourceBundle.java */; };
-		658D4F1215C2885C00968D2A /* Set.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF115C2885B00968D2A /* Set.java */; };
-		658D4F1315C2885C00968D2A /* SortedSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF215C2885B00968D2A /* SortedSet.java */; };
-		658D4F1415C2885C00968D2A /* Stack.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF315C2885B00968D2A /* Stack.java */; };
-		658D4F1515C2885C00968D2A /* StringTokenizer.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF415C2885B00968D2A /* StringTokenizer.java */; };
-		658D4F1615C2885C00968D2A /* TreeMap.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF515C2885B00968D2A /* TreeMap.java */; };
-		658D4F1715C2885C00968D2A /* TreeSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF615C2885B00968D2A /* TreeSet.java */; };
-		658D4F1815C2885C00968D2A /* UUID.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF715C2885B00968D2A /* UUID.java */; };
-		658D4F1915C2885C00968D2A /* Vector.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF815C2885B00968D2A /* Vector.java */; };
-		658D4F1A15C2885C00968D2A /* WeakHashMap.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DF915C2885B00968D2A /* WeakHashMap.java */; };
-		658D4F1B15C2885C00968D2A /* CRC32.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DFB15C2885B00968D2A /* CRC32.java */; };
-		658D4F1C15C2885C00968D2A /* DataFormatException.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DFC15C2885B00968D2A /* DataFormatException.java */; };
-		658D4F1D15C2885C00968D2A /* Deflater.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DFD15C2885B00968D2A /* Deflater.java */; };
-		658D4F1E15C2885C00968D2A /* DeflaterOutputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DFE15C2885B00968D2A /* DeflaterOutputStream.java */; };
-		658D4F1F15C2885C00968D2A /* Inflater.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4DFF15C2885B00968D2A /* Inflater.java */; };
-		658D4F2015C2885C00968D2A /* InflaterInputStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0015C2885B00968D2A /* InflaterInputStream.java */; };
-		658D4F2115C2885C00968D2A /* ZipEntry.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0115C2885B00968D2A /* ZipEntry.java */; };
-		658D4F2215C2885C00968D2A /* ZipFile.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0215C2885B00968D2A /* ZipFile.java */; };
-		658D4F2315C2885C00968D2A /* Cleaner.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0515C2885B00968D2A /* Cleaner.java */; };
-		658D4F2415C2885C00968D2A /* Unsafe.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0615C2885B00968D2A /* Unsafe.java */; };
-		658D4F2515C2885C00968D2A /* ConstantPool.java in Sources */ = {isa = PBXBuildFile; fileRef = 658D4E0815C2885B00968D2A /* ConstantPool.java */; };
+		658D508915C2896200968D2A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D508815C2896200968D2A /* Cocoa.framework */; };
+		658D509315C2896200968D2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 658D509115C2896200968D2A /* InfoPlist.strings */; };
+		658D509715C2896200968D2A /* Avian.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D509615C2896200968D2A /* Avian.m */; };
+		658D509F15C2896200968D2A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D509E15C2896200968D2A /* SenTestingKit.framework */; };
+		658D50A015C2896200968D2A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D508815C2896200968D2A /* Cocoa.framework */; };
+		658D50A315C2896200968D2A /* Avian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D508715C2896200968D2A /* Avian.framework */; };
+		658D50A915C2896300968D2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 658D50A715C2896300968D2A /* InfoPlist.strings */; };
+		658D50AC15C2896300968D2A /* AvianTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D50AB15C2896300968D2A /* AvianTests.m */; };
+		658D526415C28CEE00968D2A /* java-io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C015C1443900968D2A /* java-io.cpp */; };
+		658D526515C28CEE00968D2A /* java-lang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C115C1443900968D2A /* java-lang.cpp */; };
+		658D526615C28CEE00968D2A /* java-net.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C215C1443900968D2A /* java-net.cpp */; };
+		658D526715C28CEE00968D2A /* java-nio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C315C1443900968D2A /* java-nio.cpp */; };
+		658D526815C28CEE00968D2A /* java-util-zip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C415C1443900968D2A /* java-util-zip.cpp */; };
+		658D526915C28CEE00968D2A /* java-util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C515C1443900968D2A /* java-util.cpp */; };
+		658D526C15C28DEA00968D2A /* jni.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D526B15C28DEA00968D2A /* jni.h */; };
+		658D527315C29B5000968D2A /* x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA015C16E8E00968D2A /* x86.cpp */; };
+		658D527415C29B5000968D2A /* x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCB15C1790E00968D2A /* x86.S */; };
+		658D527515C29B5000968D2A /* x86.h in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA115C16E8E00968D2A /* x86.h */; };
+		658D527615C29B5000968D2A /* posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477215C1434600968D2A /* posix.cpp */; };
+		658D527715C29B5000968D2A /* java-io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C015C1443900968D2A /* java-io.cpp */; };
+		658D527815C29B5000968D2A /* java-lang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C115C1443900968D2A /* java-lang.cpp */; };
+		658D527915C29B5000968D2A /* java-net.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C215C1443900968D2A /* java-net.cpp */; };
+		658D527A15C29B5000968D2A /* java-nio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C315C1443900968D2A /* java-nio.cpp */; };
+		658D527B15C29B5000968D2A /* java-util-zip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C415C1443900968D2A /* java-util-zip.cpp */; };
+		658D527C15C29B5000968D2A /* java-util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C515C1443900968D2A /* java-util.cpp */; };
+		658D527D15C29B7A00968D2A /* compile-x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D475615C1434600968D2A /* compile-x86.S */; };
+		658D527E15C29B7A00968D2A /* compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475815C1434600968D2A /* compiler.cpp */; };
+		658D528515C29C5400968D2A /* boot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474C15C1434600968D2A /* boot.cpp */; };
+		658D528615C29C5400968D2A /* bootimage-fields.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474D15C1434600968D2A /* bootimage-fields.cpp */; };
+		658D528715C29C7500968D2A /* builtin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475115C1434600968D2A /* builtin.cpp */; };
+		658D528815C29C7500968D2A /* compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475715C1434600968D2A /* compile.cpp */; };
+		658D528915C29C7500968D2A /* finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475D15C1434600968D2A /* finder.cpp */; };
+		658D528A15C29C7500968D2A /* heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475F15C1434600968D2A /* heap.cpp */; };
+		658D528B15C29C7500968D2A /* heapdump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476115C1434600968D2A /* heapdump.cpp */; };
+		658D528C15C29C7500968D2A /* heapwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476215C1434600968D2A /* heapwalk.cpp */; };
+		658D528D15C29C7500968D2A /* jnienv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476515C1434600968D2A /* jnienv.cpp */; };
+		658D528E15C29C7500968D2A /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476C15C1434600968D2A /* machine.cpp */; };
+		658D528F15C29C7500968D2A /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477315C1434600968D2A /* process.cpp */; };
+		658D529015C29C7500968D2A /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477E15C1434600968D2A /* util.cpp */; };
+		658D529115C29CEE00968D2A /* boot-javahome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474B15C1434600968D2A /* boot-javahome.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,6 +134,62 @@
 			remoteInfo = generator;
 		};
 		658D4CC815C173FC00968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D4CAA15C173B000968D2A;
+			remoteInfo = binaryToObject;
+		};
+		658D50A115C2896200968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D508615C2896200968D2A;
+			remoteInfo = Avian;
+		};
+		658D521715C28A8300968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D473F15C11DC800968D2A;
+			remoteInfo = AvianVM;
+		};
+		658D521915C28A8300968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D508615C2896200968D2A;
+			remoteInfo = Avian;
+		};
+		658D521B15C28A9800968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D509C15C2896200968D2A;
+			remoteInfo = AvianTests;
+		};
+		658D522915C28C2600968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D522015C28C1600968D2A;
+			remoteInfo = AvianStatic;
+		};
+		658D522B15C28C2D00968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D522015C28C1600968D2A;
+			remoteInfo = AvianStatic;
+		};
+		658D526D15C2921200968D2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D47D315C145DA00968D2A;
+			remoteInfo = generator;
+		};
+		658D526F15C2921200968D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 658D473715C11DC800968D2A /* Project object */;
 			proxyType = 1;
@@ -744,6 +572,24 @@
 		658D4E0515C2885B00968D2A /* Cleaner.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Cleaner.java; sourceTree = "<group>"; };
 		658D4E0615C2885B00968D2A /* Unsafe.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Unsafe.java; sourceTree = "<group>"; };
 		658D4E0815C2885B00968D2A /* ConstantPool.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConstantPool.java; sourceTree = "<group>"; };
+		658D508715C2896200968D2A /* Avian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Avian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D508815C2896200968D2A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		658D508B15C2896200968D2A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		658D508C15C2896200968D2A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		658D508D15C2896200968D2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		658D509015C2896200968D2A /* Avian-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Avian-Info.plist"; sourceTree = "<group>"; };
+		658D509215C2896200968D2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		658D509415C2896200968D2A /* Avian-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Avian-Prefix.pch"; sourceTree = "<group>"; };
+		658D509515C2896200968D2A /* Avian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Avian.h; sourceTree = "<group>"; };
+		658D509615C2896200968D2A /* Avian.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Avian.m; sourceTree = "<group>"; };
+		658D509D15C2896200968D2A /* AvianTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvianTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D509E15C2896200968D2A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		658D50A615C2896300968D2A /* AvianTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AvianTests-Info.plist"; sourceTree = "<group>"; };
+		658D50A815C2896300968D2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		658D50AA15C2896300968D2A /* AvianTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvianTests.h; sourceTree = "<group>"; };
+		658D50AB15C2896300968D2A /* AvianTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvianTests.m; sourceTree = "<group>"; };
+		658D522115C28C1600968D2A /* libAvianStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAvianStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		658D526B15C28DEA00968D2A /* jni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jni.h; path = /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/jni.h; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -772,12 +618,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		658D508315C2896200968D2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D508915C2896200968D2A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D509915C2896200968D2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D509F15C2896200968D2A /* SenTestingKit.framework in Frameworks */,
+				658D50A015C2896200968D2A /* Cocoa.framework in Frameworks */,
+				658D50A315C2896200968D2A /* Avian.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D521E15C28C1600968D2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		658D473515C11DC800968D2A = {
 			isa = PBXGroup;
 			children = (
+				658D526A15C28DC500968D2A /* System Headers */,
+				658D508E15C2896200968D2A /* Avian */,
+				658D50A415C2896200968D2A /* AvianTests */,
 				658D47E515C1467200968D2A /* Frameworks */,
 				658D474715C142E900968D2A /* avian */,
 				658D474115C11DC800968D2A /* Products */,
@@ -790,6 +664,9 @@
 				658D474015C11DC800968D2A /* libAvianVM.dylib */,
 				658D47D415C145DA00968D2A /* generator */,
 				658D4CAB15C173B000968D2A /* binaryToObject */,
+				658D508715C2896200968D2A /* Avian.framework */,
+				658D509D15C2896200968D2A /* AvianTests.octest */,
+				658D522115C28C1600968D2A /* libAvianStatic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -871,6 +748,9 @@
 			children = (
 				658D47E115C1463B00968D2A /* CoreFoundation.framework */,
 				658D47E315C1465100968D2A /* libz.dylib */,
+				658D508815C2896200968D2A /* Cocoa.framework */,
+				658D509E15C2896200968D2A /* SenTestingKit.framework */,
+				658D508A15C2896200968D2A /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1392,6 +1272,63 @@
 			path = reflect;
 			sourceTree = "<group>";
 		};
+		658D508A15C2896200968D2A /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				658D508B15C2896200968D2A /* AppKit.framework */,
+				658D508C15C2896200968D2A /* CoreData.framework */,
+				658D508D15C2896200968D2A /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		658D508E15C2896200968D2A /* Avian */ = {
+			isa = PBXGroup;
+			children = (
+				658D509515C2896200968D2A /* Avian.h */,
+				658D509615C2896200968D2A /* Avian.m */,
+				658D508F15C2896200968D2A /* Supporting Files */,
+			);
+			path = Avian;
+			sourceTree = "<group>";
+		};
+		658D508F15C2896200968D2A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				658D509015C2896200968D2A /* Avian-Info.plist */,
+				658D509115C2896200968D2A /* InfoPlist.strings */,
+				658D509415C2896200968D2A /* Avian-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		658D50A415C2896200968D2A /* AvianTests */ = {
+			isa = PBXGroup;
+			children = (
+				658D50AA15C2896300968D2A /* AvianTests.h */,
+				658D50AB15C2896300968D2A /* AvianTests.m */,
+				658D50A515C2896300968D2A /* Supporting Files */,
+			);
+			path = AvianTests;
+			sourceTree = "<group>";
+		};
+		658D50A515C2896300968D2A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				658D50A615C2896300968D2A /* AvianTests-Info.plist */,
+				658D50A715C2896300968D2A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		658D526A15C28DC500968D2A /* System Headers */ = {
+			isa = PBXGroup;
+			children = (
+				658D526B15C28DEA00968D2A /* jni.h */,
+			);
+			name = "System Headers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1427,6 +1364,21 @@
 				658D47BE15C1434600968D2A /* zlib-custom.h in Headers */,
 				658D47BF15C1434600968D2A /* zone.h in Headers */,
 				658D47CD15C1443900968D2A /* jni-util.h in Headers */,
+				658D526C15C28DEA00968D2A /* jni.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D508415C2896200968D2A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D521F15C28C1600968D2A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1489,6 +1441,65 @@
 			productReference = 658D4CAB15C173B000968D2A /* binaryToObject */;
 			productType = "com.apple.product-type.tool";
 		};
+		658D508615C2896200968D2A /* Avian */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 658D50AD15C2896300968D2A /* Build configuration list for PBXNativeTarget "Avian" */;
+			buildPhases = (
+				658D508215C2896200968D2A /* Sources */,
+				658D508315C2896200968D2A /* Frameworks */,
+				658D508415C2896200968D2A /* Headers */,
+				658D508515C2896200968D2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				658D522C15C28C2D00968D2A /* PBXTargetDependency */,
+			);
+			name = Avian;
+			productName = Avian;
+			productReference = 658D508715C2896200968D2A /* Avian.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		658D509C15C2896200968D2A /* AvianTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 658D50B015C2896300968D2A /* Build configuration list for PBXNativeTarget "AvianTests" */;
+			buildPhases = (
+				658D509815C2896200968D2A /* Sources */,
+				658D509915C2896200968D2A /* Frameworks */,
+				658D509A15C2896200968D2A /* Resources */,
+				658D509B15C2896200968D2A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				658D50A215C2896200968D2A /* PBXTargetDependency */,
+			);
+			name = AvianTests;
+			productName = AvianTests;
+			productReference = 658D509D15C2896200968D2A /* AvianTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		658D522015C28C1600968D2A /* AvianStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 658D522215C28C1600968D2A /* Build configuration list for PBXNativeTarget "AvianStatic" */;
+			buildPhases = (
+				658D527115C2926600968D2A /* ShellScript */,
+				658D527215C292A200968D2A /* ShellScript */,
+				658D521D15C28C1600968D2A /* Sources */,
+				658D521E15C28C1600968D2A /* Frameworks */,
+				658D521F15C28C1600968D2A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				658D526E15C2921200968D2A /* PBXTargetDependency */,
+				658D527015C2921200968D2A /* PBXTargetDependency */,
+			);
+			name = AvianStatic;
+			productName = AvianStatic;
+			productReference = 658D522115C28C1600968D2A /* libAvianStatic.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1513,9 +1524,32 @@
 				658D47D315C145DA00968D2A /* generator */,
 				658D4CAA15C173B000968D2A /* binaryToObject */,
 				658D473F15C11DC800968D2A /* AvianVM */,
+				658D522015C28C1600968D2A /* AvianStatic */,
+				658D508615C2896200968D2A /* Avian */,
+				658D509C15C2896200968D2A /* AvianTests */,
+				658D521315C28A7A00968D2A /* Everything */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		658D508515C2896200968D2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D509315C2896200968D2A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D509A15C2896200968D2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D50A915C2896300968D2A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		658D4C9D15C163DD00968D2A /* ShellScript */ = {
@@ -1563,6 +1597,47 @@
 			shellPath = /bin/sh;
 			shellScript = "jar c0f ${BUILT_PRODUCTS_DIR}/classpath.jar -C ${BUILT_PRODUCTS_DIR}/classpath/ .\n\n${BUILT_PRODUCTS_DIR}/binaryToObject ${BUILT_PRODUCTS_DIR}/classpath.jar ${OBJECT_FILE_DIR}/classpath-jar.o _binary_classpath_jar_start _binary_classpath_jar_end darwin x86_64";
 		};
+		658D509B15C2896200968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		658D527115C2926600968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../src/types.def",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p ${DERIVED_FILES_DIR}/../types\n\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-enums.cpp enums\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-declarations.cpp declarations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-constructors.cpp constructors\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-initializations.cpp initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-java-initializations.cpp java-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-name-initializations.cpp name-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-maps.cpp maps";
+		};
+		658D527215C292A200968D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"${OBJECT_FILE_DIR}/classpath-jar.o",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "jar c0f ${BUILT_PRODUCTS_DIR}/classpath.jar -C ${BUILT_PRODUCTS_DIR}/classpath/ .\n\n${BUILT_PRODUCTS_DIR}/binaryToObject ${BUILT_PRODUCTS_DIR}/classpath.jar ${OBJECT_FILE_DIR}/classpath-jar.o _binary_classpath_jar_start _binary_classpath_jar_end darwin x86_64\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1570,6 +1645,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658D526415C28CEE00968D2A /* java-io.cpp in Sources */,
+				658D526515C28CEE00968D2A /* java-lang.cpp in Sources */,
+				658D526615C28CEE00968D2A /* java-net.cpp in Sources */,
+				658D526715C28CEE00968D2A /* java-nio.cpp in Sources */,
+				658D526815C28CEE00968D2A /* java-util-zip.cpp in Sources */,
+				658D526915C28CEE00968D2A /* java-util.cpp in Sources */,
 				658D4CA315C16EC500968D2A /* x86.cpp in Sources */,
 				658D478715C1434600968D2A /* boot-javahome.cpp in Sources */,
 				658D478815C1434600968D2A /* boot.cpp in Sources */,
@@ -1589,291 +1670,6 @@
 				658D47BA15C1434600968D2A /* util.cpp in Sources */,
 				658D4CCC15C1790E00968D2A /* x86.S in Sources */,
 				658D4CCE15C1796700968D2A /* classpath-avian.cpp in Sources */,
-				658D4E0915C2885B00968D2A /* Addendum.java in Sources */,
-				658D4E0A15C2885B00968D2A /* AnnotationInvocationHandler.java in Sources */,
-				658D4E0B15C2885B00968D2A /* Assembler.java in Sources */,
-				658D4E0C15C2885B00968D2A /* Atomic.java in Sources */,
-				658D4E0D15C2885B00968D2A /* Callback.java in Sources */,
-				658D4E0E15C2885B00968D2A /* CallbackReceiver.java in Sources */,
-				658D4E0F15C2885B00968D2A /* Cell.java in Sources */,
-				658D4E1015C2885B00968D2A /* ClassAddendum.java in Sources */,
-				658D4E1115C2885B00968D2A /* Classes.java in Sources */,
-				658D4E1215C2885B00968D2A /* ConstantPool.java in Sources */,
-				658D4E1315C2885B00968D2A /* Continuations.java in Sources */,
-				658D4E1415C2885B00968D2A /* FieldAddendum.java in Sources */,
-				658D4E1515C2885B00968D2A /* Handler.java in Sources */,
-				658D4E1615C2885B00968D2A /* Handler.java in Sources */,
-				658D4E1715C2885B00968D2A /* IncompatibleContinuationException.java in Sources */,
-				658D4E1815C2885B00968D2A /* Iso88591.java in Sources */,
-				658D4E1915C2885B00968D2A /* Handler.java in Sources */,
-				658D4E1A15C2885B00968D2A /* Machine.java in Sources */,
-				658D4E1B15C2885B00968D2A /* MethodAddendum.java in Sources */,
-				658D4E1C15C2885B00968D2A /* OpenJDK.java in Sources */,
-				658D4E1D15C2885B00968D2A /* PersistentSet.java in Sources */,
-				658D4E1E15C2885B00968D2A /* Handler.java in Sources */,
-				658D4E1F15C2885B00968D2A /* Singleton.java in Sources */,
-				658D4E2015C2885B00968D2A /* Stream.java in Sources */,
-				658D4E2115C2885B00968D2A /* SystemClassLoader.java in Sources */,
-				658D4E2215C2885B00968D2A /* Utf8.java in Sources */,
-				658D4E2315C2885B00968D2A /* VMClass.java in Sources */,
-				658D4E2415C2885B00968D2A /* VMField.java in Sources */,
-				658D4E2515C2885B00968D2A /* VMMethod.java in Sources */,
-				658D4E2615C2885B00968D2A /* BufferedInputStream.java in Sources */,
-				658D4E2715C2885B00968D2A /* BufferedOutputStream.java in Sources */,
-				658D4E2815C2885B00968D2A /* BufferedReader.java in Sources */,
-				658D4E2915C2885B00968D2A /* BufferedWriter.java in Sources */,
-				658D4E2A15C2885B00968D2A /* ByteArrayInputStream.java in Sources */,
-				658D4E2B15C2885B00968D2A /* ByteArrayOutputStream.java in Sources */,
-				658D4E2C15C2885B00968D2A /* EOFException.java in Sources */,
-				658D4E2D15C2885B00968D2A /* Externalizable.java in Sources */,
-				658D4E2E15C2885B00968D2A /* File.java in Sources */,
-				658D4E2F15C2885B00968D2A /* FileDescriptor.java in Sources */,
-				658D4E3015C2885B00968D2A /* FileInputStream.java in Sources */,
-				658D4E3115C2885B00968D2A /* FilenameFilter.java in Sources */,
-				658D4E3215C2885B00968D2A /* FileNotFoundException.java in Sources */,
-				658D4E3315C2885B00968D2A /* FileOutputStream.java in Sources */,
-				658D4E3415C2885B00968D2A /* FileReader.java in Sources */,
-				658D4E3515C2885B00968D2A /* FileWriter.java in Sources */,
-				658D4E3615C2885B00968D2A /* FilterOutputStream.java in Sources */,
-				658D4E3715C2885B00968D2A /* InputStream.java in Sources */,
-				658D4E3815C2885B00968D2A /* InputStreamReader.java in Sources */,
-				658D4E3915C2885B00968D2A /* IOException.java in Sources */,
-				658D4E3A15C2885B00968D2A /* LineNumberReader.java in Sources */,
-				658D4E3B15C2885B00968D2A /* NotSerializableException.java in Sources */,
-				658D4E3C15C2885B00968D2A /* ObjectInput.java in Sources */,
-				658D4E3D15C2885B00968D2A /* ObjectInputStream.java in Sources */,
-				658D4E3E15C2885B00968D2A /* ObjectOutput.java in Sources */,
-				658D4E3F15C2885B00968D2A /* ObjectOutputStream.java in Sources */,
-				658D4E4015C2885B00968D2A /* ObjectStreamException.java in Sources */,
-				658D4E4115C2885B00968D2A /* OutputStream.java in Sources */,
-				658D4E4215C2885B00968D2A /* OutputStreamWriter.java in Sources */,
-				658D4E4315C2885B00968D2A /* PrintStream.java in Sources */,
-				658D4E4415C2885B00968D2A /* PrintWriter.java in Sources */,
-				658D4E4515C2885B00968D2A /* PushbackReader.java in Sources */,
-				658D4E4615C2885B00968D2A /* RandomAccessFile.java in Sources */,
-				658D4E4715C2885B00968D2A /* Reader.java in Sources */,
-				658D4E4815C2885B00968D2A /* Serializable.java in Sources */,
-				658D4E4915C2885B00968D2A /* StreamCorruptedException.java in Sources */,
-				658D4E4A15C2885B00968D2A /* StringReader.java in Sources */,
-				658D4E4B15C2885B00968D2A /* StringWriter.java in Sources */,
-				658D4E4C15C2885B00968D2A /* UnsupportedEncodingException.java in Sources */,
-				658D4E4D15C2885B00968D2A /* Writer.java in Sources */,
-				658D4E4E15C2885B00968D2A /* AbstractMethodError.java in Sources */,
-				658D4E4F15C2885B00968D2A /* Annotation.java in Sources */,
-				658D4E5015C2885C00968D2A /* ElementType.java in Sources */,
-				658D4E5115C2885C00968D2A /* Retention.java in Sources */,
-				658D4E5215C2885C00968D2A /* RetentionPolicy.java in Sources */,
-				658D4E5315C2885C00968D2A /* Target.java in Sources */,
-				658D4E5415C2885C00968D2A /* Appendable.java in Sources */,
-				658D4E5515C2885C00968D2A /* ArithmeticException.java in Sources */,
-				658D4E5615C2885C00968D2A /* ArrayIndexOutOfBoundsException.java in Sources */,
-				658D4E5715C2885C00968D2A /* ArrayStoreException.java in Sources */,
-				658D4E5815C2885C00968D2A /* AssertionError.java in Sources */,
-				658D4E5915C2885C00968D2A /* Boolean.java in Sources */,
-				658D4E5A15C2885C00968D2A /* Byte.java in Sources */,
-				658D4E5B15C2885C00968D2A /* Character.java in Sources */,
-				658D4E5C15C2885C00968D2A /* CharSequence.java in Sources */,
-				658D4E5D15C2885C00968D2A /* Class.java in Sources */,
-				658D4E5E15C2885C00968D2A /* ClassCastException.java in Sources */,
-				658D4E5F15C2885C00968D2A /* ClassLoader.java in Sources */,
-				658D4E6015C2885C00968D2A /* ClassNotFoundException.java in Sources */,
-				658D4E6115C2885C00968D2A /* Cloneable.java in Sources */,
-				658D4E6215C2885C00968D2A /* CloneNotSupportedException.java in Sources */,
-				658D4E6315C2885C00968D2A /* Comparable.java in Sources */,
-				658D4E6415C2885C00968D2A /* Double.java in Sources */,
-				658D4E6515C2885C00968D2A /* Enum.java in Sources */,
-				658D4E6615C2885C00968D2A /* Error.java in Sources */,
-				658D4E6715C2885C00968D2A /* Exception.java in Sources */,
-				658D4E6815C2885C00968D2A /* ExceptionInInitializerError.java in Sources */,
-				658D4E6915C2885C00968D2A /* Float.java in Sources */,
-				658D4E6A15C2885C00968D2A /* IllegalAccessError.java in Sources */,
-				658D4E6B15C2885C00968D2A /* IllegalAccessException.java in Sources */,
-				658D4E6C15C2885C00968D2A /* IllegalArgumentException.java in Sources */,
-				658D4E6D15C2885C00968D2A /* IllegalMonitorStateException.java in Sources */,
-				658D4E6E15C2885C00968D2A /* IllegalStateException.java in Sources */,
-				658D4E6F15C2885C00968D2A /* IllegalThreadStateException.java in Sources */,
-				658D4E7015C2885C00968D2A /* IncompatibleClassChangeError.java in Sources */,
-				658D4E7115C2885C00968D2A /* IndexOutOfBoundsException.java in Sources */,
-				658D4E7215C2885C00968D2A /* InheritableThreadLocal.java in Sources */,
-				658D4E7315C2885C00968D2A /* InstantiationError.java in Sources */,
-				658D4E7415C2885C00968D2A /* InstantiationException.java in Sources */,
-				658D4E7515C2885C00968D2A /* Integer.java in Sources */,
-				658D4E7615C2885C00968D2A /* InterruptedException.java in Sources */,
-				658D4E7715C2885C00968D2A /* Iterable.java in Sources */,
-				658D4E7815C2885C00968D2A /* LinkageError.java in Sources */,
-				658D4E7915C2885C00968D2A /* Long.java in Sources */,
-				658D4E7A15C2885C00968D2A /* Math.java in Sources */,
-				658D4E7B15C2885C00968D2A /* NegativeArraySizeException.java in Sources */,
-				658D4E7C15C2885C00968D2A /* NoClassDefFoundError.java in Sources */,
-				658D4E7D15C2885C00968D2A /* NoSuchFieldError.java in Sources */,
-				658D4E7E15C2885C00968D2A /* NoSuchFieldException.java in Sources */,
-				658D4E7F15C2885C00968D2A /* NoSuchMethodError.java in Sources */,
-				658D4E8015C2885C00968D2A /* NoSuchMethodException.java in Sources */,
-				658D4E8115C2885C00968D2A /* NullPointerException.java in Sources */,
-				658D4E8215C2885C00968D2A /* Number.java in Sources */,
-				658D4E8315C2885C00968D2A /* NumberFormatException.java in Sources */,
-				658D4E8415C2885C00968D2A /* Object.java in Sources */,
-				658D4E8515C2885C00968D2A /* OutOfMemoryError.java in Sources */,
-				658D4E8615C2885C00968D2A /* Override.java in Sources */,
-				658D4E8715C2885C00968D2A /* Package.java in Sources */,
-				658D4E8815C2885C00968D2A /* Process.java in Sources */,
-				658D4E8915C2885C00968D2A /* PhantomReference.java in Sources */,
-				658D4E8A15C2885C00968D2A /* Reference.java in Sources */,
-				658D4E8B15C2885C00968D2A /* ReferenceQueue.java in Sources */,
-				658D4E8C15C2885C00968D2A /* SoftReference.java in Sources */,
-				658D4E8D15C2885C00968D2A /* WeakReference.java in Sources */,
-				658D4E8E15C2885C00968D2A /* AccessibleObject.java in Sources */,
-				658D4E8F15C2885C00968D2A /* AnnotatedElement.java in Sources */,
-				658D4E9015C2885C00968D2A /* Array.java in Sources */,
-				658D4E9115C2885C00968D2A /* Constructor.java in Sources */,
-				658D4E9215C2885C00968D2A /* Field.java in Sources */,
-				658D4E9315C2885C00968D2A /* InvocationHandler.java in Sources */,
-				658D4E9415C2885C00968D2A /* InvocationTargetException.java in Sources */,
-				658D4E9515C2885C00968D2A /* Member.java in Sources */,
-				658D4E9615C2885C00968D2A /* Method.java in Sources */,
-				658D4E9715C2885C00968D2A /* Modifier.java in Sources */,
-				658D4E9815C2885C00968D2A /* Proxy.java in Sources */,
-				658D4E9915C2885C00968D2A /* Type.java in Sources */,
-				658D4E9A15C2885C00968D2A /* ReflectiveOperationException.java in Sources */,
-				658D4E9B15C2885C00968D2A /* Runnable.java in Sources */,
-				658D4E9C15C2885C00968D2A /* Runtime.java in Sources */,
-				658D4E9D15C2885C00968D2A /* RuntimeException.java in Sources */,
-				658D4E9E15C2885C00968D2A /* RuntimePermission.java in Sources */,
-				658D4E9F15C2885C00968D2A /* SecurityException.java in Sources */,
-				658D4EA015C2885C00968D2A /* SecurityManager.java in Sources */,
-				658D4EA115C2885C00968D2A /* Short.java in Sources */,
-				658D4EA215C2885C00968D2A /* StackOverflowError.java in Sources */,
-				658D4EA315C2885C00968D2A /* StackTraceElement.java in Sources */,
-				658D4EA415C2885C00968D2A /* String.java in Sources */,
-				658D4EA515C2885C00968D2A /* StringBuffer.java in Sources */,
-				658D4EA615C2885C00968D2A /* StringBuilder.java in Sources */,
-				658D4EA715C2885C00968D2A /* SuppressWarnings.java in Sources */,
-				658D4EA815C2885C00968D2A /* System.java in Sources */,
-				658D4EA915C2885C00968D2A /* Thread.java in Sources */,
-				658D4EAA15C2885C00968D2A /* ThreadDeath.java in Sources */,
-				658D4EAB15C2885C00968D2A /* ThreadGroup.java in Sources */,
-				658D4EAC15C2885C00968D2A /* ThreadLocal.java in Sources */,
-				658D4EAD15C2885C00968D2A /* Throwable.java in Sources */,
-				658D4EAE15C2885C00968D2A /* UnsatisfiedLinkError.java in Sources */,
-				658D4EAF15C2885C00968D2A /* UnsupportedOperationException.java in Sources */,
-				658D4EB015C2885C00968D2A /* VirtualMachineError.java in Sources */,
-				658D4EB115C2885C00968D2A /* Void.java in Sources */,
-				658D4EB215C2885C00968D2A /* DatagramSocket.java in Sources */,
-				658D4EB315C2885C00968D2A /* InetAddress.java in Sources */,
-				658D4EB415C2885C00968D2A /* InetSocketAddress.java in Sources */,
-				658D4EB515C2885C00968D2A /* JarURLConnection.java in Sources */,
-				658D4EB615C2885C00968D2A /* MalformedURLException.java in Sources */,
-				658D4EB715C2885C00968D2A /* ProtocolFamily.java in Sources */,
-				658D4EB815C2885C00968D2A /* ServerSocket.java in Sources */,
-				658D4EB915C2885C00968D2A /* Socket.java in Sources */,
-				658D4EBA15C2885C00968D2A /* SocketAddress.java in Sources */,
-				658D4EBB15C2885C00968D2A /* SocketException.java in Sources */,
-				658D4EBC15C2885C00968D2A /* StandardProtocolFamily.java in Sources */,
-				658D4EBD15C2885C00968D2A /* UnknownHostException.java in Sources */,
-				658D4EBE15C2885C00968D2A /* UnknownServiceException.java in Sources */,
-				658D4EBF15C2885C00968D2A /* URL.java in Sources */,
-				658D4EC015C2885C00968D2A /* URLConnection.java in Sources */,
-				658D4EC115C2885C00968D2A /* URLStreamHandler.java in Sources */,
-				658D4EC215C2885C00968D2A /* Buffer.java in Sources */,
-				658D4EC315C2885C00968D2A /* ByteBuffer.java in Sources */,
-				658D4EC415C2885C00968D2A /* Channel.java in Sources */,
-				658D4EC515C2885C00968D2A /* Channels.java in Sources */,
-				658D4EC615C2885C00968D2A /* ClosedSelectorException.java in Sources */,
-				658D4EC715C2885C00968D2A /* DatagramChannel.java in Sources */,
-				658D4EC815C2885C00968D2A /* GatheringByteChannel.java in Sources */,
-				658D4EC915C2885C00968D2A /* ReadableByteChannel.java in Sources */,
-				658D4ECA15C2885C00968D2A /* SelectableChannel.java in Sources */,
-				658D4ECB15C2885C00968D2A /* SelectionKey.java in Sources */,
-				658D4ECC15C2885C00968D2A /* Selector.java in Sources */,
-				658D4ECD15C2885C00968D2A /* ServerSocketChannel.java in Sources */,
-				658D4ECE15C2885C00968D2A /* SocketChannel.java in Sources */,
-				658D4ECF15C2885C00968D2A /* SocketSelector.java in Sources */,
-				658D4ED015C2885C00968D2A /* UnsupportedAddressTypeException.java in Sources */,
-				658D4ED115C2885C00968D2A /* WritableByteChannel.java in Sources */,
-				658D4ED215C2885C00968D2A /* ReadOnlyBufferException.java in Sources */,
-				658D4ED315C2885C00968D2A /* AccessControlException.java in Sources */,
-				658D4ED415C2885C00968D2A /* AccessController.java in Sources */,
-				658D4ED515C2885C00968D2A /* AllPermission.java in Sources */,
-				658D4ED615C2885C00968D2A /* BasicPermission.java in Sources */,
-				658D4ED715C2885C00968D2A /* Certificate.java in Sources */,
-				658D4ED815C2885C00968D2A /* CodeSource.java in Sources */,
-				658D4ED915C2885C00968D2A /* Permission.java in Sources */,
-				658D4EDA15C2885C00968D2A /* PermissionCollection.java in Sources */,
-				658D4EDB15C2885C00968D2A /* Permissions.java in Sources */,
-				658D4EDC15C2885C00968D2A /* PrivilegedAction.java in Sources */,
-				658D4EDD15C2885C00968D2A /* ProtectionDomain.java in Sources */,
-				658D4EDE15C2885C00968D2A /* SecurityPermission.java in Sources */,
-				658D4EDF15C2885C00968D2A /* DateFormatSymbols.java in Sources */,
-				658D4EE015C2885C00968D2A /* FieldPosition.java in Sources */,
-				658D4EE115C2885C00968D2A /* Format.java in Sources */,
-				658D4EE215C2885C00968D2A /* MessageFormat.java in Sources */,
-				658D4EE315C2885C00968D2A /* AbstractCollection.java in Sources */,
-				658D4EE415C2885C00968D2A /* AbstractList.java in Sources */,
-				658D4EE515C2885C00968D2A /* AbstractMap.java in Sources */,
-				658D4EE615C2885C00968D2A /* AbstractQueue.java in Sources */,
-				658D4EE715C2885C00968D2A /* AbstractSequentialList.java in Sources */,
-				658D4EE815C2885C00968D2A /* AbstractSet.java in Sources */,
-				658D4EE915C2885C00968D2A /* ArrayList.java in Sources */,
-				658D4EEA15C2885C00968D2A /* Arrays.java in Sources */,
-				658D4EEB15C2885C00968D2A /* BitSet.java in Sources */,
-				658D4EEC15C2885C00968D2A /* Calendar.java in Sources */,
-				658D4EED15C2885C00968D2A /* Collection.java in Sources */,
-				658D4EEE15C2885C00968D2A /* Collections.java in Sources */,
-				658D4EEF15C2885C00968D2A /* Comparator.java in Sources */,
-				658D4EF015C2885C00968D2A /* Callable.java in Sources */,
-				658D4EF115C2885C00968D2A /* ConcurrentLinkedQueue.java in Sources */,
-				658D4EF215C2885C00968D2A /* ConcurrentModificationException.java in Sources */,
-				658D4EF315C2885C00968D2A /* Date.java in Sources */,
-				658D4EF415C2885C00968D2A /* Enumeration.java in Sources */,
-				658D4EF515C2885C00968D2A /* EnumSet.java in Sources */,
-				658D4EF615C2885C00968D2A /* EventListener.java in Sources */,
-				658D4EF715C2885C00968D2A /* EventObject.java in Sources */,
-				658D4EF815C2885C00968D2A /* HashMap.java in Sources */,
-				658D4EF915C2885C00968D2A /* HashSet.java in Sources */,
-				658D4EFA15C2885C00968D2A /* Hashtable.java in Sources */,
-				658D4EFB15C2885C00968D2A /* IdentityHashMap.java in Sources */,
-				658D4EFC15C2885C00968D2A /* Iterator.java in Sources */,
-				658D4EFD15C2885C00968D2A /* JarEntry.java in Sources */,
-				658D4EFE15C2885C00968D2A /* JarFile.java in Sources */,
-				658D4EFF15C2885C00968D2A /* LinkedList.java in Sources */,
-				658D4F0015C2885C00968D2A /* List.java in Sources */,
-				658D4F0115C2885C00968D2A /* ListIterator.java in Sources */,
-				658D4F0215C2885C00968D2A /* Locale.java in Sources */,
-				658D4F0315C2885C00968D2A /* Handler.java in Sources */,
-				658D4F0415C2885C00968D2A /* Level.java in Sources */,
-				658D4F0515C2885C00968D2A /* Logger.java in Sources */,
-				658D4F0615C2885C00968D2A /* LogRecord.java in Sources */,
-				658D4F0715C2885C00968D2A /* Map.java in Sources */,
-				658D4F0815C2885C00968D2A /* MissingResourceException.java in Sources */,
-				658D4F0915C2885C00968D2A /* NoSuchElementException.java in Sources */,
-				658D4F0A15C2885C00968D2A /* Properties.java in Sources */,
-				658D4F0B15C2885C00968D2A /* PropertyResourceBundle.java in Sources */,
-				658D4F0C15C2885C00968D2A /* Queue.java in Sources */,
-				658D4F0D15C2885C00968D2A /* Random.java in Sources */,
-				658D4F0E15C2885C00968D2A /* RandomAccess.java in Sources */,
-				658D4F0F15C2885C00968D2A /* Matcher.java in Sources */,
-				658D4F1015C2885C00968D2A /* Pattern.java in Sources */,
-				658D4F1115C2885C00968D2A /* ResourceBundle.java in Sources */,
-				658D4F1215C2885C00968D2A /* Set.java in Sources */,
-				658D4F1315C2885C00968D2A /* SortedSet.java in Sources */,
-				658D4F1415C2885C00968D2A /* Stack.java in Sources */,
-				658D4F1515C2885C00968D2A /* StringTokenizer.java in Sources */,
-				658D4F1615C2885C00968D2A /* TreeMap.java in Sources */,
-				658D4F1715C2885C00968D2A /* TreeSet.java in Sources */,
-				658D4F1815C2885C00968D2A /* UUID.java in Sources */,
-				658D4F1915C2885C00968D2A /* Vector.java in Sources */,
-				658D4F1A15C2885C00968D2A /* WeakHashMap.java in Sources */,
-				658D4F1B15C2885C00968D2A /* CRC32.java in Sources */,
-				658D4F1C15C2885C00968D2A /* DataFormatException.java in Sources */,
-				658D4F1D15C2885C00968D2A /* Deflater.java in Sources */,
-				658D4F1E15C2885C00968D2A /* DeflaterOutputStream.java in Sources */,
-				658D4F1F15C2885C00968D2A /* Inflater.java in Sources */,
-				658D4F2015C2885C00968D2A /* InflaterInputStream.java in Sources */,
-				658D4F2115C2885C00968D2A /* ZipEntry.java in Sources */,
-				658D4F2215C2885C00968D2A /* ZipFile.java in Sources */,
-				658D4F2315C2885C00968D2A /* Cleaner.java in Sources */,
-				658D4F2415C2885C00968D2A /* Unsafe.java in Sources */,
-				658D4F2515C2885C00968D2A /* ConstantPool.java in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1899,6 +1695,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		658D508215C2896200968D2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D509715C2896200968D2A /* Avian.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D509815C2896200968D2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D50AC15C2896300968D2A /* AvianTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		658D521D15C28C1600968D2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				658D529115C29CEE00968D2A /* boot-javahome.cpp in Sources */,
+				658D528715C29C7500968D2A /* builtin.cpp in Sources */,
+				658D528815C29C7500968D2A /* compile.cpp in Sources */,
+				658D528915C29C7500968D2A /* finder.cpp in Sources */,
+				658D528A15C29C7500968D2A /* heap.cpp in Sources */,
+				658D528B15C29C7500968D2A /* heapdump.cpp in Sources */,
+				658D528C15C29C7500968D2A /* heapwalk.cpp in Sources */,
+				658D528D15C29C7500968D2A /* jnienv.cpp in Sources */,
+				658D528E15C29C7500968D2A /* machine.cpp in Sources */,
+				658D528F15C29C7500968D2A /* process.cpp in Sources */,
+				658D529015C29C7500968D2A /* util.cpp in Sources */,
+				658D528515C29C5400968D2A /* boot.cpp in Sources */,
+				658D528615C29C5400968D2A /* bootimage-fields.cpp in Sources */,
+				658D527D15C29B7A00968D2A /* compile-x86.S in Sources */,
+				658D527E15C29B7A00968D2A /* compiler.cpp in Sources */,
+				658D527315C29B5000968D2A /* x86.cpp in Sources */,
+				658D527415C29B5000968D2A /* x86.S in Sources */,
+				658D527515C29B5000968D2A /* x86.h in Sources */,
+				658D527615C29B5000968D2A /* posix.cpp in Sources */,
+				658D527715C29B5000968D2A /* java-io.cpp in Sources */,
+				658D527815C29B5000968D2A /* java-lang.cpp in Sources */,
+				658D527915C29B5000968D2A /* java-net.cpp in Sources */,
+				658D527A15C29B5000968D2A /* java-nio.cpp in Sources */,
+				658D527B15C29B5000968D2A /* java-util-zip.cpp in Sources */,
+				658D527C15C29B5000968D2A /* java-util.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1912,7 +1756,66 @@
 			target = 658D4CAA15C173B000968D2A /* binaryToObject */;
 			targetProxy = 658D4CC815C173FC00968D2A /* PBXContainerItemProxy */;
 		};
+		658D50A215C2896200968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D508615C2896200968D2A /* Avian */;
+			targetProxy = 658D50A115C2896200968D2A /* PBXContainerItemProxy */;
+		};
+		658D521815C28A8300968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D473F15C11DC800968D2A /* AvianVM */;
+			targetProxy = 658D521715C28A8300968D2A /* PBXContainerItemProxy */;
+		};
+		658D521A15C28A8300968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D508615C2896200968D2A /* Avian */;
+			targetProxy = 658D521915C28A8300968D2A /* PBXContainerItemProxy */;
+		};
+		658D521C15C28A9800968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D509C15C2896200968D2A /* AvianTests */;
+			targetProxy = 658D521B15C28A9800968D2A /* PBXContainerItemProxy */;
+		};
+		658D522A15C28C2600968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D522015C28C1600968D2A /* AvianStatic */;
+			targetProxy = 658D522915C28C2600968D2A /* PBXContainerItemProxy */;
+		};
+		658D522C15C28C2D00968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D522015C28C1600968D2A /* AvianStatic */;
+			targetProxy = 658D522B15C28C2D00968D2A /* PBXContainerItemProxy */;
+		};
+		658D526E15C2921200968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D47D315C145DA00968D2A /* generator */;
+			targetProxy = 658D526D15C2921200968D2A /* PBXContainerItemProxy */;
+		};
+		658D527015C2921200968D2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D4CAA15C173B000968D2A /* binaryToObject */;
+			targetProxy = 658D526F15C2921200968D2A /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		658D509115C2896200968D2A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				658D509215C2896200968D2A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		658D50A715C2896300968D2A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				658D50A815C2896300968D2A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		658D474215C11DC800968D2A /* Debug */ = {
@@ -1946,6 +1849,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1981,6 +1885,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /System/Library/Frameworks/JavaVM.framework/Headers;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -1991,7 +1896,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types/**";
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types";
 				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2002,7 +1907,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types/**";
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types";
 				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2011,6 +1916,7 @@
 		658D47DC15C145DA00968D2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2018,6 +1924,7 @@
 		658D47DD15C145DA00968D2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2032,6 +1939,114 @@
 		658D4CB415C173B000968D2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		658D50AE15C2896300968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Avian/Avian-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Avian/Avian-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		658D50AF15C2896300968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Avian/Avian-Prefix.pch";
+				INFOPLIST_FILE = "Avian/Avian-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		658D50B115C2896300968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Avian/Avian-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AvianTests/AvianTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		658D50B215C2896300968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Avian/Avian-Prefix.pch";
+				INFOPLIST_FILE = "AvianTests/AvianTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		658D521515C28A7A00968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		658D521615C28A7A00968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		658D522315C28C1600968D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					"${DERIVED_FILES_DIR}/../types",
+				);
+				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		658D522415C28C1600968D2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					/System/Library/Frameworks/JavaVM.framework/Headers,
+					"${DERIVED_FILES_DIR}/../types",
+				);
+				OTHER_LDFLAGS = "${OBJECT_FILE_DIR}/classpath-jar.o";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2055,6 +2070,7 @@
 				658D474615C11DC800968D2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		658D47DB15C145DA00968D2A /* Build configuration list for PBXNativeTarget "generator" */ = {
 			isa = XCConfigurationList;
@@ -2063,6 +2079,7 @@
 				658D47DD15C145DA00968D2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		658D4CB215C173B000968D2A /* Build configuration list for PBXNativeTarget "binaryToObject" */ = {
 			isa = XCConfigurationList;
@@ -2071,6 +2088,43 @@
 				658D4CB415C173B000968D2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		658D50AD15C2896300968D2A /* Build configuration list for PBXNativeTarget "Avian" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D50AE15C2896300968D2A /* Debug */,
+				658D50AF15C2896300968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		658D50B015C2896300968D2A /* Build configuration list for PBXNativeTarget "AvianTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D50B115C2896300968D2A /* Debug */,
+				658D50B215C2896300968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		658D521415C28A7A00968D2A /* Build configuration list for PBXAggregateTarget "Everything" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D521515C28A7A00968D2A /* Debug */,
+				658D521615C28A7A00968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		658D522215C28C1600968D2A /* Build configuration list for PBXNativeTarget "AvianStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				658D522315C28C1600968D2A /* Debug */,
+				658D522415C28C1600968D2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
