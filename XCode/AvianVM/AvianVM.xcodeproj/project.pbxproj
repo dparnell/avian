@@ -97,7 +97,6 @@
 		658D526715C28CEE00968D2A /* java-nio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C315C1443900968D2A /* java-nio.cpp */; };
 		658D526815C28CEE00968D2A /* java-util-zip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C415C1443900968D2A /* java-util-zip.cpp */; };
 		658D526915C28CEE00968D2A /* java-util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C515C1443900968D2A /* java-util.cpp */; };
-		658D526C15C28DEA00968D2A /* jni.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D526B15C28DEA00968D2A /* jni.h */; };
 		658D527315C29B5000968D2A /* x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA015C16E8E00968D2A /* x86.cpp */; };
 		658D527415C29B5000968D2A /* x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCB15C1790E00968D2A /* x86.S */; };
 		658D527515C29B5000968D2A /* x86.h in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA115C16E8E00968D2A /* x86.h */; };
@@ -123,6 +122,9 @@
 		658D528F15C29C7500968D2A /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477315C1434600968D2A /* process.cpp */; };
 		658D529015C29C7500968D2A /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477E15C1434600968D2A /* util.cpp */; };
 		658D529115C29CEE00968D2A /* boot-javahome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474B15C1434600968D2A /* boot-javahome.cpp */; };
+		658D529315C3B71F00968D2A /* jni.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D529215C3B71F00968D2A /* jni.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		658D529515C3B7B100968D2A /* libAvianStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D522115C28C1600968D2A /* libAvianStatic.a */; };
+		658D529615C3B7ED00968D2A /* jni_md.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476E15C1434600968D2A /* jni_md.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -589,7 +591,7 @@
 		658D50AA15C2896300968D2A /* AvianTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvianTests.h; sourceTree = "<group>"; };
 		658D50AB15C2896300968D2A /* AvianTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvianTests.m; sourceTree = "<group>"; };
 		658D522115C28C1600968D2A /* libAvianStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAvianStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		658D526B15C28DEA00968D2A /* jni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jni.h; path = /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/jni.h; sourceTree = "<absolute>"; };
+		658D529215C3B71F00968D2A /* jni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jni.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +624,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658D529515C3B7B100968D2A /* libAvianStatic.a in Frameworks */,
 				658D508915C2896200968D2A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -649,7 +652,6 @@
 		658D473515C11DC800968D2A = {
 			isa = PBXGroup;
 			children = (
-				658D526A15C28DC500968D2A /* System Headers */,
 				658D508E15C2896200968D2A /* Avian */,
 				658D50A415C2896200968D2A /* AvianTests */,
 				658D47E515C1467200968D2A /* Frameworks */,
@@ -1285,6 +1287,7 @@
 		658D508E15C2896200968D2A /* Avian */ = {
 			isa = PBXGroup;
 			children = (
+				658D529215C3B71F00968D2A /* jni.h */,
 				658D509515C2896200968D2A /* Avian.h */,
 				658D509615C2896200968D2A /* Avian.m */,
 				658D508F15C2896200968D2A /* Supporting Files */,
@@ -1319,14 +1322,6 @@
 				658D50A715C2896300968D2A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		658D526A15C28DC500968D2A /* System Headers */ = {
-			isa = PBXGroup;
-			children = (
-				658D526B15C28DEA00968D2A /* jni.h */,
-			);
-			name = "System Headers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1364,7 +1359,6 @@
 				658D47BE15C1434600968D2A /* zlib-custom.h in Headers */,
 				658D47BF15C1434600968D2A /* zone.h in Headers */,
 				658D47CD15C1443900968D2A /* jni-util.h in Headers */,
-				658D526C15C28DEA00968D2A /* jni.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1372,6 +1366,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658D529315C3B71F00968D2A /* jni.h in Headers */,
+				658D529615C3B7ED00968D2A /* jni_md.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
