@@ -25,6 +25,31 @@
 
 /* Begin PBXBuildFile section */
 		6549CEBC15C3C66B00077E8D /* classpath-avian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCD15C1796700968D2A /* classpath-avian.cpp */; };
+		6549CF0515C4B5E500077E8D /* Avian.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D509515C2896200968D2A /* Avian.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6549CF0715C4B6B000077E8D /* x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CA015C16E8E00968D2A /* x86.cpp */; };
+		6549CF0815C4B6B000077E8D /* x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCB15C1790E00968D2A /* x86.S */; };
+		6549CF0915C4B6B000077E8D /* posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477215C1434600968D2A /* posix.cpp */; };
+		6549CF0A15C4B6B000077E8D /* java-io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C015C1443900968D2A /* java-io.cpp */; };
+		6549CF0B15C4B6B000077E8D /* java-lang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C115C1443900968D2A /* java-lang.cpp */; };
+		6549CF0C15C4B6B000077E8D /* java-net.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C215C1443900968D2A /* java-net.cpp */; };
+		6549CF0D15C4B6B000077E8D /* java-nio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C315C1443900968D2A /* java-nio.cpp */; };
+		6549CF0E15C4B6B000077E8D /* java-util-zip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C415C1443900968D2A /* java-util-zip.cpp */; };
+		6549CF0F15C4B6B000077E8D /* java-util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D47C515C1443900968D2A /* java-util.cpp */; };
+		6549CF1015C4B6B000077E8D /* boot-javahome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474B15C1434600968D2A /* boot-javahome.cpp */; };
+		6549CF1115C4B6B000077E8D /* bootimage-fields.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474D15C1434600968D2A /* bootimage-fields.cpp */; };
+		6549CF1215C4B6B000077E8D /* builtin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475115C1434600968D2A /* builtin.cpp */; };
+		6549CF1315C4B6B000077E8D /* compile-x86.S in Sources */ = {isa = PBXBuildFile; fileRef = 658D475615C1434600968D2A /* compile-x86.S */; };
+		6549CF1415C4B6B000077E8D /* compile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475715C1434600968D2A /* compile.cpp */; };
+		6549CF1515C4B6B000077E8D /* compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475815C1434600968D2A /* compiler.cpp */; };
+		6549CF1615C4B6B000077E8D /* finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475D15C1434600968D2A /* finder.cpp */; };
+		6549CF1715C4B6B000077E8D /* heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D475F15C1434600968D2A /* heap.cpp */; };
+		6549CF1815C4B6B000077E8D /* jnienv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476515C1434600968D2A /* jnienv.cpp */; };
+		6549CF1915C4B6B000077E8D /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477315C1434600968D2A /* process.cpp */; };
+		6549CF1A15C4B6B000077E8D /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477E15C1434600968D2A /* util.cpp */; };
+		6549CF1B15C4B6CF00077E8D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D47E315C1465100968D2A /* libz.dylib */; };
+		6549CF1C15C4B73600077E8D /* heapwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476215C1434600968D2A /* heapwalk.cpp */; };
+		6549CF1D15C4B74F00077E8D /* classpath-avian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D4CCD15C1796700968D2A /* classpath-avian.cpp */; };
+		6549CF1E15C4B76A00077E8D /* machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D476C15C1434600968D2A /* machine.cpp */; };
 		658D478415C1434600968D2A /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474815C1434600968D2A /* allocator.h */; };
 		658D478515C1434600968D2A /* arch.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474915C1434600968D2A /* arch.h */; };
 		658D478615C1434600968D2A /* assembler.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D474A15C1434600968D2A /* assembler.h */; };
@@ -123,11 +148,17 @@
 		658D529015C29C7500968D2A /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D477E15C1434600968D2A /* util.cpp */; };
 		658D529115C29CEE00968D2A /* boot-javahome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658D474B15C1434600968D2A /* boot-javahome.cpp */; };
 		658D529315C3B71F00968D2A /* jni.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D529215C3B71F00968D2A /* jni.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		658D529515C3B7B100968D2A /* libAvianStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658D522115C28C1600968D2A /* libAvianStatic.a */; };
 		658D529615C3B7ED00968D2A /* jni_md.h in Headers */ = {isa = PBXBuildFile; fileRef = 658D476E15C1434600968D2A /* jni_md.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6549CF0315C4B5CE00077E8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658D473715C11DC800968D2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 658D47D315C145DA00968D2A;
+			remoteInfo = generator;
+		};
 		658D47E615C1469C00968D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 658D473715C11DC800968D2A /* Project object */;
@@ -177,13 +208,6 @@
 			remoteGlobalIDString = 658D522015C28C1600968D2A;
 			remoteInfo = AvianStatic;
 		};
-		658D522B15C28C2D00968D2A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 658D473715C11DC800968D2A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 658D522015C28C1600968D2A;
-			remoteInfo = AvianStatic;
-		};
 		658D526D15C2921200968D2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 658D473715C11DC800968D2A /* Project object */;
@@ -201,15 +225,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		658D47D215C145DA00968D2A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		658D4CA915C173B000968D2A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -624,7 +639,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				658D529515C3B7B100968D2A /* libAvianStatic.a in Frameworks */,
+				6549CF1B15C4B6CF00077E8D /* libz.dylib in Frameworks */,
 				658D508915C2896200968D2A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1368,6 +1383,7 @@
 			files = (
 				658D529315C3B71F00968D2A /* jni.h in Headers */,
 				658D529615C3B7ED00968D2A /* jni_md.h in Headers */,
+				6549CF0515C4B5E500077E8D /* Avian.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1409,7 +1425,6 @@
 				658D4C9D15C163DD00968D2A /* ShellScript */,
 				658D47D015C145DA00968D2A /* Sources */,
 				658D47D115C145DA00968D2A /* Frameworks */,
-				658D47D215C145DA00968D2A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1441,15 +1456,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 658D50AD15C2896300968D2A /* Build configuration list for PBXNativeTarget "Avian" */;
 			buildPhases = (
+				6549CF0615C4B61600077E8D /* ShellScript */,
 				658D508215C2896200968D2A /* Sources */,
 				658D508315C2896200968D2A /* Frameworks */,
 				658D508415C2896200968D2A /* Headers */,
 				658D508515C2896200968D2A /* Resources */,
+				6549CF2315C4B89200077E8D /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				658D522C15C28C2D00968D2A /* PBXTargetDependency */,
+				6549CF0415C4B5CE00077E8D /* PBXTargetDependency */,
 			);
 			name = Avian;
 			productName = Avian;
@@ -1548,6 +1565,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6549CF0615C4B61600077E8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../src/types.def",
+			);
+			outputPaths = (
+				"${DERIVED_FILES_DIR}/../types",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p ${DERIVED_FILES_DIR}/../types\n\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-enums.cpp enums\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-declarations.cpp declarations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-constructors.cpp constructors\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-initializations.cpp initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-java-initializations.cpp java-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-name-initializations.cpp name-initializations\n${BUILT_PRODUCTS_DIR}/generator ${BUILT_PRODUCTS_DIR}/classpath ${SRCROOT}/../../src/types.def ${DERIVED_FILES_DIR}/../types/type-maps.cpp maps\n\ntouch ${DERIVED_FILES_DIR}/../types";
+		};
+		6549CF2315C4B89200077E8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${BUILT_PRODUCTS_DIR}/classpath.jar",
+			);
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Resources/classpath.jar",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${BUILT_PRODUCTS_DIR}/classpath.jar ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Resources/classpath.jar\n";
+		};
 		658D4C9D15C163DD00968D2A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1695,6 +1742,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6549CF1E15C4B76A00077E8D /* machine.cpp in Sources */,
+				6549CF1D15C4B74F00077E8D /* classpath-avian.cpp in Sources */,
+				6549CF1C15C4B73600077E8D /* heapwalk.cpp in Sources */,
+				6549CF0715C4B6B000077E8D /* x86.cpp in Sources */,
+				6549CF0815C4B6B000077E8D /* x86.S in Sources */,
+				6549CF0915C4B6B000077E8D /* posix.cpp in Sources */,
+				6549CF0A15C4B6B000077E8D /* java-io.cpp in Sources */,
+				6549CF0B15C4B6B000077E8D /* java-lang.cpp in Sources */,
+				6549CF0C15C4B6B000077E8D /* java-net.cpp in Sources */,
+				6549CF0D15C4B6B000077E8D /* java-nio.cpp in Sources */,
+				6549CF0E15C4B6B000077E8D /* java-util-zip.cpp in Sources */,
+				6549CF0F15C4B6B000077E8D /* java-util.cpp in Sources */,
+				6549CF1015C4B6B000077E8D /* boot-javahome.cpp in Sources */,
+				6549CF1115C4B6B000077E8D /* bootimage-fields.cpp in Sources */,
+				6549CF1215C4B6B000077E8D /* builtin.cpp in Sources */,
+				6549CF1315C4B6B000077E8D /* compile-x86.S in Sources */,
+				6549CF1415C4B6B000077E8D /* compile.cpp in Sources */,
+				6549CF1515C4B6B000077E8D /* compiler.cpp in Sources */,
+				6549CF1615C4B6B000077E8D /* finder.cpp in Sources */,
+				6549CF1715C4B6B000077E8D /* heap.cpp in Sources */,
+				6549CF1815C4B6B000077E8D /* jnienv.cpp in Sources */,
+				6549CF1915C4B6B000077E8D /* process.cpp in Sources */,
+				6549CF1A15C4B6B000077E8D /* util.cpp in Sources */,
 				658D509715C2896200968D2A /* Avian.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1742,6 +1812,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6549CF0415C4B5CE00077E8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 658D47D315C145DA00968D2A /* generator */;
+			targetProxy = 6549CF0315C4B5CE00077E8D /* PBXContainerItemProxy */;
+		};
 		658D47E715C1469C00968D2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 658D47D315C145DA00968D2A /* generator */;
@@ -1776,11 +1851,6 @@
 			isa = PBXTargetDependency;
 			target = 658D522015C28C1600968D2A /* AvianStatic */;
 			targetProxy = 658D522915C28C2600968D2A /* PBXContainerItemProxy */;
-		};
-		658D522C15C28C2D00968D2A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 658D522015C28C1600968D2A /* AvianStatic */;
-			targetProxy = 658D522B15C28C2D00968D2A /* PBXContainerItemProxy */;
 		};
 		658D526E15C2921200968D2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1952,6 +2022,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types";
 				INFOPLIST_FILE = "Avian/Avian-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -1967,6 +2038,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Avian/Avian-Prefix.pch";
+				HEADER_SEARCH_PATHS = "${DERIVED_FILES_DIR}/../types";
 				INFOPLIST_FILE = "Avian/Avian-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;

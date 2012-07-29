@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "jni.h"
 
 @interface Avian : NSObject
+
++ (JNIEnv*) jniEnv:(NSError**)error;
++ (JNIEnv*) jniEnvWithOptions:(NSArray*)options andError:(NSError**)error;
++ (JavaVM*) vm;
 
 @end
