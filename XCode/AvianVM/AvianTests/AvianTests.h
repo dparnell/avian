@@ -7,7 +7,9 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <Avian/Avian.h>
 
-@interface AvianTests : SenTestCase
-
+@interface AvianTests : SenTestCase {
+    JNIEnv* env;
+}
 @end

@@ -15,6 +15,7 @@
     [super setUp];
     
     // Set-up code here.
+    env = [Avian jniEnvWithOptions: nil andError: nil];
 }
 
 - (void)tearDown
@@ -24,9 +25,11 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testClassLoading
 {
-    STFail(@"Unit tests are not implemented yet in AvianTests");
+    jclass result = (*env)->FindClass(env, "java/lang/Class");
+
+    STAssertTrue(result != NULL, @"Could not load java.lang.Class");
 }
 
 @end

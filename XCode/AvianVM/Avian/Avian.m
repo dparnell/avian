@@ -30,7 +30,7 @@ static JavaVM* vm = nil;
         
         NSBundle* thisBundle = [NSBundle bundleForClass: [self class]];
         NSString* classpathJarPath = [thisBundle pathForResource: @"classpath" ofType: @"jar"];
-        [opts addObject: [NSString stringWithFormat: @"-Xbootclasspath:=%@", classpathJarPath]];
+        [opts addObject: [NSString stringWithFormat: @"-Xbootclasspath:%@", classpathJarPath]];
         
         JavaVMOption* vmOptions = malloc(sizeof(JavaVMOption)*[opts count]);
         int i=0;
@@ -49,8 +49,6 @@ static JavaVM* vm = nil;
         vm_args.options	= vmOptions;
         vm_args.nOptions = (int)[opts count];
         vm_args.ignoreUnrecognized	= JNI_TRUE;
-        
-        JNIEnv *env;
         
         /* start a VM session */
         int result = JNI_CreateJavaVM(&vm, (void**)&env, &vm_args);
