@@ -15,7 +15,11 @@ public class File implements Serializable {
     = System.getProperty("file.separator");
 
   public static final String separator = FileSeparator;
+  public static final char separatorChar;
 
+    static {
+        separatorChar = separator.charAt(0);
+    }
   //   static {
   //     System.loadLibrary("natives");
   //   }

@@ -135,7 +135,7 @@ doClose(JNIEnv* e, jint fd)
 inline int
 doRead(JNIEnv* e, jint fd, jbyte* data, jint length)
 {
-  int r = READ(fd, data, length);
+  int r = (int)READ(fd, data, length);
   if (r > 0) {
     return r;
   } else if (r == 0) {
@@ -149,7 +149,7 @@ doRead(JNIEnv* e, jint fd, jbyte* data, jint length)
 inline void
 doWrite(JNIEnv* e, jint fd, const jbyte* data, jint length)
 {
-  int r = WRITE(fd, data, length);
+  int r = (int)WRITE(fd, data, length);
   if (r != length) {
     throwNewErrno(e, "java/io/IOException");
   }
@@ -337,7 +337,7 @@ Java_java_io_File_toAbsolutePath(JNIEnv* e UNUSED, jclass, jstring path)
     if (chars[0] != '/') {
       char* cwd = getcwd(NULL, 0);
       if (cwd) {
-        unsigned size = strlen(cwd) + strlen(chars) + 2;
+        unsigned size = (unsigned)(strlen(cwd) + strlen(chars) + 2);
         RUNTIME_ARRAY(char, buffer, size);
         snprintf(RUNTIME_ARRAY_BODY(buffer), size, "%s/%s", cwd, chars);
         result = e->NewStringUTF(RUNTIME_ARRAY_BODY(buffer));

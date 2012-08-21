@@ -15,12 +15,28 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 
-public class Properties extends Hashtable {
+public class Properties extends Hashtable implements Cloneable {
   public void load(InputStream in) throws IOException {
     new InputStreamParser(in).parse(this);
   }
   
+  protected Object clone() throws CloneNotSupportedException {
+      Properties result = new Properties();
+      try {
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+      this.store(bos, "Clone");
+      ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+      result.load(new InputStreamReader(bis));
+      } catch(IOException e) {
+          throw new CloneNotSupportedException();
+      }
+      return result;
+  }
+    
   public void load(Reader reader) throws IOException {
     new ReaderParser(reader).parse(this);
   }

@@ -43,7 +43,7 @@ class Zone: public Allocator {
   void dispose() {
     for (Segment* seg = segment, *next; seg; seg = next) {
       next = seg->next;
-      allocator->free(seg, sizeof(Segment) + seg->size);
+      allocator->free(seg, (unsigned)(sizeof(Segment) + seg->size));
     }
 
     segment = 0;
@@ -59,7 +59,7 @@ class Zone: public Allocator {
       unsigned size = padToPage
         (max
          (space, max
-          (minimumFootprint, segment == 0 ? 0 : segment->size * 2))
+          (minimumFootprint, segment == 0 ? 0 : (unsigned int)segment->size * 2))
          + sizeof(Segment));
 
       void* p = allocator->tryAllocate(size);

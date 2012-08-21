@@ -421,7 +421,7 @@ hashMapInsert(Thread* t, object map, object key, object value,
     PROTECT(t, key);
     PROTECT(t, value);
 
-    hashMapResize(t, map, hash, array ? arrayLength(t, array) * 2 : 16);
+    hashMapResize(t, map, hash, array ? (unsigned int)arrayLength(t, array) * 2 : 16);
 
     array = hashMapArray(t, map);
   }

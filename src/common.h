@@ -405,8 +405,7 @@ template <class T>
 inline unsigned
 getBit(T* map, unsigned i)
 {
-  return (map[wordOf<T>(i)] & (static_cast<T>(1) << bitOf<T>(i)))
-    >> bitOf<T>(i);
+  return (unsigned)((map[wordOf<T>(i)] & (static_cast<T>(1) << bitOf<T>(i))) >> bitOf<T>(i));
 }
 
 // todo: the following (clearBits, setBits, and getBits) could be made
@@ -525,7 +524,7 @@ bitsToFloat(uint32_t bits)
 inline int
 difference(void* a, void* b)
 {
-  return reinterpret_cast<intptr_t>(a) - reinterpret_cast<intptr_t>(b);
+  return (int)(reinterpret_cast<intptr_t>(a) - reinterpret_cast<intptr_t>(b));
 }
 
 template <class T>

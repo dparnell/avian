@@ -39,7 +39,7 @@ class Tokenizer {
   Token next() {
     const char* p = s;
     while (*s and *s != delimiter and s != limit) ++s;
-    return Token(p, s - p);
+    return Token(p, (unsigned)(s - p));
   }
 
   const char* s;

@@ -13,7 +13,8 @@ package java.util;
 public class Locale {
   private static final Locale DEFAULT;
   public static final Locale ENGLISH = new Locale("en", "");
-
+  public static final Locale ROOT;
+    
   private final String language;
   private final String country;
   private final String variant;
@@ -21,6 +22,7 @@ public class Locale {
   static {
     DEFAULT = new Locale(System.getProperty("user.language"),
                          System.getProperty("user.region"));
+      ROOT = ENGLISH;
   }
 
   public Locale(String language, String country, String variant) {

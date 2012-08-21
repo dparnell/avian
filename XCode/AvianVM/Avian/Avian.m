@@ -29,7 +29,9 @@ static JavaVM* vm = nil;
         }
         
         NSBundle* thisBundle = [NSBundle bundleForClass: [self class]];
+        NSString* bundlePath = [[thisBundle bundlePath] stringByAppendingPathComponent: [[[thisBundle bundlePath] lastPathComponent] stringByDeletingPathExtension]];
         NSString* classpathJarPath = [thisBundle pathForResource: @"classpath" ofType: @"jar"];
+        [opts addObject: [NSString stringWithFormat: @"-Davian.bootstrap=%@", bundlePath]];
         [opts addObject: [NSString stringWithFormat: @"-Xbootclasspath:%@", classpathJarPath]];
         
         JavaVMOption* vmOptions = malloc(sizeof(JavaVMOption)*[opts count]);
@@ -42,8 +44,7 @@ static JavaVM* vm = nil;
             i++;
         }
         
-        /* JNI_VERSION_1_4 is used on Mac OS X to indicate the 1.4.x and later JVM's */
-        vm_args.version	= JNI_VERSION_1_4;
+        vm_args.version	= JNI_VERSION_1_2;
         JNI_GetDefaultJavaVMInitArgs(&vm_args);
         
         vm_args.options	= vmOptions;

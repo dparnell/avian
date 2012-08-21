@@ -25,10 +25,10 @@ class Allocator {
 inline const char*
 append(Allocator* allocator, const char* a, const char* b, const char* c)
 {
-  unsigned al = strlen(a);
-  unsigned bl = strlen(b);
-  unsigned cl = strlen(c);
-  char* p = static_cast<char*>(allocator->allocate((al + bl + cl) + 1));
+  size_t al = strlen(a);
+  size_t bl = strlen(b);
+  size_t cl = strlen(c);
+  char* p = static_cast<char*>(allocator->allocate((unsigned)(al + bl + cl) + 1));
   memcpy(p, a, al);
   memcpy(p + al, b, bl);
   memcpy(p + al + bl, c, cl + 1);
@@ -38,9 +38,9 @@ append(Allocator* allocator, const char* a, const char* b, const char* c)
 inline const char*
 append(Allocator* allocator, const char* a, const char* b)
 {
-  unsigned al = strlen(a);
-  unsigned bl = strlen(b);
-  char* p = static_cast<char*>(allocator->allocate((al + bl) + 1));
+  size_t al = strlen(a);
+  size_t bl = strlen(b);
+  char* p = static_cast<char*>(allocator->allocate((unsigned)(al + bl) + 1));
   memcpy(p, a, al);
   memcpy(p + al, b, bl + 1);
   return p;
@@ -49,8 +49,8 @@ append(Allocator* allocator, const char* a, const char* b)
 inline const char*
 copy(Allocator* allocator, const char* a)
 {
-  unsigned al = strlen(a);
-  char* p = static_cast<char*>(allocator->allocate(al + 1));
+  size_t al = strlen(a);
+  char* p = static_cast<char*>(allocator->allocate((unsigned)al + 1));
   memcpy(p, a, al + 1);
   return p;
 }
@@ -58,7 +58,7 @@ copy(Allocator* allocator, const char* a)
 } // namespace vm
 
 inline void* operator new (size_t size, vm::Allocator* allocator) {
-  return allocator->allocate(size);
+  return allocator->allocate((unsigned)size);
 }
 
 #endif//ALLOCATOR_H

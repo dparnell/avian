@@ -52,7 +52,7 @@ namespace {
 inline jbyteArray
 charsToArray(JNIEnv* e, const char* s)
 {
-  unsigned length = strlen(s);
+  unsigned length = (unsigned)strlen(s);
   jbyteArray a = e->NewByteArray(length + 1);
   e->SetByteArrayRegion(a, 0, length + 1, reinterpret_cast<const jbyte*>(s));
   return a;
@@ -334,7 +334,7 @@ doRead(int fd, void* buffer, size_t count)
 #ifdef PLATFORM_WINDOWS
   return recv(fd, static_cast<char*>(buffer), count, 0);
 #else
-  return read(fd, buffer, count);
+  return (int)read(fd, buffer, count);
 #endif
 }
 
@@ -343,7 +343,7 @@ doRecv(int fd, void* buffer, size_t count, int32_t* host, int32_t* port)
 {
   sockaddr address;
   socklen_t length = sizeof(address);
-  int r = recvfrom
+  int r = (int)recvfrom
     (fd, static_cast<char*>(buffer), count, 0, &address, &length);
   
   if (r > 0) {
@@ -364,7 +364,7 @@ doWrite(int fd, const void* buffer, size_t count)
 #ifdef PLATFORM_WINDOWS
   return send(fd, static_cast<const char*>(buffer), count, 0);
 #else
-  return write(fd, buffer, count);
+  return (int)write(fd, buffer, count);
 #endif
 }
 

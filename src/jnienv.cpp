@@ -326,7 +326,8 @@ findClass(Thread* t, uintptr_t* arguments)
   replace('.', '/', name, &byteArrayBody(t, n, 0));
 
   object caller = getCaller(t, 0);
-
+    printf("findClass: %s\n", name);
+    
   return reinterpret_cast<uint64_t>
     (makeLocalReference
      (t, getJClass

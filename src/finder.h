@@ -113,10 +113,10 @@ readLine(const uint8_t* base, unsigned total, unsigned* start,
   const uint8_t* end = base + total;
   while (p != end and (*p == '\n' or *p == '\r')) ++ p;
 
-  *start = p - base;
+  *start = (unsigned)(p - base);
   while (p != end and not (*p == '\n' or *p == '\r')) ++ p;
 
-  *length = (p - base) - *start;
+  *length = (unsigned)((p - base) - *start);
 
   return *length != 0;
 }

@@ -692,12 +692,12 @@
 			isa = PBXGroup;
 			children = (
 				658D4CD115C2884600968D2A /* Class Path */,
-				658D4CCD15C1796700968D2A /* classpath-avian.cpp */,
 				658D4CAD15C173B000968D2A /* binaryToObject */,
 				658D47CE15C1451E00968D2A /* Generator */,
 				658D4CA015C16E8E00968D2A /* x86.cpp */,
 				658D4CCB15C1790E00968D2A /* x86.S */,
 				658D4CA115C16E8E00968D2A /* x86.h */,
+				658D4CCD15C1796700968D2A /* classpath-avian.cpp */,
 				658D477215C1434600968D2A /* posix.cpp */,
 				658D47C015C1443900968D2A /* java-io.cpp */,
 				658D47C115C1443900968D2A /* java-lang.cpp */,
@@ -1586,14 +1586,14 @@
 			files = (
 			);
 			inputPaths = (
-				"${BUILT_PRODUCTS_DIR}/classpath.jar",
+				"${BUILT_PRODUCTS_DIR}/classpath",
 			);
 			outputPaths = (
 				"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Resources/classpath.jar",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${BUILT_PRODUCTS_DIR}/classpath.jar ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Resources/classpath.jar\n";
+			shellScript = "jar c0f ${BUILT_PRODUCTS_DIR}/classpath.jar -C ${BUILT_PRODUCTS_DIR}/classpath/ .\ncp ${BUILT_PRODUCTS_DIR}/classpath.jar ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Resources/classpath.jar\n";
 		};
 		658D4C9D15C163DD00968D2A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

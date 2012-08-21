@@ -26,4 +26,8 @@ public class AccessController {
     
   }
 
+  public static Object doPrivileged (PrivilegedExceptionAction action) {
+        return action.run();
+  }
+
 }

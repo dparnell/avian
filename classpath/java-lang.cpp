@@ -146,7 +146,7 @@ class Locale { // represents an ISO two-char language/country pair
 
   bool isLanguage(const char* language) {
     if (!language) return false;
-    unsigned len = strlen(language);
+    size_t len = strlen(language);
     if (len != FIELDLEN) return false;
     const char* p = language - 1;
     while (islower(*++p)) ;
@@ -156,7 +156,7 @@ class Locale { // represents an ISO two-char language/country pair
 
   bool isRegion(const char* region) {
     if (!region) return false;
-    unsigned len = strlen(region);
+    size_t len = strlen(region);
     if (len != FIELDLEN) return false;
     const char* p = region - 1;
     while (isupper(*++p)) ;
@@ -444,7 +444,7 @@ Java_java_lang_Runtime_exec(JNIEnv* e, jclass,
     safeClose(msg[1]);
       
     int val;
-    int r = read(msg[0], &val, sizeof(val));
+    size_t r = read(msg[0], &val, sizeof(val));
     if(r == -1) {
       throwNewErrno(e, "java/io/IOException");
       return;
@@ -471,7 +471,7 @@ Java_java_lang_Runtime_waitFor(JNIEnv*, jclass, jlong pid, jlong)
   int status;
   int exitCode;
   while(!finished){
-    waitpid(pid, &status, 0);
+    waitpid((pid_t)pid, &status, 0);
     if(WIFEXITED(status)){
       finished = true;
       exitCode = WEXITSTATUS(status);
@@ -495,7 +495,7 @@ Locale getLocale() {
   const char* LANG = getenv("LANG");
   if (!LANG || strcmp(LANG, "C") == 0) return fallback;
 
-  int len = strlen(LANG);
+  size_t len = strlen(LANG);
   char buf[len + 1]; // + 1 for the '\0' char
   memcpy(buf, LANG, len + 1);
 
@@ -709,8 +709,8 @@ Java_java_lang_System_doMapLibraryName(JNIEnv* e, jclass, jstring name)
   jstring r = 0;
   const char* chars = e->GetStringUTFChars(name, 0);
   if (chars) {
-    unsigned nameLength = strlen(chars);
-    unsigned size = sizeof(SO_PREFIX) + nameLength + sizeof(SO_SUFFIX);
+    size_t nameLength = strlen(chars);
+    size_t size = sizeof(SO_PREFIX) + nameLength + sizeof(SO_SUFFIX);
     RUNTIME_ARRAY(char, buffer, size);
     snprintf
       (RUNTIME_ARRAY_BODY(buffer), size, SO_PREFIX "%s" SO_SUFFIX, chars);

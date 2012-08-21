@@ -108,9 +108,9 @@ pathOfExecutable(System* s, const char** retBuf, unsigned* size)
   path = CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,
 						    path, CFSTR(""));
   CFIndex pathSize = CFStringGetMaximumSizeOfFileSystemRepresentation(path);
-  char* buffer = reinterpret_cast<char*>(allocate(s, pathSize));
+  char* buffer = reinterpret_cast<char*>(allocate(s, (unsigned)pathSize));
   if (CFStringGetFileSystemRepresentation(path, buffer, pathSize)) {
-    *size = pathSize;
+    *size = (unsigned)pathSize;
     *retBuf = buffer;
   } else {
     abort();
@@ -810,7 +810,7 @@ class MySystem: public System {
     int r = ::stat(name, s);
     if (r == 0) {
       if (S_ISREG(s->st_mode)) {
-        *length = s->st_size;
+        *length = (unsigned)s->st_size;
         return TypeFile;
       } else if (S_ISDIR(s->st_mode)) {
         *length = 0;
@@ -845,7 +845,7 @@ class MySystem: public System {
   virtual Status load(System::Library** lib,
                       const char* name)
   {
-    unsigned nameLength = (name ? strlen(name) : 0);
+    unsigned nameLength = (unsigned)(name ? strlen(name) : 0);
     bool isMain = name == 0;
     if (isMain) {
       pathOfExecutable(this, &name, &nameLength);

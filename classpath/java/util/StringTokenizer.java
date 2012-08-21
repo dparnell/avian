@@ -79,6 +79,7 @@ public class StringTokenizer implements Enumeration {
     for (int i = position; i < in.length(); ++i) {
       if (isDelimiter(in.charAt(i))) {
         if (includeDelimiters) {
+          position = i + 1;
           return in.substring(i, i + 1);
         }
       } else {
