@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -151,11 +151,15 @@ public class Thread implements Runnable {
 
   private static native boolean interrupted(long peer);
 
-  public static boolean isInterrupted() {
-    return currentThread().interrupted;
+  public boolean isInterrupted() {
+    return interrupted;
   }
 
   public static void sleep(long milliseconds) throws InterruptedException {
+    if (milliseconds <= 0) {
+      milliseconds = 1;
+    }
+
     Thread t = currentThread();
     if (t.sleepLock == null) {
       t.sleepLock = new Object();

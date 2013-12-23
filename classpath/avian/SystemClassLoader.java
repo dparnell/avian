@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 public class SystemClassLoader extends ClassLoader {
   private native VMClass findVMClass(String name)
@@ -28,11 +29,37 @@ public class SystemClassLoader extends ClassLoader {
 
   public static native Class getClass(VMClass vmClass);
 
+  public static native VMClass vmClass(Class jClass);
+
   private native VMClass findLoadedVMClass(String name);
 
   protected Class reallyFindLoadedClass(String name){
     VMClass c = findLoadedVMClass(name);
     return c == null ? null : getClass(c);
+  }
+
+  protected Class loadClass(String name, boolean resolve)
+    throws ClassNotFoundException
+  {
+    Class c = findLoadedClass(name);
+    if (c == null) {
+      ClassLoader parent = getParent();
+      if (parent != null) {
+        try {
+          c = parent.loadClass(name);
+        } catch (ClassNotFoundException ok) { }
+      }
+
+      if (c == null) {
+        c = findClass(name);
+      }
+    }
+
+    if (resolve) {
+      resolveClass(c);
+    }
+
+    return c;
   }
 
   private native String resourceURLPrefix(String name);
@@ -80,20 +107,51 @@ public class SystemClassLoader extends ClassLoader {
       }
     }
 
-    URL url = findResource(name);
-    if (url != null) {
-      urls.add(url);
+    Enumeration<URL> urls2 = findResources(name);
+    while (urls2.hasMoreElements()) {
+      urls.add(urls2.nextElement());
     }
 
     return Collections.enumeration(urls);
   }
 
-  protected Enumeration<URL> findResources(String name) {
-    Collection<URL> urls = new ArrayList(1);
-    URL url = findResource(name);
-    if (url != null) {
-      urls.add(url);
+  private class ResourceEnumeration implements Enumeration<URL> {
+    private long[] finderElementPtrPtr;
+    private String name, urlPrefix;
+
+    public ResourceEnumeration(String name) {
+      this.name = name;
+      finderElementPtrPtr = new long[1];
+      urlPrefix = nextResourceURLPrefix();
     }
-    return Collections.enumeration(urls);
+
+    private native String nextResourceURLPrefix(SystemClassLoader loader,
+      String name, long[] finderElementPtrPtr);
+
+    private String nextResourceURLPrefix() {
+      return nextResourceURLPrefix(SystemClassLoader.this, name,
+        finderElementPtrPtr);
+    }
+
+    public boolean hasMoreElements() {
+      return urlPrefix != null;
+    }
+
+    public URL nextElement() {
+      if (urlPrefix == null) throw new NoSuchElementException();
+      URL result;
+      try {
+        result = new URL(urlPrefix + name);
+      } catch (MalformedURLException ignored) {
+        result = null;
+      }
+      if (finderElementPtrPtr[0] == 0l) urlPrefix = null;
+      else urlPrefix = nextResourceURLPrefix();
+      return result;
+    }
+  }
+
+  protected Enumeration<URL> findResources(String name) {
+    return new ResourceEnumeration(name);
   }
 }

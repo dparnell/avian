@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,7 +8,7 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "types.h"
+#include "avian/types.h"
 
 .text
 
@@ -136,9 +136,18 @@ LOCAL(call):
 
 LOCAL(float):
    cmpwi r14,FLOAT_TYPE
-   beq  LOCAL(copy)
+   bne  LOCAL(double)
+   stfs f1,32(r19)
+   lwz  r4,32(r19)
+   b    LOCAL(exit)
+LOCAL(double):
    cmpwi r14,DOUBLE_TYPE
-   beq  LOCAL(copy)
+   bne  LOCAL(int64)
+   stfd f1,32(r19)
+   lwz  r3,32(r19)
+   lwz  r4,36(r19)
+   b    LOCAL(exit)
+LOCAL(int64):   
    cmpwi r14,INT64_TYPE
    beq  LOCAL(exit)
    mr   r4,r3

@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -10,7 +10,9 @@
 
 package java.lang;
 
-public abstract class Number {
+import java.io.Serializable;
+
+public abstract class Number implements Serializable {
   public abstract byte byteValue();
   public abstract short shortValue();
   public abstract int intValue();

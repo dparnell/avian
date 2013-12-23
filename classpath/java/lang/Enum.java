@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -30,7 +30,9 @@ public abstract class Enum<E extends Enum<E>> implements Comparable<E> {
   }
 
   public static <T extends Enum<T>> T valueOf(Class<T> enumType, String name) {
-    if (name == null) throw new NullPointerException();
+    if (name == null) throw new NullPointerException("name");
+    if (!enumType.isEnum())
+      throw new IllegalArgumentException(enumType.getCanonicalName() + " is not an enum.");
 
     try {
       Method method = enumType.getMethod("values");
@@ -41,10 +43,11 @@ public abstract class Enum<E extends Enum<E>> implements Comparable<E> {
         }
       }
     } catch (Exception ex) {
-      throw new RuntimeException(ex);
+      // Cannot happen
+      throw new Error(ex);
     }
 
-    throw new IllegalArgumentException(name);
+    throw new IllegalArgumentException(enumType.getCanonicalName() + "." + name + " is not an enum constant.");
   }
 
   public int ordinal() {

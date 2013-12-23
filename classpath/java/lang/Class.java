@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -15,6 +15,7 @@ import avian.ClassAddendum;
 import avian.AnnotationInvocationHandler;
 import avian.SystemClassLoader;
 import avian.Classes;
+import avian.InnerClassReference;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -37,7 +38,8 @@ import java.security.Permissions;
 import java.security.AllPermission;
 
 public final class Class <T> implements Type, AnnotatedElement {
-  private static final int PrimitiveFlag = 1 << 5;
+  private static final int PrimitiveFlag = 1 <<  5;
+  private static final int EnumFlag      = 1 << 14;
 
   public final VMClass vmClass;
 
@@ -144,38 +146,7 @@ public final class Class <T> implements Type, AnnotatedElement {
                               ClassLoader loader)
     throws ClassNotFoundException
   {
-    if (loader == null) {
-      loader = Class.class.vmClass.loader;
-    }
-    Class c = loader.loadClass(name);
-    Classes.link(c.vmClass, loader);
-    if (initialize) {
-      Classes.initialize(c.vmClass);
-    }
-    return c;
-  }
-
-  public static Class forCanonicalName(String name) {
-    return forCanonicalName(null, name);
-  }
-
-  public static Class forCanonicalName(ClassLoader loader, String name) {
-    try {
-      if (name.startsWith("[")) {
-        return forName(name, true, loader);
-      } else if (name.startsWith("L")) {
-        return forName(name.substring(1, name.length() - 1), true, loader);
-      } else {
-        if (name.length() == 1) {
-          return SystemClassLoader.getClass
-            (Classes.primitiveClass(name.charAt(0)));
-        } else {
-          throw new ClassNotFoundException(name);
-        }
-      }
-    } catch (ClassNotFoundException e) {
-      throw new RuntimeException(e);
-    }
+    return Classes.forName(name, initialize, loader);
   }
 
   public Class getComponentType() {
@@ -210,71 +181,23 @@ public final class Class <T> implements Type, AnnotatedElement {
     return Classes.isAssignableFrom(vmClass, c.vmClass);
   }
 
-  private static Field findField(VMClass vmClass, String name) {
-    if (vmClass.fieldTable != null) {
-      Classes.link(vmClass);
-
-      for (int i = 0; i < vmClass.fieldTable.length; ++i) {
-        if (Field.getName(vmClass.fieldTable[i]).equals(name)) {
-          return new Field(vmClass.fieldTable[i]);
-        }
-      }
-    }
-    return null;
-  }
-
   public Field getDeclaredField(String name) throws NoSuchFieldException {
-    Field f = findField(vmClass, name);
-    if (f == null) {
+    int index = Classes.findField(vmClass, name);
+    if (index < 0) {
       throw new NoSuchFieldException(name);
     } else {
-      return f;
+      return new Field(vmClass.fieldTable[index]);
     }
   }
 
   public Field getField(String name) throws NoSuchFieldException {
     for (VMClass c = vmClass; c != null; c = c.super_) {
-      Field f = findField(c, name);
-      if (f != null) {
-        return f;
+      int index = Classes.findField(c, name);
+      if (index >= 0) {
+        return new Field(vmClass.fieldTable[index]);
       }
     }
     throw new NoSuchFieldException(name);
-  }
-
-  private static boolean match(Class[] a, Class[] b) {
-    if (a.length == b.length) {
-      for (int i = 0; i < a.length; ++i) {
-        if (! a[i].isAssignableFrom(b[i])) {
-          return false;
-        }
-      }
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private static Method findMethod(VMClass vmClass, String name,
-                                   Class[] parameterTypes)
-  {
-    if (vmClass.methodTable != null) {
-      Classes.link(vmClass);
-
-      if (parameterTypes == null) {
-        parameterTypes = new Class[0];
-      }
-
-      for (int i = 0; i < vmClass.methodTable.length; ++i) {
-        if (Method.getName(vmClass.methodTable[i]).equals(name)
-            && match(parameterTypes,
-                     Method.getParameterTypes(vmClass.methodTable[i])))
-        {
-          return new Method(vmClass.methodTable[i]);
-        }
-      }
-    }
-    return null;
   }
 
   public Method getDeclaredMethod(String name, Class ... parameterTypes)
@@ -283,11 +206,11 @@ public final class Class <T> implements Type, AnnotatedElement {
     if (name.startsWith("<")) {
       throw new NoSuchMethodException(name);
     }
-    Method m = findMethod(vmClass, name, parameterTypes);
-    if (m == null) {
+    int index = Classes.findMethod(vmClass, name, parameterTypes);
+    if (index < 0) {
       throw new NoSuchMethodException(name);
     } else {
-      return m;
+      return new Method(vmClass.methodTable[index]);
     }
   }
 
@@ -298,9 +221,9 @@ public final class Class <T> implements Type, AnnotatedElement {
       throw new NoSuchMethodException(name);
     }
     for (VMClass c = vmClass; c != null; c = c.super_) {
-      Method m = findMethod(c, name, parameterTypes);
-      if (m != null) {
-        return m;
+      int index = Classes.findMethod(c, name, parameterTypes);
+      if (index >= 0) {
+        return new Method(vmClass.methodTable[index]);
       }
     }
     throw new NoSuchMethodException(name);
@@ -309,11 +232,11 @@ public final class Class <T> implements Type, AnnotatedElement {
   public Constructor getConstructor(Class ... parameterTypes)
     throws NoSuchMethodException
   {
-    Method m = findMethod(vmClass, "<init>", parameterTypes);
-    if (m == null) {
+    int index = Classes.findMethod(vmClass, "<init>", parameterTypes);
+    if (index < 0) {
       throw new NoSuchMethodException();
     } else {
-      return new Constructor(m);
+      return new Constructor(new Method(vmClass.methodTable[index]));
     }
   }
 
@@ -324,7 +247,7 @@ public final class Class <T> implements Type, AnnotatedElement {
     Constructor[] constructors = getDeclaredConstructors();
 
     for (int i = 0; i < constructors.length; ++i) {
-      if (match(parameterTypes, constructors[i].getParameterTypes())) {
+      if (Classes.match(parameterTypes, constructors[i].getParameterTypes())) {
         c = constructors[i];
       }
     }
@@ -444,54 +367,12 @@ public final class Class <T> implements Type, AnnotatedElement {
     return fields.toArray(new Field[fields.size()]);
   }
 
-  private int countMethods(boolean publicOnly) {
-    int count = 0;
-    if (vmClass.methodTable != null) {
-      for (int i = 0; i < vmClass.methodTable.length; ++i) {
-        if (((! publicOnly)
-             || ((vmClass.methodTable[i].flags & Modifier.PUBLIC))
-             != 0)
-            && (! Method.getName(vmClass.methodTable[i]).startsWith("<")))
-        {
-          ++ count;
-        }
-      }
-    }
-    return count;
-  }
-
   public Method[] getDeclaredMethods() {
-    Method[] array = new Method[countMethods(false)];
-    if (vmClass.methodTable != null) {
-      Classes.link(vmClass);
-
-      int ai = 0;
-      for (int i = 0; i < vmClass.methodTable.length; ++i) {
-        if (! Method.getName(vmClass.methodTable[i]).startsWith("<")) {
-          array[ai++] = new Method(vmClass.methodTable[i]);
-        }
-      }
-    }
-
-    return array;
+    return Classes.getMethods(vmClass, false);
   }
 
   public Method[] getMethods() {
-    Method[] array = new Method[countMethods(true)];
-    if (vmClass.methodTable != null) {
-      Classes.link(vmClass);
-
-      int index = 0;
-      for (int i = 0; i < vmClass.methodTable.length; ++i) {
-        if (((vmClass.methodTable[i].flags & Modifier.PUBLIC) != 0)
-            && (! Method.getName(vmClass.methodTable[i]).startsWith("<")))
-        {
-          array[index++] = new Method(vmClass.methodTable[i]);
-        }
-      }
-    }
-
-    return array;
+    return Classes.getMethods(vmClass, true);
   }
 
   public Class[] getInterfaces() {
@@ -520,6 +401,37 @@ public final class Class <T> implements Type, AnnotatedElement {
     } else {
       return null;
     }
+  }
+
+  public Class[] getDeclaredClasses() {
+    if (vmClass.addendum == null || vmClass.addendum.innerClassTable == null) {
+      return new Class[0];
+    }
+    InnerClassReference[] table = vmClass.addendum.innerClassTable;
+    Class[] result = new Class[table.length];
+    int counter = 0;
+    String prefix = getName().replace('.', '/') + "$";
+    for (int i = 0; i < table.length; ++i) try {
+      byte[] inner = table[i].inner;
+      if (inner != null && inner.length > 1) {
+        String name = new String(inner, 0, inner.length - 1);
+        if (name.startsWith(prefix) && name.indexOf('$', prefix.length()) < 0) {
+          Class innerClass = getClassLoader().loadClass(name);
+          result[counter++] = innerClass;
+        }
+      }
+    } catch (ClassNotFoundException e) {
+      throw new Error(e);
+    }
+    if (counter == result.length) {
+      return result;
+    }
+    if (counter == 0) {
+      return new Class[0];
+    }
+    Class[] result2 = new Class[counter];
+    System.arraycopy(result, 0, result2, 0, counter);
+    return result2;
   }
 
   public ClassLoader getClassLoader() {
@@ -553,6 +465,10 @@ public final class Class <T> implements Type, AnnotatedElement {
 
   public boolean isPrimitive() {
     return (vmClass.vmFlags & PrimitiveFlag) != 0;
+  }
+
+  public boolean isEnum() {
+    return getSuperclass() == Enum.class && (vmClass.flags & EnumFlag) != 0;
   }
 
   public URL getResource(String path) {
@@ -626,7 +542,7 @@ public final class Class <T> implements Type, AnnotatedElement {
     for (VMClass c = vmClass; c != null; c = c.super_) {
       if (c.addendum != null && c.addendum.annotationTable != null) {
         Classes.link(c, c.loader);
-        
+
         Object[] table = (Object[]) c.addendum.annotationTable;
         for (int i = 0; i < table.length; ++i) {
           Object[] a = (Object[]) table[i];
@@ -665,7 +581,7 @@ public final class Class <T> implements Type, AnnotatedElement {
   }
 
   public Annotation[] getAnnotations() {
-    Annotation[] array = new Annotation[countMethods(true)];
+    Annotation[] array = new Annotation[countAnnotations()];
     int i = 0;
     for (VMClass c = vmClass; c != null; c = c.super_) {
       if (c.addendum != null && c.addendum.annotationTable != null) {

@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Short extends Number implements Comparable<Short> {
-  public static final Class TYPE = Class.forCanonicalName("S");
+  public static final Class TYPE = avian.Classes.forCanonicalName("S");
   public static final short MAX_VALUE = 32767;
 
   private final short value;

@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -127,6 +127,11 @@ public final class String
       } else {
         c = Utf8.decode((byte[])data, offset, length);
         if(c instanceof char[]) length = ((char[])c).length;
+        if (c == null) {
+          throw new RuntimeException
+            ("unable to parse \"" + new String(data, offset, length, false)
+             + "\"");
+        }
       }
       
       this.data = c;
@@ -597,6 +602,9 @@ public final class String
   }
 
   public int lastIndexOf(int ch, int lastIndex) {
+    if (lastIndex >= length) {
+      lastIndex = length - 1;
+    }
     for (int i = lastIndex ; i >= 0; --i) {
       if (charAt(i) == ch) {
         return i;

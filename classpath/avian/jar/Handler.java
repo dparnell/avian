@@ -1,4 +1,4 @@
-/* Copyright (c) 2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -42,7 +42,7 @@ public class Handler extends URLStreamHandler {
         ("protocol " + file.getProtocol() + " not yet supported");
     }
 
-    url.set("jar", "", -1, s, null);
+    url.set("jar", null, -1, s, null);
   }
 
   private static class MyJarURLConnection extends JarURLConnection {
@@ -70,7 +70,7 @@ public class Handler extends URLStreamHandler {
     }
 
     public int getContentLength() {
-      return entry.getSize();
+      return (int)entry.getSize();
     }
 
     public InputStream getInputStream() throws IOException {

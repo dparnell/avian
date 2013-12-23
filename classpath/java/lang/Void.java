@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Void {
-  public static final Class TYPE = Class.forCanonicalName("V");
+  public static final Class TYPE = avian.Classes.forCanonicalName("V");
 
   private Void() { }
 }

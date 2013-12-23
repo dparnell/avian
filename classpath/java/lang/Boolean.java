@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Boolean implements Comparable<Boolean> {
-  public static final Class TYPE = Class.forCanonicalName("Z");
+  public static final Class TYPE = avian.Classes.forCanonicalName("Z");
 
   public static final Boolean FALSE = new Boolean(false);
   public static final Boolean TRUE = new Boolean(true);
@@ -57,5 +57,13 @@ public final class Boolean implements Comparable<Boolean> {
 
   public boolean booleanValue() {
     return value;
+  }
+
+  public static boolean getBoolean(String name) {
+    return parseBoolean(System.getProperty(name));
+  }
+
+  public static boolean parseBoolean(String string) {
+    return string != null && string.equalsIgnoreCase("true");
   }
 }

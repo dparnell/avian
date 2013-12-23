@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Byte extends Number implements Comparable<Byte> {
-  public static final Class TYPE = Class.forCanonicalName("B");
+  public static final Class TYPE = avian.Classes.forCanonicalName("B");
 
   private final byte value;
 

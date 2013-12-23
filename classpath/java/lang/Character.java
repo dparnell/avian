@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -14,7 +14,7 @@ public final class Character implements Comparable<Character> {
   public static final int MIN_RADIX = 2;
   public static final int MAX_RADIX = 36;
 
-  public static final Class TYPE = Class.forCanonicalName("C");
+  public static final Class TYPE = avian.Classes.forCanonicalName("C");
 
   private final char value;
 
@@ -168,6 +168,10 @@ public final class Character implements Comparable<Character> {
 
   public static boolean isLowSurrogate(char ch) {
     return ch >= '\uDC00' && ch <= '\uDFFF';
+  }
+
+  public static boolean isISOControl(char ch) {
+   return ch <= '\u001F' || (ch >= '\u007F' && ch <= '\u009F');
   }
 
   public static int toCodePoint(char high, char low) {

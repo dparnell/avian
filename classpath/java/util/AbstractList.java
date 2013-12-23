@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -18,6 +18,27 @@ public abstract class AbstractList<T> extends AbstractCollection<T>
   public boolean add(T o) {
     add(size(), o);
     return true;
+  }
+
+  public boolean addAll(Collection<? extends T> c) {
+    return addAll(size(), c);
+  }
+
+  public boolean addAll(int startIndex, Collection<? extends T> c) {
+    if (c == null) {
+      throw new NullPointerException("Collection is null");
+    }
+
+    int index = startIndex;
+    boolean changed = false;
+
+    Iterator<? extends T> it = c.iterator();
+    while (it.hasNext()) {
+      add(index++, it.next());
+      changed = true;
+    }
+
+    return changed;
   }
 
   public Iterator<T> iterator() {

@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -20,6 +20,8 @@
 
 #ifdef PLATFORM_WINDOWS
 
+#  define UNICODE
+
 #  include <windows.h>
 #  include <io.h>
 #  include <direct.h>
@@ -33,7 +35,7 @@
 #  define STRUCT_STAT struct _stat
 #  define MKDIR(path, mode) _wmkdir(path)
 #  define CHMOD(path, mode) _wchmod(path, mode)
-#  define UNLINK _wunlink
+#  define REMOVE _wremove
 #  define RENAME _wrename
 #  define OPEN_MASK O_BINARY
 
@@ -55,6 +57,15 @@
 
 typedef wchar_t char_t;
 
+#if defined(WINAPI_FAMILY)
+#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+
+#include "avian-interop.h"
+#define SKIP_OPERATOR_NEW
+
+#endif
+#endif
+
 #else // not PLATFORM_WINDOWS
 
 #  include <dirent.h>
@@ -70,7 +81,7 @@ typedef wchar_t char_t;
 #  define STRUCT_STAT struct stat
 #  define MKDIR mkdir
 #  define CHMOD chmod
-#  define UNLINK unlink
+#  define REMOVE remove
 #  define RENAME rename
 #  define OPEN_MASK 0
 
@@ -83,7 +94,19 @@ typedef char char_t;
 
 #endif // not PLATFORM_WINDOWS
 
+#ifndef WINAPI_FAMILY
+#  ifndef WINAPI_PARTITION_DESKTOP
+#    define WINAPI_PARTITION_DESKTOP 1
+#  endif
+
+#  ifndef WINAPI_FAMILY_PARTITION
+#    define WINAPI_FAMILY_PARTITION(x) (x)
+#  endif
+#endif // WINAPI_FAMILY
+
+#if !defined(SKIP_OPERATOR_NEW)
 inline void* operator new(size_t, void* p) throw() { return p; }
+#endif
 
 typedef const char_t* string_t;
 
@@ -105,8 +128,12 @@ OPEN(string_t path, int mask, int mode)
 inline bool
 exists(string_t path)
 {
+#ifdef PLATFORM_WINDOWS
+  return GetFileAttributes(path) != INVALID_FILE_ATTRIBUTES;
+#else
   STRUCT_STAT s;
   return STAT(path, &s) == 0;
+#endif
 }
 
 inline int
@@ -155,68 +182,8 @@ doWrite(JNIEnv* e, jint fd, const jbyte* data, jint length)
   }
 }
 
+
 #ifdef PLATFORM_WINDOWS
-
-class Mapping {
- public:
-  Mapping(uint8_t* start, size_t length, HANDLE mapping, HANDLE file):
-    start(start),
-    length(length),
-    mapping(mapping),
-    file(file)
-  { }
-
-  uint8_t* start;
-  size_t length;
-  HANDLE mapping;
-  HANDLE file;
-};
-
-inline Mapping*
-map(JNIEnv* e, string_t path)
-{
-  Mapping* result = 0;
-  HANDLE file = CreateFileW(path, FILE_READ_DATA,
-                            FILE_SHARE_READ | FILE_SHARE_WRITE, 0,
-                            OPEN_EXISTING, 0, 0);
-  if (file != INVALID_HANDLE_VALUE) {
-    unsigned size = GetFileSize(file, 0);
-    if (size != INVALID_FILE_SIZE) {
-      HANDLE mapping = CreateFileMapping(file, 0, PAGE_READONLY, 0, size, 0);
-      if (mapping) {
-        void* data = MapViewOfFile(mapping, FILE_MAP_READ, 0, 0, 0);
-        if (data) {
-          void* p = allocate(e, sizeof(Mapping));
-          if (not e->ExceptionCheck()) {
-            result = new (p)
-              Mapping(static_cast<uint8_t*>(data), size, file, mapping);
-          }   
-        }
-
-        if (result == 0) {
-          CloseHandle(mapping);
-        }
-      }
-    }
-
-    if (result == 0) {
-      CloseHandle(file);
-    }
-  }
-  if (result == 0 and not e->ExceptionCheck()) {
-    throwNew(e, "java/io/IOException", "%d", GetLastError());
-  }
-  return result;
-}
-
-inline void
-unmap(JNIEnv*, Mapping* mapping)
-{
-  UnmapViewOfFile(mapping->start);
-  CloseHandle(mapping->mapping);
-  CloseHandle(mapping->file);
-  free(mapping);
-}
 
 class Directory {
  public:
@@ -250,58 +217,16 @@ class Directory {
 
 #else // not PLATFORM_WINDOWS
 
-class Mapping {
- public:
-  Mapping(uint8_t* start, size_t length):
-    start(start),
-    length(length)
-  { }
-
-  uint8_t* start;
-  size_t length;
-};
-
-inline Mapping*
-map(JNIEnv* e, string_t path)
-{
-  Mapping* result = 0;
-  int fd = open(path, O_RDONLY);
-  if (fd != -1) {
-    struct stat s;
-    int r = fstat(fd, &s);
-    if (r != -1) {
-      void* data = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-      if (data) {
-        void* p = allocate(e, sizeof(Mapping));
-        if (not e->ExceptionCheck()) {
-          result = new (p) Mapping(static_cast<uint8_t*>(data), s.st_size);
-        }
-      }
-    }
-    close(fd);
-  }
-  if (result == 0 and not e->ExceptionCheck()) {
-    throwNewErrno(e, "java/io/IOException");
-  }
-  return result;
-}
-
-inline void
-unmap(JNIEnv*, Mapping* mapping)
-{
-  munmap(mapping->start, mapping->length);
-  free(mapping);
-}
-
 #endif // not PLATFORM_WINDOWS
+
 
 } // namespace
 
-inline string_t getChars(JNIEnv* e, jstring path) {
+static inline string_t getChars(JNIEnv* e, jstring path) {
   return reinterpret_cast<string_t>(e->GET_CHARS(path, 0));
 }
 
-inline void releaseChars(JNIEnv* e, jstring path, string_t chars) {
+static inline void releaseChars(JNIEnv* e, jstring path, string_t chars) {
   e->RELEASE_CHARS(path, chars);
 }
 
@@ -316,6 +241,7 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_java_io_File_toAbsolutePath(JNIEnv* e UNUSED, jclass, jstring path)
 {
 #ifdef PLATFORM_WINDOWS
+# if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
   string_t chars = getChars(e, path);
   if (chars) {
     const unsigned BufferSize = MAX_PATH;
@@ -330,6 +256,19 @@ Java_java_io_File_toAbsolutePath(JNIEnv* e UNUSED, jclass, jstring path)
   }
 
   return path;
+# else
+  string_t chars = getChars(e, path);
+  if(chars) {
+    std::wstring partialPath = chars;
+    releaseChars(e, path, chars);
+
+    std::wstring fullPath = AvianInterop::GetFullPath(partialPath);
+
+    return e->NewString
+      (reinterpret_cast<const jchar*>(fullPath.c_str()), fullPath.length());
+  }
+  return path;
+# endif
 #else
   jstring result = path;
   string_t chars = getChars(e, path);
@@ -353,20 +292,41 @@ Java_java_io_File_toAbsolutePath(JNIEnv* e UNUSED, jclass, jstring path)
 extern "C" JNIEXPORT jlong JNICALL
 Java_java_io_File_length(JNIEnv* e, jclass, jstring path)
 {
-
   #ifdef PLATFORM_WINDOWS
-
-    LARGE_INTEGER fileSize;
+    // Option: without opening file
+    // http://msdn.microsoft.com/en-us/library/windows/desktop/aa364946(v=vs.85).aspx
     string_t chars = getChars(e, path);
-    HANDLE file = CreateFileW
-      (chars, FILE_READ_DATA, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
-    releaseChars(e, path, chars);
-    if (file != INVALID_HANDLE_VALUE)
-      GetFileSizeEx(file, &fileSize);
-    else return 0;
-    CloseHandle(file);
-    return static_cast<jlong>(fileSize.QuadPart);
+    if(chars) {
+      LARGE_INTEGER fileSize;
+      #if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+      HANDLE file = CreateFileW
+        (chars, FILE_READ_DATA, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+      #else
+      HANDLE file = CreateFile2
+        (chars, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr);
+      #endif
+      releaseChars(e, path, chars);
+      if (file == INVALID_HANDLE_VALUE)
+        return 0;
+      #if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+      if(!GetFileSizeEx(file, &fileSize))
+      {
+        CloseHandle(file);
+        return 0;
+      }
+      #else
+      FILE_STANDARD_INFO info;
+      if(!GetFileInformationByHandleEx(file,  FileStandardInfo, &info, sizeof(info)))
+      {
+        CloseHandle(file);
+        return 0;
+      }
+      fileSize = info.EndOfFile;
+      #endif
 
+      CloseHandle(file);
+      return static_cast<jlong>(fileSize.QuadPart);
+    }
   #else
 
     string_t chars = getChars(e, path);
@@ -390,7 +350,7 @@ Java_java_io_File_mkdir(JNIEnv* e, jclass, jstring path)
   string_t chars = getChars(e, path);
   if (chars) {
     if (not exists(chars)) {
-      int r = ::MKDIR(chars, 0700);
+      int r = ::MKDIR(chars, 0777);
       if (r != 0) {
         throwNewErrno(e, "java/io/IOException");
       }
@@ -406,7 +366,7 @@ Java_java_io_File_createNewFile(JNIEnv* e, jclass, jstring path)
   string_t chars = getChars(e, path);
   if (chars) {
     if (not exists(chars)) {
-      int fd = OPEN(chars, O_CREAT | O_WRONLY | O_EXCL, 0600);
+      int fd = OPEN(chars, O_CREAT | O_WRONLY | O_EXCL, 0666);
       if (fd == -1) {
         if (errno != EEXIST) {
           throwNewErrno(e, "java/io/IOException");
@@ -426,7 +386,7 @@ Java_java_io_File_delete(JNIEnv* e, jclass, jstring path)
 {
   string_t chars = getChars(e, path);
   if (chars) {
-    int r = UNLINK(chars);
+    int r = REMOVE(chars);
     if (r != 0) {
       throwNewErrno(e, "java/io/IOException");
     }
@@ -581,6 +541,68 @@ Java_java_io_File_exists(JNIEnv* e, jclass, jstring path)
   }
 }
 
+extern "C" JNIEXPORT jlong JNICALL
+Java_java_io_File_lastModified(JNIEnv* e, jclass, jstring path)
+{
+  string_t chars = getChars(e, path);
+  if (chars) {
+#ifdef PLATFORM_WINDOWS
+      // Option: without opening file
+      // http://msdn.microsoft.com/en-us/library/windows/desktop/aa364946(v=vs.85).aspx
+#  if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+      HANDLE hFile = CreateFileW
+        (chars, FILE_READ_DATA, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+#  else
+      HANDLE hFile = CreateFile2
+        (chars, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr);
+#  endif
+      releaseChars(e, path, chars);
+      if (hFile == INVALID_HANDLE_VALUE)
+        return 0;
+      LARGE_INTEGER fileDate, filetimeToUnixEpochAdjustment;
+      filetimeToUnixEpochAdjustment.QuadPart = 11644473600000L * 10000L;
+#  if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+      FILETIME fileLastWriteTime;
+      if (!GetFileTime(hFile, 0, 0, &fileLastWriteTime))
+      {
+        CloseHandle(hFile);
+        return 0;
+      }
+      fileDate.HighPart = fileLastWriteTime.dwHighDateTime;
+      fileDate.LowPart = fileLastWriteTime.dwLowDateTime;
+#  else
+      FILE_BASIC_INFO fileInfo;
+      if (!GetFileInformationByHandleEx(hFile,  FileBasicInfo, &fileInfo, sizeof(fileInfo)))
+      {
+        CloseHandle(hFile);
+        return 0;
+      }
+      fileDate = fileInfo.ChangeTime;
+#  endif
+      CloseHandle(hFile);
+      fileDate.QuadPart -= filetimeToUnixEpochAdjustment.QuadPart;
+      return fileDate.QuadPart / 10000000L;
+#else
+      struct stat fileStat;
+      int res = stat(chars, &fileStat);
+      releaseChars(e, path, chars);
+
+      if (res == -1) {
+        return 0;
+      }
+#  ifdef __APPLE__
+      #define MTIME st_mtimespec
+#  else
+      #define MTIME st_mtim
+#  endif
+      return (static_cast<jlong>(fileStat.MTIME.tv_sec) * 1000) +
+        (static_cast<jlong>(fileStat.MTIME.tv_nsec) / (1000*1000));
+#endif
+  }
+
+  return 0;
+}
+
 #ifdef PLATFORM_WINDOWS
 
 extern "C" JNIEXPORT jlong JNICALL
@@ -598,7 +620,11 @@ Java_java_io_File_openDir(JNIEnv* e, jclass, jstring path)
     releaseChars(e, path, chars);
 
     Directory* d = new (malloc(sizeof(Directory))) Directory;
+    #if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
     d->handle = FindFirstFileW(RUNTIME_ARRAY_BODY(buffer), &(d->data));
+    #else
+    d->handle = FindFirstFileExW(RUNTIME_ARRAY_BODY(buffer), FindExInfoStandard, &(d->data), FindExSearchNameMatch, NULL, 0);
+    #endif
     if (d->handle == INVALID_HANDLE_VALUE) {
       d->dispose();
       d = 0;
@@ -759,13 +785,13 @@ Java_java_io_FileOutputStream_write__I_3BII
 (JNIEnv* e, jclass, jint fd, jbyteArray b, jint offset, jint length)
 {
   jbyte* data = static_cast<jbyte*>(malloc(length));
+
   if (data == 0) {
     throwNew(e, "java/lang/OutOfMemoryError", 0);
     return;    
   }
 
   e->GetByteArrayRegion(b, offset, length, data);
-
   if (not e->ExceptionCheck()) {
     doWrite(e, fd, data, length);
   }
@@ -781,39 +807,156 @@ Java_java_io_FileOutputStream_close(JNIEnv* e, jclass, jint fd)
 
 extern "C" JNIEXPORT void JNICALL
 Java_java_io_RandomAccessFile_open(JNIEnv* e, jclass, jstring path,
-                                   jlongArray result)
+                                   jboolean allowWrite, jlongArray result)
 {
   string_t chars = getChars(e, path);
   if (chars) {
-    Mapping* mapping = map(e, chars);
-
-    jlong peer = reinterpret_cast<jlong>(mapping);
-    e->SetLongArrayRegion(result, 0, 1, &peer);
-
-    jlong length = (mapping ? mapping->length : 0);
-    e->SetLongArrayRegion(result, 1, 1, &length);
-
+    jlong peer = 0;
+    jlong length = 0;
+    int flags = (allowWrite ? O_RDWR | O_CREAT : O_RDONLY) | OPEN_MASK;
+    #if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+    #if defined(PLATFORM_WINDOWS)
+    int fd = ::_wopen(chars, flags);
+    #else
+    int fd = ::open((const char*)chars, flags, 0666);
+    #endif
     releaseChars(e, path, chars);
+    if (fd == -1) {
+      throwNewErrno(e, "java/io/IOException");
+      return;
+    }
+    struct ::stat fileStats;
+    if(::fstat(fd, &fileStats) == -1) {
+      ::close(fd);
+      throwNewErrno(e, "java/io/IOException");
+      return;
+    }
+    peer = fd;
+    length = fileStats.st_size;
+    #else
+    HANDLE hFile = CreateFile2
+      (chars, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr);
+    if (hFile == INVALID_HANDLE_VALUE) {
+      throwNewErrno(e, "java/io/IOException");
+      return;
+    }
+
+    FILE_STANDARD_INFO info;
+    if(!GetFileInformationByHandleEx(hFile,  FileStandardInfo, &info, sizeof(info))) {
+      CloseHandle(hFile);
+      throwNewErrno(e, "java/io/IOException");
+      return;
+    }
+
+    peer = (jlong)hFile;
+    length = info.EndOfFile.QuadPart;
+    #endif
+
+    e->SetLongArrayRegion(result, 0, 1, &peer);
+    e->SetLongArrayRegion(result, 1, 1, &length);
   }
 }
 
-extern "C" JNIEXPORT void JNICALL
-Java_java_io_RandomAccessFile_copy(JNIEnv* e, jclass, jlong peer,
+extern "C" JNIEXPORT jint JNICALL
+Java_java_io_RandomAccessFile_readBytes(JNIEnv* e, jclass, jlong peer,
                                    jlong position, jbyteArray buffer,
                                    int offset, int length)
 {
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+  int fd = (int)peer;
+  if(::lseek(fd, position, SEEK_SET) == -1) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+  
   uint8_t* dst = reinterpret_cast<uint8_t*>
     (e->GetPrimitiveArrayCritical(buffer, 0));
 
-  memcpy(dst + offset,
-         reinterpret_cast<Mapping*>(peer)->start + position,
-         length);
-
+  int64_t bytesRead = ::read(fd, dst + offset, length);
   e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+  
+  if(bytesRead == -1) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+#else
+  HANDLE hFile = (HANDLE)peer;
+  LARGE_INTEGER lPos;
+  lPos.QuadPart = position;
+  if(!SetFilePointerEx(hFile, lPos, nullptr, FILE_BEGIN)) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+
+  uint8_t* dst = reinterpret_cast<uint8_t*>
+    (e->GetPrimitiveArrayCritical(buffer, 0));
+
+  DWORD bytesRead = 0;
+  if(!ReadFile(hFile, dst + offset, length, &bytesRead, nullptr)) {
+    e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+  e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+#endif
+
+  return (jint)bytesRead;
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_java_io_RandomAccessFile_writeBytes(JNIEnv* e, jclass, jlong peer,
+                                   jlong position, jbyteArray buffer,
+                                   int offset, int length)
+{
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+  int fd = (int)peer;
+  if(::lseek(fd, position, SEEK_SET) == -1) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+
+  uint8_t* dst = reinterpret_cast<uint8_t*>
+    (e->GetPrimitiveArrayCritical(buffer, 0));
+
+  int64_t bytesWritten = ::write(fd, dst + offset, length);
+  e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+
+  if(bytesWritten == -1) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+#else
+  HANDLE hFile = (HANDLE)peer;
+  LARGE_INTEGER lPos;
+  lPos.QuadPart = position;
+  if(!SetFilePointerEx(hFile, lPos, nullptr, FILE_BEGIN)) {
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+
+  uint8_t* dst = reinterpret_cast<uint8_t*>
+    (e->GetPrimitiveArrayCritical(buffer, 0));
+
+  DWORD bytesWritten = 0;
+  if(!WriteFile(hFile, dst + offset, length, &bytesWritten, nullptr)) {
+    e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+    throwNewErrno(e, "java/io/IOException");
+    return -1;
+  }
+  e->ReleasePrimitiveArrayCritical(buffer, dst, 0);
+#endif
+
+  return (jint)bytesWritten;
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_java_io_RandomAccessFile_close(JNIEnv* e, jclass, jlong peer)
+Java_java_io_RandomAccessFile_close(JNIEnv* /* e*/, jclass, jlong peer)
 {
-  unmap(e, reinterpret_cast<Mapping*>(peer));
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+  int fd = (int)peer;
+  ::close(fd);
+#else
+  HANDLE hFile = (HANDLE)peer;
+  CloseHandle(hFile);
+#endif
 }

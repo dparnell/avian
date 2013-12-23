@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -10,7 +10,7 @@
 
 package java.io;
 
-public abstract class InputStream {
+public abstract class InputStream implements Closeable {
   public abstract int read() throws IOException;
 
   public int read(byte[] buffer) throws IOException {

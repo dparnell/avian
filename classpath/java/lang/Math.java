@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -75,6 +75,14 @@ public final class Math {
     return (int) Math.floor(v + 0.5);
   }
 
+  public static double signum(double d) {
+    return d > 0 ? +1.0 : d < 0 ? -1.0 : 0;
+  }
+
+  public static float signum(float f) {
+    return f > 0 ? +1.0f : f < 0 ? -1.0f : 0;
+  }
+
   public static double random() {
     return random.nextDouble();
   }
@@ -92,6 +100,12 @@ public final class Math {
   public static native double sin(double v);
 
   public static native double tan(double v);
+
+  public static native double cosh(double v);
+
+  public static native double sinh(double v);
+
+  public static native double tanh(double v);
 
   public static native double acos(double v);
 

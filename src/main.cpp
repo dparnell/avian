@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -13,8 +13,10 @@
 #include "string.h"
 #include "jni.h"
 
-#include "system.h"
-#include "finder.h"
+#include <avian/vm/system/system.h>
+#include "avian/finder.h"
+
+#include <avian/util/runtime-array.h>
 
 #if (defined __MINGW32__) || (defined _MSC_VER)
 #  define PATH_SEPARATOR ';'
@@ -28,28 +30,6 @@
 #  define or ||
 #  define and &&
 #  define xor ^
-
-template <class T>
-class RuntimeArray {
- public:
-  RuntimeArray(unsigned size):
-    body(static_cast<T*>(malloc(size * sizeof(T))))
-  { }
-
-  ~RuntimeArray() {
-    free(body);
-  }
-
-  T* body;
-};
-
-#  define RUNTIME_ARRAY(type, name, size) RuntimeArray<type> name(size);
-#  define RUNTIME_ARRAY_BODY(name) name.body
-
-#else // not _MSC_VER
-
-#  define RUNTIME_ARRAY(type, name, size) type name[size];
-#  define RUNTIME_ARRAY_BODY(name) name
 
 #endif // not _MSC_VER
 
@@ -114,8 +94,8 @@ mainClass(const char* jar)
     unsigned length;
     while (readLine(region->start(), region->length(), &start, &length)) {
       const unsigned PrefixLength = 12;
-      if (strncmp("Main-Class: ", reinterpret_cast<const char*>
-                  (region->start() + start), PrefixLength) == 0)
+      if (strncasecmp("Main-Class: ", reinterpret_cast<const char*>
+                      (region->start() + start), PrefixLength) == 0)
       {
         result = static_cast<char*>(malloc(length + 1 - PrefixLength));
         memcpy(result, region->start() + start + PrefixLength,
@@ -175,9 +155,11 @@ main(int ac, const char** av)
     if (strcmp(av[i], "-cp") == 0
         or strcmp(av[i], "-classpath") == 0)
     {
+      if (i + 1 == ac) usageAndExit(av[0]);
       classpath = av[++i];
     } else if (strcmp(av[i], "-jar") == 0)
     {
+      if (i + 1 == ac) usageAndExit(av[0]);
       jar = av[++i];
     } else if (strncmp(av[i], "-X", 2) == 0
                or strncmp(av[i], "-D", 2) == 0)
@@ -288,7 +270,10 @@ main(int ac, const char** av)
 
   JNIEnv* e = static_cast<JNIEnv*>(env);
 
-  jclass c = e->FindClass(class_);
+  jclass c = 0;
+  if (not e->ExceptionCheck()) {
+    c = e->FindClass(class_);
+  }
 
   if (jar) {
     free(const_cast<char*>(class_));

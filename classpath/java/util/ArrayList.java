@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -9,6 +9,10 @@
    details. */
 
 package java.util;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ArrayList<T> extends AbstractList<T> implements java.io.Serializable {
   private static final int MinimumCapacity = 16;
@@ -63,6 +67,10 @@ public class ArrayList<T> extends AbstractList<T> implements java.io.Serializabl
 
   public int size() {
     return size;
+  }
+
+  public void ensureCapacity(int capacity) {
+    grow(capacity);
   }
 
   public boolean contains(Object element) {
@@ -178,5 +186,24 @@ public class ArrayList<T> extends AbstractList<T> implements java.io.Serializabl
 
   public String toString() {
     return Collections.toString(this);
+  }
+
+  private void writeObject(ObjectOutputStream out) throws IOException {
+    out.defaultWriteObject();
+    out.writeInt(array.length);
+    for (T o : this) {
+      out.writeObject(o);
+    }
+  }
+
+  private void readObject(ObjectInputStream in)
+      throws ClassNotFoundException, IOException
+  {
+    in.defaultReadObject();
+    int capacity = in.readInt();
+    grow(capacity);
+    for (int i = 0; i < size; i++) {
+      array[i] = in.readObject();
+    }
   }
 }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -54,6 +54,10 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
   
   public Iterator<T> iterator() {
     return new MyIterator<T>(set.first());
+  }
+
+  public Iterator<T> descendingIterator() {
+    return new MyIterator<T>(set.last(), true);
   }
 
   public String toString() {
@@ -135,12 +139,18 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
     private Cell<T> prevCell;
     private Cell<T> prevPrevCell;
     private boolean canRemove = false;
+    private final boolean reversed;
 
     private MyIterator(PersistentSet.Path<Cell<T>> path) {
+      this(path, false);
+    }
+
+    private MyIterator(PersistentSet.Path<Cell<T>> path, boolean reversed) {
       this.path = path;
+      this.reversed = reversed;
       if (path != null) {
         cell = path.value();
-        nextPath = path.successor();
+        nextPath = nextPath();
       }
     }
 
@@ -151,6 +161,7 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
       prevCell = start.prevCell;
       prevPrevCell = start.prevPrevCell;
       canRemove = start.canRemove;
+      reversed = start.reversed;
     }
 
     public boolean hasNext() {
@@ -160,7 +171,7 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
     public T next() {
       if (cell == null) {
         path = nextPath;
-        nextPath = path.successor();
+        nextPath = nextPath();
         cell = path.value();
       }
       prevPrevCell = prevCell;
@@ -168,6 +179,10 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
       cell = cell.next;
       canRemove = true;
       return prevCell.value;
+    }
+
+    private PersistentSet.Path nextPath() {
+      return reversed ? path.predecessor() : path.successor();
     }
 
     public void remove() {
@@ -184,11 +199,12 @@ public class TreeSet<T> extends AbstractSet<T> implements Collection<T> {
       } else {
         // cell is alone in the list.
         set = (PersistentSet) path.remove();
-        path = path.successor();
+        path = nextPath;
         if (path != null) {
           prevCell = null;
           cell = path.value();
           path = (PersistentSet.Path) set.find((Cell) cell);
+          nextPath = nextPath();
         }
       }
 

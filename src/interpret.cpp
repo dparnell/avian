@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,17 +8,20 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "common.h"
-#include "system.h"
-#include "constants.h"
-#include "machine.h"
-#include "processor.h"
-#include "process.h"
-#include "arch.h"
+#include "avian/common.h"
+#include <avian/vm/system/system.h>
+#include "avian/constants.h"
+#include "avian/machine.h"
+#include "avian/processor.h"
+#include "avian/process.h"
+#include "avian/arch.h"
+
+#include <avian/util/runtime-array.h>
+#include <avian/util/list.h>
 
 using namespace vm;
 
-namespace {
+namespace local {
 
 const unsigned FrameBaseOffset = 0;
 const unsigned FrameNextOffset = 1;
@@ -28,18 +31,21 @@ const unsigned FrameFootprint = 4;
 
 class Thread: public vm::Thread {
  public:
+
   Thread(Machine* m, object javaThread, vm::Thread* parent):
     vm::Thread(m, javaThread, parent),
     ip(0),
     sp(0),
     frame(-1),
-    code(0)
+    code(0),
+    stackPointers(0)
   { }
 
   unsigned ip;
   unsigned sp;
   int frame;
   object code;
+  List<unsigned>* stackPointers;
   uintptr_t stack[0];
 };
 
@@ -79,7 +85,7 @@ inline void
 pushLong(Thread* t, uint64_t v)
 {
   if (DebugStack) {
-    fprintf(stderr, "push long %"LLD" at %d\n", v, t->sp);
+    fprintf(stderr, "push long %" LLD " at %d\n", v, t->sp);
   }
 
   pushInt(t, v >> 32);
@@ -110,7 +116,7 @@ inline uint32_t
 popInt(Thread* t)
 {
   if (DebugStack) {
-    fprintf(stderr, "pop int %"ULD" at %d\n",
+    fprintf(stderr, "pop int %" ULD " at %d\n",
             t->stack[((t->sp - 1) * 2) + 1],
             t->sp - 1);
   }
@@ -129,7 +135,7 @@ inline uint64_t
 popLong(Thread* t)
 {
   if (DebugStack) {
-    fprintf(stderr, "pop long %"LLD" at %d\n",
+    fprintf(stderr, "pop long %" LLD " at %d\n",
             (static_cast<uint64_t>(t->stack[((t->sp - 2) * 2) + 1]) << 32)
             | static_cast<uint64_t>(t->stack[((t->sp - 1) * 2) + 1]),
             t->sp - 2);
@@ -165,7 +171,7 @@ inline uint32_t
 peekInt(Thread* t, unsigned index)
 {
   if (DebugStack) {
-    fprintf(stderr, "peek int %"ULD" at %d\n",
+    fprintf(stderr, "peek int %" ULD " at %d\n",
             t->stack[(index * 2) + 1],
             index);
   }
@@ -179,7 +185,7 @@ inline uint64_t
 peekLong(Thread* t, unsigned index)
 {
   if (DebugStack) {
-    fprintf(stderr, "peek long %"LLD" at %d\n",
+    fprintf(stderr, "peek long %" LLD " at %d\n",
             (static_cast<uint64_t>(t->stack[(index * 2) + 1]) << 32)
             | static_cast<uint64_t>(t->stack[((index + 1) * 2) + 1]),
             index);
@@ -215,7 +221,7 @@ inline void
 pokeLong(Thread* t, unsigned index, uint64_t value)
 {
   if (DebugStack) {
-    fprintf(stderr, "poke long %"LLD" at %d\n", value, index);
+    fprintf(stderr, "poke long %" LLD " at %d\n", value, index);
   }
 
   pokeInt(t, index, value >> 32);
@@ -448,7 +454,7 @@ pushResult(Thread* t, unsigned returnCode, uint64_t result, bool indirect)
   case DoubleField:
   case LongField:
     if (DebugRun) {
-      fprintf(stderr, "result: %"LLD"\n", result);
+      fprintf(stderr, "result: %" LLD "\n", result);
     }
     pushLong(t, result);
     break;
@@ -634,7 +640,7 @@ invokeNative(Thread* t, object method)
     { THREAD_RESOURCE0(t, popFrame(static_cast<Thread*>(t)));
 
       unsigned footprint = methodParameterFootprint(t, method);
-      RUNTIME_ARRAY(uintptr_t, args, footprint);
+      THREAD_RUNTIME_ARRAY(t, uintptr_t, args, footprint);
       unsigned sp = frameBase(t, t->frame);
       unsigned argOffset = 0;
       if ((methodFlags(t, method) & ACC_STATIC) == 0) {
@@ -663,6 +669,18 @@ store(Thread* t, unsigned index)
   memcpy(t->stack + ((frameBase(t, t->frame) + index) * 2),
          t->stack + ((-- t->sp) * 2),
          BytesPerWord * 2);
+}
+
+bool
+isNaN(double v)
+{
+  return fpclassify(v) == FP_NAN;
+}
+
+bool
+isNaN(float v)
+{
+  return fpclassify(v) == FP_NAN;
 }
 
 uint64_t
@@ -720,31 +738,35 @@ pushField(Thread* t, object target, object field)
   switch (fieldCode(t, field)) {
   case ByteField:
   case BooleanField:
-    pushInt(t, cast<int8_t>(target, fieldOffset(t, field)));
+    pushInt(t, fieldAtOffset<int8_t>(target, fieldOffset(t, field)));
     break;
 
   case CharField:
   case ShortField:
-    pushInt(t, cast<int16_t>(target, fieldOffset(t, field)));
+    pushInt(t, fieldAtOffset<int16_t>(target, fieldOffset(t, field)));
     break;
 
   case FloatField:
   case IntField:
-    pushInt(t, cast<int32_t>(target, fieldOffset(t, field)));
+    pushInt(t, fieldAtOffset<int32_t>(target, fieldOffset(t, field)));
     break;
 
   case DoubleField:
   case LongField:
-    pushLong(t, cast<int64_t>(target, fieldOffset(t, field)));
+    pushLong(t, fieldAtOffset<int64_t>(target, fieldOffset(t, field)));
     break;
 
   case ObjectField:
-    pushObject(t, cast<object>(target, fieldOffset(t, field)));
+    pushObject(t, fieldAtOffset<object>(target, fieldOffset(t, field)));
     break;
 
   default:
     abort(t);
   }
+}
+
+void safePoint(Thread* t) {
+  ENTER(t, Thread::IdleState);
 }
 
 object
@@ -763,8 +785,6 @@ interpret3(Thread* t, const int base)
   if (UNLIKELY(exception)) {
     goto throw_;
   }
-
-  initClass(t, methodClass(t, frameMethod(t, frame)));
 
  loop:
   instruction = codeBody(t, code, ip++);
@@ -889,7 +909,7 @@ interpret3(Thread* t, const int base)
   case arraylength: {
     object array = popObject(t);
     if (LIKELY(array)) {
-      pushInt(t, cast<uintptr_t>(array, BytesPerWord));
+      pushInt(t, fieldAtOffset<uintptr_t>(array, BytesPerWord));
     } else {
       exception = makeThrowable(t, Machine::NullPointerExceptionType);
       goto throw_;
@@ -1065,11 +1085,27 @@ interpret3(Thread* t, const int base)
   } goto loop;
 
   case d2i: {
-    pushInt(t, static_cast<int32_t>(popDouble(t)));
+    double f = popDouble(t);
+    switch (fpclassify(f)) {
+    case FP_NAN: pushInt(t, 0); break;
+    case FP_INFINITE: pushInt(t, signbit(f) ? INT32_MIN : INT32_MAX); break;
+    default: pushInt
+        (t,  f >= INT32_MAX ? INT32_MAX
+         : (f <= INT32_MIN ? INT32_MIN : static_cast<int32_t>(f)));
+      break;
+    }
   } goto loop;
 
   case d2l: {
-    pushLong(t, static_cast<int64_t>(popDouble(t)));
+    double f = popDouble(t);
+    switch (fpclassify(f)) {
+    case FP_NAN: pushLong(t, 0); break;
+    case FP_INFINITE: pushLong(t, signbit(f) ? INT64_MIN : INT64_MAX); break;
+    default: pushLong
+        (t,  f >= INT64_MAX ? INT64_MAX
+         : (f <= INT64_MIN ? INT64_MIN : static_cast<int64_t>(f)));
+      break;
+    }
   } goto loop;
 
   case dadd: {
@@ -1126,7 +1162,9 @@ interpret3(Thread* t, const int base)
     double b = popDouble(t);
     double a = popDouble(t);
     
-    if (a < b) {
+    if (isNaN(a) or isNaN(b)) {
+      pushInt(t, 1);
+    } if (a < b) {
       pushInt(t, static_cast<unsigned>(-1));
     } else if (a > b) {
       pushInt(t, 1);
@@ -1141,7 +1179,9 @@ interpret3(Thread* t, const int base)
     double b = popDouble(t);
     double a = popDouble(t);
     
-    if (a < b) {
+    if (isNaN(a) or isNaN(b)) {
+      pushInt(t, static_cast<unsigned>(-1));
+    } if (a < b) {
       pushInt(t, static_cast<unsigned>(-1));
     } else if (a > b) {
       pushInt(t, 1);
@@ -1265,11 +1305,24 @@ interpret3(Thread* t, const int base)
   } goto loop;
 
   case f2i: {
-    pushInt(t, static_cast<int32_t>(popFloat(t)));
+    float f = popFloat(t);
+    switch (fpclassify(f)) {
+    case FP_NAN: pushInt(t, 0); break;
+    case FP_INFINITE: pushInt(t, signbit(f) ? INT32_MIN : INT32_MAX); break;
+    default: pushInt(t, f >= INT32_MAX ? INT32_MAX
+                     : (f <= INT32_MIN ? INT32_MIN : static_cast<int32_t>(f)));
+      break;
+    }
   } goto loop;
 
   case f2l: {
-    pushLong(t, static_cast<int64_t>(popFloat(t)));
+    float f = popFloat(t);
+    switch (fpclassify(f)) {
+    case FP_NAN: pushLong(t, 0); break;
+    case FP_INFINITE: pushLong(t, signbit(f) ? INT64_MIN : INT64_MAX);
+      break;
+    default: pushLong(t, static_cast<int64_t>(f)); break;
+    }
   } goto loop;
 
   case fadd: {
@@ -1326,7 +1379,9 @@ interpret3(Thread* t, const int base)
     float b = popFloat(t);
     float a = popFloat(t);
     
-    if (a < b) {
+    if (isNaN(a) or isNaN(b)) {
+      pushInt(t, 1);
+    } if (a < b) {
       pushInt(t, static_cast<unsigned>(-1));
     } else if (a > b) {
       pushInt(t, 1);
@@ -1341,7 +1396,9 @@ interpret3(Thread* t, const int base)
     float b = popFloat(t);
     float a = popFloat(t);
     
-    if (a < b) {
+    if (isNaN(a) or isNaN(b)) {
+      pushInt(t, static_cast<unsigned>(-1));
+    } if (a < b) {
       pushInt(t, static_cast<unsigned>(-1));
     } else if (a > b) {
       pushInt(t, 1);
@@ -1436,12 +1493,12 @@ interpret3(Thread* t, const int base)
   case goto_: {
     int16_t offset = codeReadInt16(t, code, ip);
     ip = (ip - 3) + offset;
-  } goto loop;
+  } goto back_branch;
     
   case goto_w: {
     int32_t offset = codeReadInt32(t, code, ip);
     ip = (ip - 5) + offset;
-  } goto loop;
+  } goto back_branch;
 
   case i2b: {
     pushInt(t, static_cast<int8_t>(popInt(t)));
@@ -1573,7 +1630,7 @@ interpret3(Thread* t, const int base)
     if (a == b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_acmpne: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1584,7 +1641,7 @@ interpret3(Thread* t, const int base)
     if (a != b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmpeq: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1595,7 +1652,7 @@ interpret3(Thread* t, const int base)
     if (a == b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmpne: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1606,7 +1663,7 @@ interpret3(Thread* t, const int base)
     if (a != b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmpgt: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1617,7 +1674,7 @@ interpret3(Thread* t, const int base)
     if (a > b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmpge: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1628,7 +1685,7 @@ interpret3(Thread* t, const int base)
     if (a >= b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmplt: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1639,7 +1696,7 @@ interpret3(Thread* t, const int base)
     if (a < b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case if_icmple: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1650,7 +1707,7 @@ interpret3(Thread* t, const int base)
     if (a <= b) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifeq: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1658,7 +1715,7 @@ interpret3(Thread* t, const int base)
     if (popInt(t) == 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifne: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1666,7 +1723,7 @@ interpret3(Thread* t, const int base)
     if (popInt(t)) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifgt: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1674,7 +1731,7 @@ interpret3(Thread* t, const int base)
     if (static_cast<int32_t>(popInt(t)) > 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifge: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1682,7 +1739,7 @@ interpret3(Thread* t, const int base)
     if (static_cast<int32_t>(popInt(t)) >= 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case iflt: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1690,7 +1747,7 @@ interpret3(Thread* t, const int base)
     if (static_cast<int32_t>(popInt(t)) < 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifle: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1698,7 +1755,7 @@ interpret3(Thread* t, const int base)
     if (static_cast<int32_t>(popInt(t)) <= 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifnonnull: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1706,7 +1763,7 @@ interpret3(Thread* t, const int base)
     if (popObject(t)) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case ifnull: {
     int16_t offset = codeReadInt16(t, code, ip);
@@ -1714,7 +1771,7 @@ interpret3(Thread* t, const int base)
     if (popObject(t) == 0) {
       ip = (ip - 3) + offset;
     }
-  } goto loop;
+  } goto back_branch;
 
   case iinc: {
     uint8_t index = codeBody(t, code, ip++);
@@ -1843,8 +1900,6 @@ interpret3(Thread* t, const int base)
       PROTECT(t, method);
       PROTECT(t, class_);
 
-      initClass(t, class_);
-
       code = findVirtualMethod(t, method, class_);
       goto invoke;
     } else {
@@ -1888,14 +1943,14 @@ interpret3(Thread* t, const int base)
     int32_t b = popInt(t);
     int32_t a = popInt(t);
     
-    pushInt(t, a << b);
+    pushInt(t, a << (b & 0x1F));
   } goto loop;
 
   case ishr: {
     int32_t b = popInt(t);
     int32_t a = popInt(t);
     
-    pushInt(t, a >> b);
+    pushInt(t, a >> (b & 0x1F));
   } goto loop;
 
   case istore:
@@ -1934,7 +1989,7 @@ interpret3(Thread* t, const int base)
     int32_t b = popInt(t);
     uint32_t a = popInt(t);
     
-    pushInt(t, a >> b);
+    pushInt(t, a >> (b & 0x1F));
   } goto loop;
 
   case ixor: {
@@ -2196,14 +2251,14 @@ interpret3(Thread* t, const int base)
     int32_t b = popInt(t);
     int64_t a = popLong(t);
     
-    pushLong(t, a << b);
+    pushLong(t, a << (b & 0x3F));
   } goto loop;
 
   case lshr: {
     int32_t b = popInt(t);
     int64_t a = popLong(t);
     
-    pushLong(t, a >> b);
+    pushLong(t, a >> (b & 0x3F));
   } goto loop;
 
   case lstore:
@@ -2242,7 +2297,7 @@ interpret3(Thread* t, const int base)
     int64_t b = popInt(t);
     uint64_t a = popLong(t);
     
-    pushLong(t, a >> b);
+    pushLong(t, a >> (b & 0x3F));
   } goto loop;
 
   case lxor: {
@@ -2279,21 +2334,22 @@ interpret3(Thread* t, const int base)
     object class_ = resolveClassInPool(t, frameMethod(t, frame), index - 1);
     PROTECT(t, class_);
 
-    int32_t counts[dimensions];
+    THREAD_RUNTIME_ARRAY(t, int32_t, counts, dimensions);
     for (int i = dimensions - 1; i >= 0; --i) {
-      counts[i] = popInt(t);
-      if (UNLIKELY(counts[i] < 0)) {
+      RUNTIME_ARRAY_BODY(counts)[i] = popInt(t);
+      if (UNLIKELY(RUNTIME_ARRAY_BODY(counts)[i] < 0)) {
         exception = makeThrowable
-          (t, Machine::NegativeArraySizeExceptionType, "%d", counts[i]);
+          (t, Machine::NegativeArraySizeExceptionType, "%d",
+           RUNTIME_ARRAY_BODY(counts)[i]);
         goto throw_;
       }
     }
 
-    object array = makeArray(t, counts[0]);
+    object array = makeArray(t, RUNTIME_ARRAY_BODY(counts)[0]);
     setObjectClass(t, array, class_);
     PROTECT(t, array);
 
-    populateMultiArray(t, array, counts, 0, dimensions);
+    populateMultiArray(t, array, RUNTIME_ARRAY_BODY(counts), 0, dimensions);
 
     pushObject(t, array);
   } goto loop;
@@ -2394,17 +2450,17 @@ interpret3(Thread* t, const int base)
           switch (fieldCode(t, field)) {
           case ByteField:
           case BooleanField:
-            cast<int8_t>(o, fieldOffset(t, field)) = value;
+            fieldAtOffset<int8_t>(o, fieldOffset(t, field)) = value;
             break;
             
           case CharField:
           case ShortField:
-            cast<int16_t>(o, fieldOffset(t, field)) = value;
+            fieldAtOffset<int16_t>(o, fieldOffset(t, field)) = value;
             break;
             
           case FloatField:
           case IntField:
-            cast<int32_t>(o, fieldOffset(t, field)) = value;
+            fieldAtOffset<int32_t>(o, fieldOffset(t, field)) = value;
             break;
           }
         } else {
@@ -2417,7 +2473,7 @@ interpret3(Thread* t, const int base)
         int64_t value = popLong(t);
         object o = popObject(t);
         if (LIKELY(o)) {
-          cast<int64_t>(o, fieldOffset(t, field)) = value;
+          fieldAtOffset<int64_t>(o, fieldOffset(t, field)) = value;
         } else {
           exception = makeThrowable(t, Machine::NullPointerExceptionType);
         }
@@ -2468,24 +2524,24 @@ interpret3(Thread* t, const int base)
       switch (fieldCode(t, field)) {
       case ByteField:
       case BooleanField:
-        cast<int8_t>(table, fieldOffset(t, field)) = value;
+        fieldAtOffset<int8_t>(table, fieldOffset(t, field)) = value;
         break;
             
       case CharField:
       case ShortField:
-        cast<int16_t>(table, fieldOffset(t, field)) = value;
+        fieldAtOffset<int16_t>(table, fieldOffset(t, field)) = value;
         break;
             
       case FloatField:
       case IntField:
-        cast<int32_t>(table, fieldOffset(t, field)) = value;
+        fieldAtOffset<int32_t>(table, fieldOffset(t, field)) = value;
         break;
       }
     } break;
 
     case DoubleField:
     case LongField: {
-      cast<int64_t>(table, fieldOffset(t, field)) = popLong(t);
+      fieldAtOffset<int64_t>(table, fieldOffset(t, field)) = popLong(t);
     } break;
 
     case ObjectField: {
@@ -2659,6 +2715,10 @@ interpret3(Thread* t, const int base)
   default: abort(t);
   }
 
+ back_branch:
+  safePoint(t);
+  goto loop;
+
  invoke: {
     if (methodFlags(t, code) & ACC_NATIVE) {
       invokeNative(t, code);
@@ -2781,7 +2841,7 @@ pushArguments(Thread* t, object this_, const char* spec,
       break;
 
     case 'F': {
-      pushFloat(t, arguments[index++].d);
+      pushFloat(t, arguments[index++].f);
     } break;
 
     default:
@@ -2808,11 +2868,11 @@ pushArguments(Thread* t, object this_, const char* spec, object a)
       
     case 'J':
     case 'D':
-      pushLong(t, cast<int64_t>(objectArrayBody(t, a, index++), 8));
+      pushLong(t, fieldAtOffset<int64_t>(objectArrayBody(t, a, index++), 8));
       break;
 
     default:
-      pushInt(t, cast<int32_t>(objectArrayBody(t, a, index++),
+      pushInt(t, fieldAtOffset<int32_t>(objectArrayBody(t, a, index++),
                                BytesPerWord));
       break;        
     }
@@ -2844,7 +2904,9 @@ invoke(Thread* t, object method)
     class_ = methodClass(t, method);
   }
 
-  initClass(t, class_);
+  if (methodFlags(t, method) & ACC_STATIC) {
+    initClass(t, class_);
+  }
 
   object result = 0;
 
@@ -3010,6 +3072,33 @@ class MyProcessor: public Processor {
     }
   }
 
+  virtual bool
+  pushLocalFrame(vm::Thread* vmt, unsigned capacity)
+  {
+    Thread* t = static_cast<Thread*>(vmt);
+
+    if (t->sp + capacity < stackSizeInWords(t) / 2) {
+      t->stackPointers = new(t->m->heap)
+        List<unsigned>(t->sp, t->stackPointers);
+    
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  virtual void
+  popLocalFrame(vm::Thread* vmt)
+  {
+    Thread* t = static_cast<Thread*>(vmt);
+
+    List<unsigned>* f = t->stackPointers;
+    t->stackPointers = f->next;
+    t->sp = f->item;
+
+    t->m->heap->free(f, sizeof(List<unsigned>));
+  }
+
   virtual object
   invokeArray(vm::Thread* vmt, object method, object this_, object arguments)
   {
@@ -3030,7 +3119,7 @@ class MyProcessor: public Processor {
       (&byteArrayBody(t, methodSpec(t, method), 0));
     pushArguments(t, this_, spec, arguments);
 
-    return ::invoke(t, method);
+    return local::invoke(t, method);
   }
 
   virtual object
@@ -3054,7 +3143,7 @@ class MyProcessor: public Processor {
       (&byteArrayBody(t, methodSpec(t, method), 0));
     pushArguments(t, this_, spec, arguments);
 
-    return ::invoke(t, method);
+    return local::invoke(t, method);
   }
 
   virtual object
@@ -3078,7 +3167,7 @@ class MyProcessor: public Processor {
       (&byteArrayBody(t, methodSpec(t, method), 0));
     pushArguments(t, this_, spec, indirectObjects, arguments);
 
-    return ::invoke(t, method);
+    return local::invoke(t, method);
   }
 
   virtual object
@@ -3104,7 +3193,7 @@ class MyProcessor: public Processor {
 
     assert(t, ((methodFlags(t, method) & ACC_STATIC) == 0) xor (this_ == 0));
 
-    return ::invoke(t, method);
+    return local::invoke(t, method);
   }
 
   virtual object getStackTrace(vm::Thread* t, vm::Thread*) {
@@ -3121,7 +3210,7 @@ class MyProcessor: public Processor {
   }
 
   virtual void compileMethod(vm::Thread*, Zone*, object*, object*,
-                             DelayedPromise**, object, OffsetResolver*)
+                             avian::codegen::DelayedPromise**, object, OffsetResolver*)
   {
     abort(s);
   }
@@ -3166,7 +3255,7 @@ class MyProcessor: public Processor {
   }
 
   virtual void dispose(vm::Thread* t) {
-    t->m->heap->free(t, sizeof(Thread));
+    t->m->heap->free(t, sizeof(Thread) + t->m->stackSizeInBytes);
   }
 
   virtual void dispose() {
@@ -3184,8 +3273,8 @@ namespace vm {
 Processor*
 makeProcessor(System* system, Allocator* allocator, bool)
 {
-  return new (allocator->allocate(sizeof(MyProcessor)))
-    MyProcessor(system, allocator);
+  return new (allocator->allocate(sizeof(local::MyProcessor)))
+    local::MyProcessor(system, allocator);
 }
 
 } // namespace vm

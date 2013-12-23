@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,16 +11,25 @@
 package java.net;
 
 public class InetSocketAddress extends SocketAddress {
-  private final String host;
+  private final InetAddress address;
   private final int port;
 
-  public InetSocketAddress(String host, int port) {
-    this.host = host;
+  public InetSocketAddress(String host, int port) throws UnknownHostException {
+	  this.address = InetAddress.getByName(host);
+	  this.port = port;
+  }
+  
+  public InetSocketAddress(InetAddress address, int port) {
+    this.address = address;
     this.port = port;
   }
 
+  public InetAddress getAddress() {
+    return address;
+  }
+  
   public String getHostName() {
-    return host;
+	return address.getHostName();
   }
 
   public int getPort() {

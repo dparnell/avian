@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2009, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -122,5 +122,8 @@ public class Throwable implements Serializable {
   public Throwable fillInStackTrace() {
     trace = trace(0);
     return this;
+  }
+  
+  public void addSuppressed(Throwable exception) {
   }
 }

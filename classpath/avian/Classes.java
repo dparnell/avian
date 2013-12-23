@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -16,6 +16,8 @@ import static avian.Stream.read2;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Method;
 import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
+import java.lang.annotation.Annotation;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -115,7 +117,7 @@ public class Classes {
     }
 
     case '@':
-      return parseAnnotation(loader, pool, in);
+      return getAnnotation(loader, parseAnnotation(loader, pool, in));
 
     case '[': {
       Object[] array = new Object[read2(in)];
@@ -261,6 +263,260 @@ public class Classes {
   public static void link(VMClass c) {
     link(c, c.loader);
   }
+
+  public static Class forName(String name, boolean initialize,
+                              ClassLoader loader)
+    throws ClassNotFoundException
+  {
+    if (loader == null) {
+      loader = Class.class.getClassLoader();
+    }
+    Class c = loader.loadClass(name);
+    VMClass vmc = SystemClassLoader.vmClass(c);
+    Classes.link(vmc, loader);
+    if (initialize) {
+      Classes.initialize(vmc);
+    }
+    return c;
+  }
+
+  public static Class forCanonicalName(String name) {
+    return forCanonicalName(null, name);
+  }
+
+  public static Class forCanonicalName(ClassLoader loader, String name) {
+    try {
+      if (name.startsWith("[")) {
+        return forName(name, true, loader);
+      } else if (name.startsWith("L")) {
+        return forName(name.substring(1, name.length() - 1), true, loader);
+      } else {
+        if (name.length() == 1) {
+          return SystemClassLoader.getClass
+            (Classes.primitiveClass(name.charAt(0)));
+        } else {
+          throw new ClassNotFoundException(name);
+        }
+      }
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static int next(char c, String s, int start) {
+    for (int i = start; i < s.length(); ++i) {
+      if (s.charAt(i) == c) return i;
+    }
+    throw new RuntimeException();
+  }
+
+  public static Class[] getParameterTypes(VMMethod vmMethod) {
+    int count = vmMethod.parameterCount;
+
+    Class[] types = new Class[count];
+    int index = 0;
+
+    String spec = new String
+      (vmMethod.spec, 1, vmMethod.spec.length - 2);
+
+    try {
+      for (int i = 0; i < spec.length(); ++i) {
+        char c = spec.charAt(i);
+        if (c == ')') {
+          break;
+        } else if (c == 'L') {
+          int start = i + 1;
+          i = next(';', spec, start);
+          String name = spec.substring(start, i).replace('/', '.');
+          types[index++] = Class.forName(name, true, vmMethod.class_.loader);
+        } else if (c == '[') {
+          int start = i;
+          while (spec.charAt(i) == '[') ++i;
+
+          if (spec.charAt(i) == 'L') {
+            i = next(';', spec, i + 1);
+            String name = spec.substring(start, i).replace('/', '.');
+            types[index++] = Class.forName
+              (name, true, vmMethod.class_.loader);
+          } else {
+            String name = spec.substring(start, i + 1);
+            types[index++] = forCanonicalName(vmMethod.class_.loader, name);
+          }
+        } else {
+          String name = spec.substring(i, i + 1);
+          types[index++] = forCanonicalName(vmMethod.class_.loader, name);
+        }
+      }
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+
+    return types;
+  }
+
+  public static int findField(VMClass vmClass, String name) {
+    if (vmClass.fieldTable != null) {
+      Classes.link(vmClass);
+
+      for (int i = 0; i < vmClass.fieldTable.length; ++i) {
+        if (toString(vmClass.fieldTable[i].name).equals(name)) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+
+  public static String toString(byte[] array) {
+    return new String(array, 0, array.length - 1);
+  }
+
+  public static boolean match(Class[] a, Class[] b) {
+    if (a.length == b.length) {
+      for (int i = 0; i < a.length; ++i) {
+        if (! a[i].isAssignableFrom(b[i])) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public static int findMethod(VMClass vmClass, String name,
+                                Class[] parameterTypes)
+  {
+    if (vmClass.methodTable != null) {
+      Classes.link(vmClass);
+
+      if (parameterTypes == null) {
+        parameterTypes = new Class[0];
+      }
+
+      for (int i = 0; i < vmClass.methodTable.length; ++i) {
+        if (toString(vmClass.methodTable[i].name).equals(name)
+            && match(parameterTypes,
+                     getParameterTypes(vmClass.methodTable[i])))
+        {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+
+  public static int countMethods(VMClass vmClass, boolean publicOnly) {
+    int count = 0;
+    if (vmClass.methodTable != null) {
+      for (int i = 0; i < vmClass.methodTable.length; ++i) {
+        if (((! publicOnly)
+             || ((vmClass.methodTable[i].flags & Modifier.PUBLIC))
+             != 0)
+            && (! toString(vmClass.methodTable[i].name).startsWith("<")))
+        {
+          ++ count;
+        }
+      }
+    }
+    return count;
+  }
+
+  public static Method[] getMethods(VMClass vmClass, boolean publicOnly) {
+    Method[] array = new Method[countMethods(vmClass, publicOnly)];
+    if (vmClass.methodTable != null) {
+      Classes.link(vmClass);
+
+      int ai = 0;
+      for (int i = 0; i < vmClass.methodTable.length; ++i) {
+        if ((((vmClass.methodTable[i].flags & Modifier.PUBLIC) != 0)
+             || (! publicOnly))
+            && ! toString(vmClass.methodTable[i].name).startsWith("<"))
+        {
+          array[ai++] = makeMethod(SystemClassLoader.getClass(vmClass), i);
+        }
+      }
+    }
+
+    return array;
+  }
+
+  public static int countFields(VMClass vmClass, boolean publicOnly) {
+    int count = 0;
+    if (vmClass.fieldTable != null) {
+      for (int i = 0; i < vmClass.fieldTable.length; ++i) {
+        if ((! publicOnly)
+            || ((vmClass.fieldTable[i].flags & Modifier.PUBLIC))
+            != 0)
+        {
+          ++ count;
+        }
+      }
+    }
+    return count;
+  }
+
+  public static Field[] getFields(VMClass vmClass, boolean publicOnly) {
+    Field[] array = new Field[countFields(vmClass, publicOnly)];
+    if (vmClass.fieldTable != null) {
+      Classes.link(vmClass);
+
+      int ai = 0;
+      for (int i = 0; i < vmClass.fieldTable.length; ++i) {
+        if (((vmClass.fieldTable[i].flags & Modifier.PUBLIC) != 0)
+            || (! publicOnly))
+        {
+          array[ai++] = makeField(SystemClassLoader.getClass(vmClass), i);
+        }
+      }
+    }
+
+    return array;
+  }
+
+  public static Annotation getAnnotation(ClassLoader loader, Object[] a) {
+    if (a[0] == null) {
+      a[0] = Proxy.newProxyInstance
+        (loader, new Class[] { (Class) a[1] },
+         new AnnotationInvocationHandler(a));
+    }
+    return (Annotation) a[0];
+  }
+
+  public static Object getAnnotationDefaultValue(ClassLoader loader,
+                                                 MethodAddendum addendum) {
+    if (addendum == null) {
+      return null;
+    }
+    byte[] annotationDefault = (byte[]) addendum.annotationDefault;
+    if (annotationDefault == null) {
+      return null;
+    }
+    try {
+      return parseAnnotationValue(loader, addendum.pool,
+        new ByteArrayInputStream(annotationDefault));
+    } catch (IOException e) {
+      AssertionError error = new AssertionError();
+      error.initCause(e);
+      throw error;
+    }
+  }
+
+  private static int index(VMMethod m) {
+    VMMethod[] table = m.class_.methodTable;
+    for (int i = 0; i < table.length; ++i) {
+      if (m == table[i]) return i;
+    }
+    throw new AssertionError();
+  }
+
+  public static Method makeMethod(VMMethod m) {
+    return makeMethod(SystemClassLoader.getClass(m.class_), index(m));
+  }
+  
+  public static native Method makeMethod(Class c, int slot);
+  
+  public static native Field makeField(Class c, int slot);
 
   private static native void acquireClassLock();
 

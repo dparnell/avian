@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,7 +8,9 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "process.h"
+#include "avian/process.h"
+
+#include <avian/util/runtime-array.h>
 
 using namespace vm;
 

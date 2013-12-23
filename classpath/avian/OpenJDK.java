@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -44,21 +44,5 @@ public class OpenJDK {
       array[i] = (byte) (c == a ? b : c);
     }
     return array;
-  }
-
-  public static Class getDeclaringClass(VMClass c) {
-    try {
-      String name = new String
-        (replace('/', '.', c.name, 0, c.name.length - 1), 0,
-         c.name.length - 1);
-      int index = name.lastIndexOf("$");
-      if (index == -1) {
-        return null;
-      } else {
-        return c.loader.loadClass(name.substring(0, index));
-      }
-    } catch (ClassNotFoundException e) {
-      return null;
-    }
   }
 }

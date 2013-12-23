@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Double extends Number {
-  public static final Class TYPE = Class.forCanonicalName("D");
+  public static final Class TYPE = avian.Classes.forCanonicalName("D");
 
   public static final double NEGATIVE_INFINITY = -1.0 / 0.0;
   public static final double POSITIVE_INFINITY =  1.0 / 0.0;
@@ -94,6 +94,11 @@ public final class Double extends Number {
     } else {
       throw new NumberFormatException(s);
     }
+  }
+
+  public static long doubleToLongBits(double value) {
+    if (isNaN(value)) return 0x7ff8000000000000L;
+    return doubleToRawLongBits(value);
   }
 
   public static native int fillBufferWithDouble(double value, byte[] buffer,

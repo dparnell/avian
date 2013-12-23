@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,7 +11,7 @@
 package java.lang;
 
 public final class Integer extends Number implements Comparable<Integer> {
-  public static final Class TYPE = Class.forCanonicalName("I");
+  public static final Class TYPE = avian.Classes.forCanonicalName("I");
 
   public static final int MIN_VALUE = 0x80000000;
   public static final int MAX_VALUE = 0x7FFFFFFF;
@@ -62,6 +62,10 @@ public final class Integer extends Number implements Comparable<Integer> {
     return Long.toString(((long) v) & 0xFFFFFFFFL, 16);
   }
 
+  public static String toOctalString(int v) {
+    return Long.toString(((long) v) & 0xFFFFFFFFL, 8);
+  }
+
   public static String toBinaryString(int v) {
     return Long.toString(((long) v) & 0xFFFFFFFFL, 2);
   }
@@ -90,11 +94,49 @@ public final class Integer extends Number implements Comparable<Integer> {
     return (double) value;
   }
 
+  public static int signum(int v) {
+    if (v == 0)     return  0;
+    else if (v > 0) return  1;
+    else            return -1;
+  }
+
+  // See http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel
+  public static int bitCount(int v) {
+    v = v - ((v >> 1) & 0x55555555);
+    v = (v & 0x33333333) + ((v >> 2) & 0x33333333);
+    return ((v + (v >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
+  }
+
+  public static int reverseBytes(int v) {
+    int byte3 =  v >>> 24;
+    int byte2 = (v >>> 8) & 0xFF00;
+    int byte1 = (v <<  8) & 0xFF00;
+    int byte0 =  v << 24;
+    return (byte0 | byte1 | byte2 | byte3);
+  }
+
   public static int parseInt(String s) {
     return parseInt(s, 10);
   }
 
   public static int parseInt(String s, int radix) {
     return (int) Long.parseLong(s, radix);
+  }
+
+  public static Integer decode(String string) {
+    if (string.startsWith("-")) {
+      if (string.startsWith("-0") || string.startsWith("-#")) {
+        return new Integer(-decode(string.substring(1)));
+      }
+    } else if (string.startsWith("0")) {
+      char c = string.length() < 2 ? (char)-1 : string.charAt(1);
+      if (c == 'x' || c == 'X') {
+        return new Integer(parseInt(string.substring(2), 0x10));
+      }
+      return new Integer(parseInt(string, 010));
+    } else if (string.startsWith("#")) {
+      return new Integer(parseInt(string.substring(1), 0x10));
+    }
+    return new Integer(parseInt(string, 10));
   }
 }

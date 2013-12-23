@@ -1,4 +1,4 @@
-/* Copyright (c) 2008, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -10,7 +10,7 @@
 
 package java.io;
 
-public abstract class OutputStream {
+public abstract class OutputStream implements Closeable, Flushable {
   public abstract void write(int c) throws IOException;
 
   public void write(byte[] buffer) throws IOException {

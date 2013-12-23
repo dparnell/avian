@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2009, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -20,6 +20,8 @@ public interface List<T> extends Collection<T> {
   public boolean add(T element);
 
   public void add(int index, T element);
+
+  public boolean addAll(int startIndex, Collection<? extends T> c);
 
   public int indexOf(Object value);
 

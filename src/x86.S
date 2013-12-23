@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,7 +8,7 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "types.h"
+#include "avian/types.h"
 
 #define LOCAL(x) .L##x
 
@@ -315,7 +315,7 @@ LOCAL(sse):
    movq   32(%rax),%xmm4
    movq   40(%rax),%xmm5
    movq   48(%rax),%xmm6
-   movq   64(%rax),%xmm7
+   movq   56(%rax),%xmm7
 
 LOCAL(call):
    call   *-48(%rbp)
@@ -450,10 +450,10 @@ GLOBAL(vmNativeCall):
    
    subl   %ecx,%esp
 
-#  ifdef __APPLE__
-   // align to a 16 byte boundary on Darwin
+//#  ifdef __APPLE__
+   // align to a 16 byte boundary
    andl   $0xFFFFFFF0,%esp
-#  endif
+//#  endif
    
    // copy arguments into place
    movl   $0,%ecx

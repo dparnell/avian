@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,7 +8,7 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "lzma-util.h"
+#include "avian/lzma-util.h"
 #include "C/LzmaDec.h"
 
 using namespace vm;

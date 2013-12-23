@@ -1,4 +1,4 @@
-/* Copyright (c) 2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -67,7 +67,7 @@ public class Assembler {
 
     write4(out, 0xCAFEBABE);
     write2(out, 0); // minor version
-    write2(out, 0); // major version
+    write2(out, 50); // major version
 
     write2(out, pool.size() + 1);
     for (PoolEntry e: pool) {

@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -8,8 +8,8 @@
    There is NO WARRANTY for this software.  See license.txt for
    details. */
 
-#include "types.h"
-#include "target-fields.h"
+#include "avian/types.h"
+#include "avian/target-fields.h"
 
 .text
 

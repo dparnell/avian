@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -14,6 +14,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+
+#include <avian/util/runtime-array.h>
 
 #undef JNIEXPORT
 
@@ -121,30 +123,5 @@ allocate(JNIEnv* e, unsigned size)
   }
   return p;
 }
-#ifdef _MSC_VER
-
-template <class T>
-class RuntimeArray {
- public:
-  RuntimeArray(unsigned size):
-    body(static_cast<T*>(malloc(size * sizeof(T))))
-  { }
-
-  ~RuntimeArray() {
-    free(body);
-  }
-
-  T* body;
-};
-
-#  define RUNTIME_ARRAY(type, name, size) RuntimeArray<type> name(size);
-#  define RUNTIME_ARRAY_BODY(name) name.body
-
-#else // not _MSC_VER
-
-#  define RUNTIME_ARRAY(type, name, size) type name[size];
-#  define RUNTIME_ARRAY_BODY(name) name
-
-#endif // not _MSC_VER
 
 #endif//JNI_UTIL

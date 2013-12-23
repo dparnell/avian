@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -285,6 +285,7 @@ public class ZipFile {
     public final int pointer;
 
     public MyZipEntry(Window window, int pointer) {
+      super(null);
       this.window = window;
       this.pointer = pointer;
     }
@@ -297,7 +298,7 @@ public class ZipFile {
       }
     }
 
-    public int getCompressedSize() {
+    public long getCompressedSize() {
       try {
         return compressedSize(window, pointer);
       } catch (IOException e) {
@@ -305,7 +306,7 @@ public class ZipFile {
       }
     }
 
-    public int getSize() {
+    public long getSize() {
       try {
         return uncompressedSize(window, pointer);
       } catch (IOException e) {

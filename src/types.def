@@ -16,6 +16,10 @@
 
 (type constantPool sun/reflect/ConstantPool)
 
+(type serializable java/io/Serializable)
+
+(type cloneable java/lang/Cloneable)
+
 (type singleton
   (array uintptr_t body))
 
@@ -152,11 +156,7 @@
   (void* value)
   (object next))
 
-(type innerClassReference
-  (object inner)
-  (object outer)
-  (object name)
-  (int16_t flags))
+(type innerClassReference avian/InnerClassReference)
 
 (type continuationContext
   (object next)
@@ -188,7 +188,8 @@
   (require object interruptLock)
   (require uint8_t interrupted)
   (require uint8_t unparked)
-  (alias peer uint64_t eetop))
+  (alias peer uint64_t eetop)
+  (require uint64_t peer))
 
 (type threadGroup java/lang/ThreadGroup)
 
@@ -196,7 +197,8 @@
 
 (type throwable java/lang/Throwable
   (alias message object detailMessage)
-  (alias trace object backtrace))
+  (alias trace object backtrace)
+  (alias trace object stackState))
 
 (type exception java/lang/Exception)
 
@@ -219,6 +221,8 @@
 (type arrayStoreException java/lang/ArrayStoreException)
 
 (type negativeArraySizeException java/lang/NegativeArraySizeException)
+
+(type cloneNotSupportedException java/lang/CloneNotSupportedException)
 
 (type reflectiveOperationException java/lang/ReflectiveOperationException)
 
@@ -286,7 +290,9 @@
   (alias target object referent)
   (alias queue object queue)
   (alias jNext object next)
+  (alias jNext object queueNext)
   (alias vmNext object discovered)
+  (alias vmNext object pendingNext)
   (nogc object target)
   (nogc object queue)
   (nogc object vmNext))

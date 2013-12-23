@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2009, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -17,11 +17,15 @@ public interface Collection<T> extends Iterable<T> {
 
   public boolean contains(Object element);
 
+  public boolean containsAll(Collection<?> c);
+
   public boolean add(T element);
 
   public boolean addAll(Collection<? extends T> collection);
 
   public boolean remove(Object element);
+
+  public boolean removeAll(Collection<?> c);
 
   public Object[] toArray();
 

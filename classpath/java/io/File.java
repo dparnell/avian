@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -15,6 +15,15 @@ public class File implements Serializable {
     = System.getProperty("file.separator");
 
   public static final String separator = FileSeparator;
+
+  public static final char separatorChar = FileSeparator.charAt(0);
+
+  private static final String PathSeparator
+    = System.getProperty("path.separator");
+
+  public static final String pathSeparator = PathSeparator;
+
+  public static final char pathSeparatorChar = PathSeparator.charAt(0);
 
   //   static {
   //     System.loadLibrary("natives");
@@ -72,12 +81,16 @@ public class File implements Serializable {
     }
   }
 
-  private static String normalize(String path) {
-    if ("\\".equals(FileSeparator)) {
-      return path.replace('/', '\\');
-    } else {
-      return path;
+  private static String stripSeparators(String p) {
+    while (p.endsWith(FileSeparator)) {
+      p = p.substring(0, p.length() - 1);
     }
+    return p;
+  }
+
+  private static String normalize(String path) {
+    return stripSeparators
+      ("\\".equals(FileSeparator) ? path.replace('/', '\\') : path);
   }
 
   public static native boolean rename(String old, String new_);
@@ -150,7 +163,7 @@ public class File implements Serializable {
   public String getParent() {
     int index = path.lastIndexOf(FileSeparator);
     if (index >= 0) {
-      return path.substring(0, index);
+      return normalize(path.substring(0, index));
     } else {
       return null;
     }    
@@ -239,11 +252,15 @@ public class File implements Serializable {
 
   public File[] listFiles(FilenameFilter filter) {
     String[] list = list(filter);
-    File[] result = new File[list.length];
-    for (int i = 0; i < list.length; ++i) {
-      result[i] = new File(this, list[i]);
+    if (list != null) {
+      File[] result = new File[list.length];
+      for (int i = 0; i < list.length; ++i) {
+        result[i] = new File(this, list[i]);
+      }
+      return result;
+    } else {
+      return null;
     }
-    return result;
   }
 
   public String[] list() {
@@ -254,22 +271,26 @@ public class File implements Serializable {
     long handle = 0;
     try {
       handle = openDir(path);
-      Pair list = null;
-      int count = 0;
-      for (String s = readDir(handle); s != null; s = readDir(handle)) {
-        if (filter == null || filter.accept(this, s)) {
-          list = new Pair(s, list);
-          ++ count;
+      if (handle != 0) {
+        Pair list = null;
+        int count = 0;
+        for (String s = readDir(handle); s != null; s = readDir(handle)) {
+          if (filter == null || filter.accept(this, s)) {
+            list = new Pair(s, list);
+            ++ count;
+          }
         }
-      }
 
-      String[] result = new String[count];
-      for (int i = count - 1; i >= 0; --i) {
-        result[i] = list.value;
-        list = list.next;
-      }
+        String[] result = new String[count];
+        for (int i = count - 1; i >= 0; --i) {
+          result[i] = list.value;
+          list = list.next;
+        }
 
-      return result;
+        return result;
+      } else {
+        return null;
+      }
     } finally {
       if (handle != 0) {
         closeDir(handle);
@@ -277,11 +298,18 @@ public class File implements Serializable {
     }
   }
 
+  public long lastModified() {
+    return lastModified(path);
+  }
   private static native long openDir(String path);
+
+  private static native long lastModified(String path);
 
   private static native String readDir(long handle);
 
   private static native long closeDir(long handle);
+
+
 
   private static class Pair {
     public final String value;

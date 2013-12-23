@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2012, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -11,10 +11,23 @@
 package avian;
 
 import sun.misc.Unsafe;
+import java.lang.reflect.Field;
 
 public abstract class Machine {
 
-  private static final Unsafe unsafe = Unsafe.getUnsafe();
+  private static final Unsafe unsafe;
+
+  static {
+    Unsafe u;
+    try {
+      Field f = Unsafe.class.getDeclaredField("theUnsafe");
+      f.setAccessible(true);
+      u = (Unsafe)f.get(null);
+    } catch (Exception e) {
+      u = null;
+    }
+    unsafe = u;
+  }
 
   public static native void dumpHeap(String outputFile);
 

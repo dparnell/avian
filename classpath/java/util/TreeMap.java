@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2010, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -10,23 +10,35 @@
 
 package java.util;
 
-public class TreeMap<K,V> implements Map<K,V> {
-  private TreeSet<MyEntry<K,V>> set;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-  public TreeMap(final Comparator<K> comparator) {
-    set = new TreeSet(new Comparator<MyEntry<K,V>>() {
-        public int compare(MyEntry<K,V> a, MyEntry<K,V> b) {
-          return comparator.compare(a.key, b.key);
-        }
-      });
+public class TreeMap<K,V> implements Map<K,V> {
+  private final Comparator<K> comparator;
+  private transient TreeSet<MyEntry<K,V>> set;
+
+  public TreeMap(Comparator<K> comparator) {
+    this.comparator = comparator;
+    initializeSet();
   }
 
-  public TreeMap() {
-    this(new Comparator<K>() {
+  private void initializeSet() {
+    final Comparator<K> comparator = this.comparator != null ?
+      this.comparator : new Comparator<K>() {
         public int compare(K a, K b) {
           return ((Comparable) a).compareTo(b);
         }
+      };
+    set = new TreeSet(new Comparator<MyEntry<K,V>>() {
+      public int compare(MyEntry<K,V> a, MyEntry<K,V> b) {
+        return comparator.compare(a.key, b.key);
+      }
     });
+  }
+
+  public TreeMap() {
+    this(null);
   }
 
   public String toString() {
@@ -120,7 +132,7 @@ public class TreeMap<K,V> implements Map<K,V> {
     
   }
 
-  private class KeySet implements Set<K> {
+  private class KeySet extends AbstractSet<K> {
     public int size() {
       return TreeMap.this.size();
     }
@@ -177,6 +189,21 @@ public class TreeMap<K,V> implements Map<K,V> {
       return containsValue(value);
     }
 
+    public boolean containsAll(Collection<?> c) {
+      if (c == null) {
+        throw new NullPointerException("collection is null");
+      }
+      
+      Iterator<?> it = c.iterator();
+      while (it.hasNext()) {
+        if (! contains(it.next())) {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
     public boolean add(V value) {
       throw new UnsupportedOperationException();
     }
@@ -186,6 +213,10 @@ public class TreeMap<K,V> implements Map<K,V> {
     }
 
     public boolean remove(Object value) {
+      throw new UnsupportedOperationException();
+    }
+
+    public boolean removeAll(Collection<?> c) {
       throw new UnsupportedOperationException();
     }
 
@@ -203,6 +234,28 @@ public class TreeMap<K,V> implements Map<K,V> {
 
     public Iterator<V> iterator() {
       return new Collections.ValueIterator(set.iterator());
+    }
+  }
+
+  public final static long serialVersionUID = 0x0cc1f63e2d256ae6l;
+
+  private void writeObject(ObjectOutputStream out) throws IOException {
+    out.defaultWriteObject();
+    out.writeInt(size());
+    for (Entry<K, V> entry : entrySet()) {
+      out.writeObject(entry.getKey());
+      out.writeObject(entry.getValue());
+    }
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException {
+    in.defaultReadObject();
+    initializeSet();
+    int size = in.readInt();
+    for (int i = 0; i < size; i++) try {
+      put((K) in.readObject(), (V) in.readObject());
+    } catch (ClassNotFoundException e) {
+      throw new IOException(e);
     }
   }
 }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -31,6 +31,146 @@ public class Collections {
 
   public static void shuffle(List list) {
     shuffle(list, new Random());
+  }
+
+  public static void sort(List list) {
+    sort(list, new Comparator() {
+        public int compare(Object a, Object b) {
+          return ((Comparable) a).compareTo(b);
+        }
+      });
+  }
+
+  private final static int SORT_SIZE_THRESHOLD = 16;
+
+  public static <T> void sort(List<T> list, Comparator<? super T> comparator) {
+    int size = list.size();
+    introSort(list, comparator, 0, size, size);
+    insertionSort(list, comparator);
+  }
+
+  private static <T > void introSort(List<T> list,
+    Comparator<? super T> comparator, int begin, int end, int limit)
+  {
+    while (end - begin > SORT_SIZE_THRESHOLD) {
+      if (limit == 0) {
+        heapSort(list, comparator, begin, end);
+        return;
+      }
+      limit >>= 1;
+
+      // median of three
+      T a = list.get(begin);
+      T b = list.get(begin + (end - begin) / 2 + 1);
+      T c = list.get(end - 1);
+      T median;
+      if (comparator.compare(a, b) < 0) {
+        median = comparator.compare(b, c) < 0 ?
+          b : (comparator.compare(a, c) < 0 ? c : a);
+      } else {
+        median = comparator.compare(b, c) > 0 ?
+          b : (comparator.compare(a, c) > 0 ? c : a);
+      }
+
+      // partition
+      int pivot, i = begin, j = end;
+      for (;;) {
+        while (comparator.compare(list.get(i), median) < 0) {
+          ++i;
+        }
+        --j;
+        while (comparator.compare(median, list.get(j)) < 0) {
+          --j;
+        }
+        if (i >= j) {
+          pivot = i;
+          break;
+        }
+        T swap = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, swap);
+        ++i;
+      }
+
+      introSort(list, comparator, pivot, end, limit);
+      end = pivot;
+    }
+  }
+
+  private static <T> void heapSort(List<T> list, Comparator<? super T> comparator,
+    int begin, int end)
+  {
+    int count = end - begin;
+    for (int i = count / 2 - 1; i >= 0; --i) {
+      siftDown(list, comparator, i, count, begin);
+    }
+    for (int i = count - 1; i > 0; --i) {
+      // swap begin and begin + i
+      T swap = list.get(begin + i);
+      list.set(begin + i, list.get(begin));
+      list.set(begin, swap);
+
+      siftDown(list, comparator, 0, i, begin);
+    }
+  }
+
+  private static <T> void siftDown(List<T> list, Comparator<? super T> comparator,
+    int i, int count, int offset)
+  {
+    T value = list.get(offset + i);
+    while (i < count / 2) {
+      int child = 2 * i + 1;
+      if (child + 1 < count &&
+          comparator.compare(list.get(child), list.get(child + 1)) < 0) {
+        ++child;
+      }
+      if (comparator.compare(value, list.get(child)) >= 0) {
+        break;
+      }
+      list.set(offset + i, list.get(offset + child));
+      i = child;
+    }
+    list.set(offset + i, value);
+  }
+
+  private static <T> void insertionSort(List<T> list,
+    Comparator<? super T> comparator)
+  {
+    int size = list.size();
+    for (int j = 1; j < size; ++j) {
+      T t = list.get(j);
+      int i = j - 1;
+      while (i >= 0 && comparator.compare(list.get(i), t) > 0) {
+        list.set(i + 1, list.get(i));
+        --i;
+      }
+      list.set(i + 1, t);
+    }
+  }
+
+  public static <T> int binarySearch(List<T> list, T needle) {
+    int left = -1, right = list.size();
+    while (left + 1 < right) {
+      int middle = (left + right) >> 1;
+      int result = ((Comparable)needle).compareTo(list.get(middle));
+      if (result < 0) {
+        right = middle;
+      } else if (result > 0) {
+        left = middle;
+      } else {
+        return middle;
+      }
+    }
+    return -1 - right;
+  }
+
+  public static <T> void reverse(List<T> list) {
+    int ascending = 0, descending = list.size() - 1;
+    while (ascending < descending) {
+      T tmp = list.get(ascending);
+      list.set(ascending++, list.get(descending));
+      list.set(descending--, tmp);
+    }
   }
 
   static <T> T[] toArray(Collection collection, T[] array) {
@@ -168,7 +308,15 @@ public class Collections {
     }
 
     public Iterator<T> iterator() {
-      return new SynchronizedIterator(lock, collection.iterator());
+      return new SynchronizedIterator<T>(lock, collection.iterator());
+    }
+
+    public boolean containsAll(Collection<?> c) {
+      synchronized (lock) { return collection.containsAll(c); }
+    }
+
+    public boolean removeAll(Collection<?> c) {
+      synchronized (lock) { return collection.removeAll(c); }
     }
   }
   
@@ -235,6 +383,10 @@ public class Collections {
     public SynchronizedSet(Object lock, Set<T> set) {
       super(lock, set);
     }
+  }
+
+  public static <V> Set<V> synchronizedSet(Set<V> set) {
+    return new SynchronizedSet<V> (new Object(), set);
   }
 
   static class SynchronizedIterator<T> implements Iterator<T> {
@@ -327,27 +479,27 @@ public class Collections {
     }
 
     public T set(int index, T value) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public T remove(int index) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public boolean remove(Object o) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public boolean add(T element) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public void add(int index, T element) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public Iterator<T> iterator() {
-      return inner.iterator();
+      return new UnmodifiableIterator<T>(inner.iterator());
     }
 
     public int indexOf(Object value) {
@@ -363,11 +515,11 @@ public class Collections {
     }
 
     public ListIterator<T> listIterator(int index) {
-      return inner.listIterator(index);
+      return new UnmodifiableListIterator<T>(inner.listIterator(index));
     }
 
     public ListIterator<T> listIterator() {
-      return inner.listIterator();
+      return new UnmodifiableListIterator<T>(inner.listIterator());
     }
 
     public int size() {
@@ -379,7 +531,7 @@ public class Collections {
     }
 
     public boolean addAll(Collection<? extends T> collection) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public Object[] toArray() {
@@ -391,7 +543,19 @@ public class Collections {
     }
 
     public void clear() {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
+    }
+
+    public boolean removeAll(Collection<?> c) {
+      throw new UnsupportedOperationException();
+    }
+
+    public boolean addAll(int startIndex, Collection<? extends T> c) {
+      throw new UnsupportedOperationException();
+    }
+
+    public boolean containsAll(Collection<?> c) {
+      return inner.containsAll(c);
     }
   }
 
@@ -407,7 +571,7 @@ public class Collections {
 	  }
 
     public void clear() {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public boolean containsKey(Object key) {
@@ -435,15 +599,15 @@ public class Collections {
     }
 
     public V put(K key, V value) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public void putAll(Map<? extends K, ? extends V> t) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public V remove(Object key) {
-      throw new UnsupportedOperationException("not supported");
+      throw new UnsupportedOperationException();
     }
 
     public int size() {
@@ -451,56 +615,132 @@ public class Collections {
     }
 
     public Collection<V> values() {
-      return unmodifiableSet((Set<V>)inner.values());
+      return unmodifiableCollection(inner.values());
     }
   }
-
-  static class UnmodifiableSet<T> implements Set<T> {
-    private Set<T> inner;
-
-    UnmodifiableSet(Set<T> inner) {
+  
+  static class UnmodifiableIterator<T> implements Iterator<T> {
+    private final Iterator<T> inner;
+    
+    UnmodifiableIterator(Iterator<T> inner) {
       this.inner = inner;
     }
-          
-    public boolean add(T element) {
-      throw new UnsupportedOperationException("not supported");
+    
+    @Override
+    public T next() {
+      return inner.next();
     }
 
-    public boolean addAll(Collection<? extends T> collection) {
-      throw new UnsupportedOperationException("not supported");
+    @Override
+    public boolean hasNext() {
+      return inner.hasNext();
     }
 
-    public void clear() {
-      throw new UnsupportedOperationException("not supported");
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
+  }
+  
+  
+  static class UnmodifiableListIterator<T> extends UnmodifiableIterator<T> 
+                                                   implements ListIterator<T> {
+    private final ListIterator<T> innerListIterator;
+    
+    UnmodifiableListIterator(ListIterator<T> listIterator) {
+      super(listIterator);
+      
+      this.innerListIterator = listIterator;
     }
 
-    public boolean contains(Object element) {
-      return inner.contains(element);
+    @Override
+    public boolean hasPrevious() {
+      return innerListIterator.hasPrevious();
     }
 
-    public boolean isEmpty() {
-      return inner.isEmpty();
+    @Override
+    public T previous() {
+      return innerListIterator.previous();
     }
-
+  }
+  
+  static class UnmodifiableCollection<T> implements Collection<T> {
+    private final Collection<T> inner;
+    
+    UnmodifiableCollection(Collection<T> inner) {
+      this.inner = inner;
+    }
+    
+    @Override
     public Iterator<T> iterator() {
-      return inner.iterator();
+      return new UnmodifiableIterator<T>(inner.iterator());
     }
 
-    public boolean remove(Object element) {
-      throw new UnsupportedOperationException("not supported");
-    }
-
+    @Override
     public int size() {
       return inner.size();
     }
 
-    public Object[] toArray() {
-      return toArray(new Object[size()]);      
+    @Override
+    public boolean isEmpty() {
+      return inner.isEmpty();
     }
 
+    @Override
+    public boolean contains(Object element) {
+      return inner.contains(element);
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+      return inner.containsAll(c);
+    }
+
+    @Override
+    public boolean add(T element) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> collection) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean remove(Object element) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
+      return inner.toArray();
+    }
+
+    @Override
     public <S> S[] toArray(S[] array) {
       return inner.toArray(array);
-    }     
+    }
+
+    @Override
+    public void clear() {
+      throw new UnsupportedOperationException();
+    }
+  }
+  
+  public static <T> UnmodifiableCollection<T> unmodifiableCollection(Collection<T> collection) {
+    return new UnmodifiableCollection<T>(collection);
+  }
+
+  static class UnmodifiableSet<T> extends UnmodifiableCollection<T> 
+                                  implements Set<T> {
+    UnmodifiableSet(Set<T> inner) {
+      super(inner);
+    }  
   }
   
   public static <T> Set<T> unmodifiableSet(Set<T> hs) {
@@ -558,5 +798,11 @@ public class Collections {
     public int compare(T o1, T o2) {
       return - cmp.compare(o1, o2);
     }
+  }
+
+  public static <T> List<T> singletonList(T o) {
+    ArrayList<T> list = new ArrayList<T>(1);
+    list.add(o);
+    return new UnmodifiableList(list);
   }
 }

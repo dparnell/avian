@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2009, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -10,7 +10,7 @@
 
 package java.io;
 
-public abstract class Writer {
+public abstract class Writer implements Closeable, Flushable {
   public void write(int c) throws IOException {
     char[] buffer = new char[] { (char) c };
     write(buffer);

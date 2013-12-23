@@ -1,4 +1,4 @@
-/* Copyright (c) 2008-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -61,9 +61,17 @@ public class Field<T> extends AccessibleObject {
   }
 
   public Class getType() {
-    return Class.forCanonicalName
+    return Classes.forCanonicalName
       (vmField.class_.loader,
        new String(vmField.spec, 0, vmField.spec.length - 1, false));
+  }
+
+  public Type getGenericType() {
+    if (vmField.addendum == null || vmField.addendum.signature == null) {
+      return getType();
+    }
+    String signature = Classes.toString((byte[]) vmField.addendum.signature);
+    return SignatureParser.parse(vmField.class_.loader, signature);
   }
 
   public Object get(Object instance) throws IllegalAccessException {
@@ -75,6 +83,8 @@ public class Field<T> extends AccessibleObject {
     } else {
       throw new IllegalArgumentException();
     }
+
+    Classes.initialize(vmField.class_);
 
     switch (vmField.code) {
     case ByteField:
@@ -99,7 +109,7 @@ public class Field<T> extends AccessibleObject {
 
     case LongField:
       return Long.valueOf
-        ((int) getPrimitive(target, vmField.code, vmField.offset));
+        (getPrimitive(target, vmField.code, vmField.offset));
 
     case FloatField:
       return Float.valueOf
@@ -151,6 +161,40 @@ public class Field<T> extends AccessibleObject {
     return ((Double) get(instance)).doubleValue();
   }
 
+  private boolean matchType(Object value) {
+    switch (vmField.code) {
+    case ByteField:
+      return value instanceof Byte;
+
+    case BooleanField:
+      return value instanceof Boolean;
+
+    case CharField:
+      return value instanceof Character;
+
+    case ShortField:
+      return value instanceof Short;
+
+    case IntField:
+      return value instanceof Integer;
+
+    case LongField:
+      return value instanceof Long;
+
+    case FloatField:
+      return value instanceof Float;
+
+    case DoubleField:
+      return value instanceof Double;
+
+    case ObjectField:
+      return value == null || getType().isInstance(value);
+
+    default:
+      throw new Error();
+    }
+  }
+
   public void set(Object instance, Object value)
     throws IllegalAccessException
   {
@@ -162,6 +206,12 @@ public class Field<T> extends AccessibleObject {
     } else {
       throw new IllegalArgumentException();
     }
+
+    if (! matchType(value)) {
+      throw new IllegalArgumentException();
+    }
+
+    Classes.initialize(vmField.class_);
 
     switch (vmField.code) {
     case ByteField:
@@ -200,19 +250,93 @@ public class Field<T> extends AccessibleObject {
       break;
 
     case ObjectField:
-      if (value == null || getType().isInstance(value)) {
-        setObject(target, vmField.offset, value);
-      } else {
-        throw new IllegalArgumentException
-          ("needed " + getType() + ", got "
-           + value.getClass().getName() +
-           " when setting " + Class.getName(vmField.class_) + "." + getName());
-      }
+      setObject(target, vmField.offset, value);
       break;
 
     default:
       throw new Error();
     }
+  }
+
+  private void set(Object instance, long value)
+    throws IllegalAccessException
+  {
+    Object target;
+    if ((vmField.flags & Modifier.STATIC) != 0) {
+      target = vmField.class_.staticTable;
+    } else if (Class.isInstance(vmField.class_, instance)) {
+      target = instance;
+    } else {
+      throw new IllegalArgumentException();
+    }
+
+    Classes.initialize(vmField.class_);
+
+    switch (vmField.code) {
+    case ByteField:
+    case BooleanField:
+    case CharField:
+    case ShortField:
+    case IntField:
+    case LongField:
+    case FloatField:
+    case DoubleField:
+      setPrimitive(target, vmField.code, vmField.offset, value);
+      break;
+
+    default:
+      throw new IllegalArgumentException
+        ("needed " + getType() + ", got primitive type when setting "
+         + Class.getName(vmField.class_) + "." + getName());
+    }
+  }
+
+  public void setByte(Object instance, byte value)
+    throws IllegalAccessException
+  {
+    set(instance, value & 0xff);
+  }
+
+  public void setBoolean(Object instance, boolean value)
+    throws IllegalAccessException
+  {
+    set(instance, value ? 1 : 0);
+  }
+
+  public void setChar(Object instance, char value)
+    throws IllegalAccessException
+  {
+    set(instance, value & 0xffff);
+  }
+
+  public void setShort(Object instance, short value)
+    throws IllegalAccessException
+  {
+    set(instance, value & 0xffff);
+  }
+
+  public void setInt(Object instance, int value)
+    throws IllegalAccessException
+  {
+    set(instance, value & 0xffffffffl);
+  }
+
+  public void setLong(Object instance, long value)
+    throws IllegalAccessException
+  {
+    set(instance, value);
+  }
+
+  public void setFloat(Object instance, float value)
+    throws IllegalAccessException
+  {
+    set(instance, Float.floatToIntBits(value));
+  }
+
+  public void setDouble(Object instance, double value)
+    throws IllegalAccessException
+  {
+    set(instance, Double.doubleToLongBits(value));
   }
 
   private Annotation getAnnotation(Object[] a) {
@@ -225,7 +349,7 @@ public class Field<T> extends AccessibleObject {
   }
 
   public <T extends Annotation> T getAnnotation(Class<T> class_) {
-    if (vmField.addendum.annotationTable != null) {
+    if (vmField.addendum != null && vmField.addendum.annotationTable != null) {
       Object[] table = (Object[]) vmField.addendum.annotationTable;
       for (int i = 0; i < table.length; ++i) {
         Object[] a = (Object[]) table[i];

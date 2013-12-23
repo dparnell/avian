@@ -1,4 +1,4 @@
-/* Copyright (c) 2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -50,7 +50,7 @@ public class JarFile extends ZipFile {
       }
     }
 
-    public int getCompressedSize() {
+    public long getCompressedSize() {
       try {
         return compressedSize(window, pointer);
       } catch (IOException e) {
@@ -58,7 +58,7 @@ public class JarFile extends ZipFile {
       }
     }
 
-    public int getSize() {
+    public long getSize() {
       try {
         return uncompressedSize(window, pointer);
       } catch (IOException e) {

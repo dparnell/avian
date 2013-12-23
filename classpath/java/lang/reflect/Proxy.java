@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2011, Avian Contributors
+/* Copyright (c) 2008-2013, Avian Contributors
 
    Permission to use, copy, modify, and/or distribute this software
    for any purpose with or without fee is hereby granted, provided
@@ -16,6 +16,9 @@ import static avian.Stream.write4;
 import static avian.Stream.set4;
 import static avian.Assembler.*;
 
+import avian.SystemClassLoader;
+import avian.Classes;
+
 import avian.ConstantPool;
 import avian.ConstantPool.PoolEntry;
 
@@ -26,6 +29,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,6 +39,13 @@ public class Proxy {
   private static int nextNumber;
 
   protected InvocationHandler h;
+  protected final static Map<Class, Method[]> methodRefsMap =
+    new HashMap<Class, Method[]>();
+  protected final Method[] methodRefs;
+
+  public Proxy() {
+    methodRefs = methodRefsMap.get(getClass());
+  }
 
   public static Class getProxyClass(ClassLoader loader,
                                     Class ... interfaces)
@@ -87,26 +99,14 @@ public class Proxy {
 
     write1(out, aload_0);
     
-    write1(out, new_);
-    write2(out, ConstantPool.addClass(pool, "java/lang/reflect/Method") + 1);
-    write1(out, dup);
-    write1(out, ldc_w);
-    write2(out, ConstantPool.addClass(pool, className) + 1);
+    write1(out, aload_0);
     write1(out, getfield);
     write2(out, ConstantPool.addFieldRef
-           (pool, "java/lang/Class",
-            "vmClass", "Lavian/VMClass;") + 1);
-    write1(out, getfield);
-    write2(out, ConstantPool.addFieldRef
-           (pool, "avian/VMClass",
-            "methodTable", "[Lavian/VMMethod;") + 1);
+           (pool, className,
+            "methodRefs", "[Ljava/lang/reflect/Method;") + 1);
     write1(out, ldc_w);
     write2(out, ConstantPool.addInteger(pool, index) + 1);
     write1(out, aaload);
-    write1(out, invokespecial);
-    write2(out, ConstantPool.addMethodRef
-           (pool, "java/lang/reflect/Method",
-            "<init>", "(Lavian/VMMethod;)V") + 1);
 
     write1(out, ldc_w);
     write2(out, ConstantPool.addInteger(pool, parameterCount) + 1);
@@ -332,7 +332,13 @@ public class Proxy {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     write2(out, 2); // max stack
     write2(out, 2); // max locals
-    write4(out, 6); // length
+    write4(out, 10); // length
+
+    write1(out, aload_0);
+    write1(out, invokespecial);
+    write2(out, ConstantPool.addMethodRef
+           (pool, "java/lang/reflect/Proxy",
+            "<init>", "()V") + 1);
 
     write1(out, aload_0);
     write1(out, aload_1);
@@ -361,46 +367,48 @@ public class Proxy {
         (pool, interfaces[i].getName().replace('.', '/'));
     }
 
-    Map<String,avian.VMMethod> virtualMap = new HashMap();
+    Set<String> specs = new HashSet<String>();
+    List<MethodData> methodTable = new ArrayList<MethodData>();
+    List<Method> refs = new ArrayList<Method>();
     for (Class c: interfaces) {
-      avian.VMMethod[] ivtable = c.vmClass.virtualTable;
+      avian.VMMethod[] ivtable = SystemClassLoader.vmClass(c).virtualTable;
       if (ivtable != null) {
         for (avian.VMMethod m: ivtable) {
-          virtualMap.put(Method.getName(m) + Method.getSpec(m), m);
+          String spec = Classes.toString(m.name) + Classes.toString(m.spec);
+          if (specs.contains(spec)) {
+            continue;
+          }
+          methodTable.add(new MethodData
+            (Modifier.PUBLIC,
+             ConstantPool.addUtf8(pool, Classes.toString(m.name)),
+             ConstantPool.addUtf8(pool, Classes.toString(m.spec)),
+             makeInvokeCode(pool, name, m.spec, m.parameterCount,
+                            m.parameterFootprint, methodTable.size())));
+          refs.add(Classes.makeMethod(m));
         }
       }
     }
 
-    MethodData[] methodTable = new MethodData[virtualMap.size() + 1];
-    { int i = 0;
-      for (avian.VMMethod m: virtualMap.values()) {
-        methodTable[i] = new MethodData
-          (0,
-           ConstantPool.addUtf8(pool, Method.getName(m)),
-           ConstantPool.addUtf8(pool, Method.getSpec(m)),
-           makeInvokeCode(pool, name, m.spec, m.parameterCount,
-                          m.parameterFootprint, i));
-        ++ i;
-      }
-      
-      methodTable[i++] = new MethodData
-        (0,
-         ConstantPool.addUtf8(pool, "<init>"),
-         ConstantPool.addUtf8
-         (pool, "(Ljava/lang/reflect/InvocationHandler;)V"),
-         makeConstructorCode(pool));
-    }
+    methodTable.add(new MethodData
+      (Modifier.PUBLIC,
+       ConstantPool.addUtf8(pool, "<init>"),
+       ConstantPool.addUtf8
+       (pool, "(Ljava/lang/reflect/InvocationHandler;)V"),
+       makeConstructorCode(pool)));
 
     int nameIndex = ConstantPool.addClass(pool, name);
     int superIndex = ConstantPool.addClass(pool, "java/lang/reflect/Proxy");
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     Assembler.writeClass
-      (out, pool, nameIndex, superIndex, interfaceIndexes, methodTable);
+      (out, pool, nameIndex, superIndex, interfaceIndexes,
+       methodTable.toArray(new MethodData[methodTable.size()]));
 
     byte[] classData = out.toByteArray();
-    return avian.SystemClassLoader.getClass
+    Class result = avian.SystemClassLoader.getClass
       (avian.Classes.defineVMClass(loader, classData, 0, classData.length));
+    methodRefsMap.put(result, refs.toArray(new Method[refs.size()]));
+    return result;
   }
 
   public static Object newProxyInstance(ClassLoader loader,
